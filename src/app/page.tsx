@@ -51,56 +51,13 @@ export default function LandingPage() {
     };
   }, []);
 
-  // Load UnicornStudio for WebGL fluid/liquid shader background
-  useEffect(() => {
-    const initUnicorn = () => {
-      const windowObj = window as any;
-      if (windowObj.UnicornStudio) {
-        try {
-          windowObj.UnicornStudio.init();
-        } catch (e) {
-          console.error("UnicornStudio init failed:", e);
-        }
-      } else {
-        windowObj.UnicornStudio = { isInitialized: false };
-        const script = document.createElement("script");
-        script.src = "https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.4.29/dist/unicornStudio.umd.js";
-        script.onload = () => {
-          try {
-            windowObj.UnicornStudio.init();
-            windowObj.UnicornStudio.isInitialized = true;
-          } catch (e) {
-            console.error("UnicornStudio init failed on load:", e);
-          }
-        };
-        document.head.appendChild(script);
-      }
-    };
-
-    // Initialize with a short timeout to ensure the DOM has fully painted the data-us element
-    const timer = setTimeout(initUnicorn, 100);
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <div className="min-h-screen text-slate-800 dark:text-slate-100 overflow-x-hidden selection:bg-[#1B3A6B]/10 selection:text-[#1B3A6B] relative bg-transparent">
       
       {/* Solid background base */}
       <div className="fixed inset-0 -z-20 bg-slate-50 dark:bg-[#0b0f19] pointer-events-none" />
 
-      {/* Unicorn Studio Liquid Background Effect */}
-      <div 
-        className="aura-background-component fixed top-0 w-full h-screen -z-10 opacity-80" 
-        data-alpha-mask="80" 
-        style={{
-          maskImage: "linear-gradient(to bottom, transparent, black 0%, black 80%, transparent)",
-          WebkitMaskImage: "linear-gradient(to bottom, transparent, black 0%, black 80%, transparent)"
-        }}
-      >
-        <div className="aura-background-component top-0 w-full -z-10 absolute h-full">
-          <div data-us-project="ty3N7ZPaIU7KlWixQFIc" className="absolute w-full h-full left-0 top-0 -z-10" />
-        </div>
-      </div>
+
 
       {/* Liquid cursor glow element */}
       <div 

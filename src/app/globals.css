@@ -117,10 +117,16 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-transparent text-foreground;
   }
   html {
     @apply font-sans;
+  }
+  button, 
+  [role="button"],
+  input[type="button"],
+  input[type="submit"] {
+    cursor: pointer;
   }
 }
 
@@ -153,5 +159,73 @@
   .spotlight-card > * {
     position: relative;
     z-index: 10;
+  }
+
+  /* Aura Ambient Drift Animations */
+  @keyframes auraAmbientDriftOne {
+    0%, 100% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    35% {
+      transform: translate3d(4vw, 3vh, 0) scale(1.06);
+    }
+    70% {
+      transform: translate3d(-2vw, 5vh, 0) scale(0.98);
+    }
+  }
+
+  @keyframes auraAmbientDriftTwo {
+    0%, 100% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    40% {
+      transform: translate3d(-4vw, -3vh, 0) scale(1.08);
+    }
+    75% {
+      transform: translate3d(3vw, -5vh, 0) scale(0.96);
+    }
+  }
+
+  @keyframes auraAmbientDriftThree {
+    0%, 100% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+      transform: translate3d(2vw, -4vh, 0) scale(1.05);
+    }
+  }
+
+  @keyframes auraDotDrift {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 4rem 4rem;
+    }
+  }
+
+  .aura-bg-blob-one {
+    animation: auraAmbientDriftOne 26s ease-in-out infinite;
+  }
+
+  .aura-bg-blob-two {
+    animation: auraAmbientDriftTwo 32s ease-in-out infinite;
+  }
+
+  .aura-bg-blob-three {
+    animation: auraAmbientDriftThree 30s ease-in-out infinite;
+  }
+
+  .aura-bg-dots {
+    animation: auraDotDrift 38s linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .aura-bg-blob-one,
+    .aura-bg-blob-two,
+    .aura-bg-blob-three,
+    .aura-bg-dots {
+      animation: none;
+    }
   }
 }

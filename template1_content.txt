@@ -1,0 +1,111 @@
+The design should use components of some aura templates, while for the tablet and mobile you will have to make the design adaptive instead of fully responsive to look gorgeous like the desktop will (like template does). 
+www.aura.build/share/aura-assistant          maritime-brokerage-23.aura.build/ 
+Regarding those inner user account screens: 
+Those with office role: After login they can see their company’s 3-columns screen (the command center of the company). Columns are generally 60%-20%-20% and when they click or hover other column, then that other column becomes enlarged to 60%. By default (when they login) middle column is enlarged. On mobile there is no enlargement ofc, but just adaptive size that you would set. 
+Office can access all 3 columns on mobile too (sweep left-right) + they can see ALL workers cards in the first column. All designs (approximate) are in figma and we will go over that when other page is nearing completition. 
+Workers can access based on their role only first column and can see only their own card there (office can see all workers cards in first column). So workers can’t see second or third column and thus they cannot see the ‘command center’ even on desktop. On desktop their account is still only mobile screen (or desktop with one screen shown only). 
+There are some inner popups there as shown in figma. More details or how to approve or cancel something. A screen where company registers their workers and office is still missing there and that should also be done ofc (simple 4 fields: name, tel, email, role) and separate screen for communication (4 large icons) and register company (4  fields i think). I couldn’t make those since we don’t have design ready yet (but those are extra basic ofc).  
+I will provide texts and what needs to be changed before you start working on it; so we would be working basically block by block. I am around the computer 18 hours a day, so timing won’t be an issue. It should all be made in Next.js. 
+Login and registration should also be done. For icon i will provide the name and basic idea; you won’t spend much time with that. Also email template should be later done.  
+ 
+------------
+See our existing figma – in small pic i have a block from there, big pic has a block from Aura. We’ll decide later about headline fonts, so far just reduce those by 15% 
+I will not mention every single text – if i don’t talk about it, then leave it for now as is. We’ll come back later to fix it. 
+https://www.aura.build/share/aura-assistant 
+We will need to remove that pic on the right, so headline will be working. 
+Just change texts to this: 
+ZA MANJŠA PODJETJA Z EKIPO NA TERENU    
+Teren in pisarna. Kot ena ekipa. 
+Večja učinkovitost in enostavnejše vodenje. 
+Razpršena sporočila, zapiski, opomniki, komunikacija in dokumenti s terena 
+se uredijo v enoten sistem, ki temelji na izboljšani komunikaciji. 
+Manj klicev, manj kaosa, izboljšan pregled. 
+Buttons (not sure about this set; leave them for now; probably will go out when i see it)
+Yes, add that subheadline too. We will need that almost everywhere. 
+ 
+This one is easy. You will use this block and make 2 columns like they are above 
+Create two mirrored columns with identical visual weight. Both columns must have exactly three benefit rows.
+Dva svetova, en sistem
+Vsak s svojo prilagojeno platformo
+MOBI
+DESKTOP
+Terenci
+Pisarna
+Dodajanje korakov, opomnikov za lažje sledenje
+Izboljšan pregled nad terenskimi ekipami 
+Enostavno dodajanje slik, dokumentov, skeniranje
+Izboljšana komunikacija med tajnico – vodjo
+Zvočna sporočila, ki jih AI spremeni v tekst
+AI generiranje dnevnih poročil
+We’ll see if it’s better to have the headline in the center or in the left. 
+Next one is similar, but not same. For a contrast we will use other template’s block https://maritime-brokerage-23.aura.build/   
+And you will make 2 columns once again. 
++
+You will make tabs above (for these 2 columns)
+Create three tabs.
+Each tab contains:
+• title
+• three Before/After comparisons
+• highlighted conclusion sentence at the bottom
+No automatic switching.
+User changes tabs manually.
+Texts will be these here; before and after, pains and solutions. 
+Please put ❌ sentences on the left (until now) and put ✅ sentences in the right column.
+Overall there are 3 tabs and each tam has 3 lines, ❌on the left and ✅ on the right. 
+Velike koristi za vse 
+Terence. Pisarno. Vodjo. Lastnika.
+1. UREJENA DOKUMENTACIJA
+❌ Razpršena sporočila po WhatsAppu, SMS-ih, e-pošti in papirjih✅ Vsa komunikacija ostane zbrana na enem mestu.
+❌ Fotografije, dokumenti in zapiski brez povezave z delom✅ Vsa dokumentacija pripeta na delovne naloge.
+❌ Otežena sledljivost in težko je najti po mapah, telefonih in predalih✅ Vse je dokumentirano in enostavno najti
+❌ Vodja išče informacije✅ Informacije čakajo vodjo.
+(you will put this one under the top 3; separated. This is most powerful sentence and i want them to notice it and think about it). Place the final sentence as a separate highlighted statement below the comparison list.
+2. IZBOLJŠANA KOMUNIKACIJA
+❌ Telefonski klici za vsako informacijo✅ Večina informacij je dostopna brez klica
+❌ Nepotrebno obremenjevanje vodje, tajnice in terencev✅ Zmanjšanje dela in stresa vseh v procesu. 
+❌ Nepregledno poročanje o poteku del✅ Enostavno, hitrejše in bolj pregledno poročanje
+❌ Nepotrebno obremenjevanje vodje, tajnice in terencev✅ Prihranek časa in olajšano delo za vse v procesu 
+3. POPOLN PREGLED
+❌ Občasni zapleti se odkrijejo pozno✅ Težave so vidne takoj.
+❌ Težko je ugotoviti odgovornost✅ Vedno je jasno kdo, kdaj in kaj.
+❌ Vodja skuša razumeti in povezovati✅ Vodja lažje in bolj učinkovito vodi 
+❌ Dva svetova. Teren. Pisarna.✅ En svet. En zaslon. Teren se približa pisarni.  
+Težava ni delo.
+Težava je pomanjkanje pregleda nad delom.
+This above is still under previous block (at the end of it). 
+But we’ll make it vertical somehow. 
+KAKO POTEKA (headline)
+Show the four steps as a vertical timeline connected by one thin line.
+01
+Vodja ali tajništvo pripravi delovni nalog za ta dan
+V eni minuti ustvari dnevno kartico, določi odgovornega, s katerim bo praviloma tekla komunikacija ter doda opravila, navodila in priloge. 
+↓
+02
+Zaposleni dela kot običajno
+Opravila potrjuje sproti, dodaja fotografije, komentarje ali glasovna sporočila in vse spremembe so vidne v realnem času. 
+Kadarkoli lahko obvešča pisarno o potrebah ali poteku. Predvidene dokumente, račune, podpise, slike enostavno pripne na predvidene korake (ali pa jih sam doda).  
+↓
+03
+Vodja spremlja delo v živo
+Napredek vseh ekip vidi iz pisarne, brez klicev in iskanja informacij. 
+Primer iz terena: Fricko je poslal glasovno sporočilo ob 11:12. Reci Maksu, naj prinese 2 kanti barve, ko pride. Tajnica in vodja vidita to sporočilo s terena in poskrbita, da bo urejeno brez dvigovanja telefona. Ali pa drugo. Prometna nesreča pri Celju. Zamuda predvidoma 40 minut. In tajnica lahko takoj kontaktira naročnika in sporoči zamudo.    
+↓
+04
+Celotna zgodovina ostane shranjena
+Vsaka fotografija, dokument, sporočilo in spremembe ostanejo povezani z isto delovno nalogo. Najti jih kasneje je enostavno. 
+More i will send later today. 
+This above is the main screen – it’s in user accounts. Office will have 3 columns to overview, while workers on field would have only first column (one screen only). 
+So we have those cards in there and this design could work nicely. 
+https://www.aura.build/share/aura-assistant we’ll just have to slightly change them, but they are good looking. 
+Plus we can use these 3 columns here for our main desktop screen, except you would make it to jump ahead (closeup column when hover or click – so instead of 33%-33%-33%, click on any column would make it 60%/20%/20% for easy following). 
+The coding is already here https://www.aura.build/component/C188A 
+Same for this – to put it on top of the 3 columns instead of what we have now
+We’ll use this somewhere somehow
+This one will be perfect. For first and third slide, while this second slide will be like it is and it will be looking great. You will have to make slider ofc. 
+This could work. Looks great; we’ll just have to find something to add there on the left. And even if not, we can just remove it if needed. 
+Perfectly fine looking. We’ll use just the middle one. 
+Or this one
+I left these here just in case we’d need them somewhere. 
+Could be used somewhere. 
+We can use it for some things in there. 
+This one too. 

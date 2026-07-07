@@ -1,0 +1,21 @@
+https://www.aura.build/share/aura-assistant 
+https://www.aura.build/share/aura-assistant
+Two boxes obviously, but it would fall in nicely i think. 
+https://maritime-brokerage-23.aura.build/ 
+two columns obviously and 3 tabs would be needed here. 
+But we’ll make it vertical somehow. We’ll find a solution. 
+This above is the main screen – it’s in user accounts. Office will have 3 columns to overview, while workers on field would have only first column (one screen only). 
+So we have those cards in there and this design could work nicely. 
+https://www.aura.build/share/aura-assistant we’ll just have to slightly change them, but they are good looking. 
+Plus we can use these 3 columns here for our main desktop screen, except you would make it to jump ahead (closeup column when hover or click – so instead of 33%-33%-33%, click on any column would make it 60%/20%/20% for easy following). 
+The coding is already here https://www.aura.build/component/C188A 
+Same for this – to put it on top of the 3 columns instead of what we have now
+We’ll use this somewhere somehow
+This one will be perfect. For first and third slide, while this second slide will be like it is and it will be looking great. You will have to make slider ofc. 
+This could work. Looks great; we’ll just have to find something to add there on the left. And even if not, we can just remove it if needed. 
+Perfectly fine looking. We’ll use just the middle one. 
+Or this one
+I left these here just in case we’d need them somewhere. 
+Could be used somewhere. 
+We can use it for some things in there. 
+This one too. 

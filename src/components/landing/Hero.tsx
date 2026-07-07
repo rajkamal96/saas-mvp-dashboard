@@ -47,10 +47,7 @@ export function Hero() {
         <div className="text-center lg:text-left">
           {/* Hero Label */}
           <div className="inline-flex items-center gap-2 rounded-full bg-white/75 border border-white px-3.5 py-2 shadow-[0_6px_18px_-12px_rgba(15,23,42,0.3),inset_0_1px_0_white] mb-8">
-            <span className="w-7 h-7 rounded-full bg-gradient-to-b from-blue-50 to-white border border-blue-100 shadow-[inset_0_1px_0_white] flex items-center justify-center">
-              <iconify-icon icon="solar:stars-linear" style={{ strokeWidth: 1.5 }} className="text-base text-blue-500" />
-            </span>
-            <span className="font-['JetBrains_Mono',monospace] text-[10px] md:text-xs font-semibold tracking-[-0.04em] text-slate-500 uppercase">
+            <span className="font-['JetBrains_Mono',monospace] text-[10px] md:text-xs font-medium tracking-[-0.04em] text-slate-500 uppercase">
               {t("heroBadge")}
             </span>
           </div>
@@ -60,12 +57,12 @@ export function Hero() {
             <span className="block">
               {t("heroTitle").split(".")[0]}.
             </span>
-            <span className="block mt-2 text-[#1B3A6B] font-semibold">
-              {t("heroTitle").split(".")[1] || ""}
+            <span className="inline-flex whitespace-nowrap mt-4 rounded-[1.35rem] bg-gradient-to-b from-blue-400 to-blue-600 border border-blue-700 px-4 md:px-5 pb-2.5 pt-1.5 text-white font-normal shadow-[0_18px_38px_-20px_rgba(59,130,246,0.55),inset_0_1px_0_rgba(255,255,255,0.38)] drop-shadow-[0_1px_1px_rgba(15,23,42,0.18)]">
+              {(t("heroTitle").split(".")[1] || "").trim()}
             </span>
           </h1>
 
-          <h2 className="mt-6 text-xl md:text-2xl font-light text-[#1B3A6B] tracking-tight">
+          <h2 className="mt-6 text-lg md:text-xl font-bold text-slate-900 tracking-tight">
             {t("heroSubTitleMain")}
           </h2>
 
@@ -73,9 +70,13 @@ export function Hero() {
             {t("heroSubtitle")}
           </p>
 
+          <p className="mt-4 text-base md:text-lg leading-8 text-slate-600 font-light max-w-2xl mx-auto lg:mx-0">
+            {t("heroSubText")}
+          </p>
+
           {/* CTAs */}
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3">
-            <Link href="/register" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 bg-gradient-to-b from-[#1B3A6B] to-[#12274b] border border-[#0d1e3a] text-white text-sm font-normal shadow-[0_10px_24px_rgba(27,58,107,0.26),inset_0_1px_0_rgba(255,255,255,0.35)] hover:from-[#234882] hover:to-[#1a3867] hover:-translate-y-0.5 active:shadow-[inset_0_2px_4px_rgba(0,0,0,0.18)] transition-all duration-300">
+            <Link href="/register" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 bg-gradient-to-b from-blue-500 to-blue-600 border border-blue-700 text-white text-sm font-normal shadow-[0_10px_24px_rgba(59,130,246,0.26),inset_0_1px_0_rgba(255,255,255,0.35)] hover:from-blue-400 hover:to-blue-500 hover:-translate-y-0.5 active:shadow-[inset_0_2px_4px_rgba(0,0,0,0.18)] transition-all duration-300">
               {t("heroCtaMain")}
               <iconify-icon icon="solar:arrow-right-linear" style={{ strokeWidth: 1.5 }} className="text-lg" />
             </Link>
@@ -281,11 +282,11 @@ export function Hero() {
                     </div>
 
                     {/* Suggested Reply */}
-                    <div className="aura-hero-card rounded-2xl bg-gradient-to-b from-[#1B3A6B] to-[#12274b] text-white border border-[#0d1e3a] p-4 shadow-[0_10px_24px_-14px_rgba(27,58,107,0.55),inset_0_1px_0_rgba(255,255,255,0.30)] flex flex-col justify-between">
-                      <p className="text-[10px] text-blue-200 font-semibold uppercase tracking-wider">
+                    <div className="aura-hero-card rounded-2xl bg-gradient-to-b from-blue-400 to-blue-600 text-white border border-blue-700 p-4 shadow-[0_10px_24px_-14px_rgba(59,130,246,0.55),inset_0_1px_0_rgba(255,255,255,0.30)] flex flex-col justify-between">
+                      <p className="text-[10px] text-blue-100 font-semibold uppercase tracking-wider">
                         {t("showcaseSlide2CardStatus")}
                       </p>
-                      <p className="mt-1 text-xs leading-4 font-light text-slate-100">
+                      <p className="mt-1 text-xs leading-4 font-light text-white">
                         {t("heroSubText")}
                       </p>
                     </div>

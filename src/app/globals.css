@@ -229,3 +229,9 @@
     }
   }
 }
+
+/* Explicit compatibility fix for backdrop blur on all glassmorphic elements */
+.backdrop-blur-2xl {
+  -webkit-backdrop-filter: blur(40px) !important;
+  backdrop-filter: blur(40px) !important;
+}

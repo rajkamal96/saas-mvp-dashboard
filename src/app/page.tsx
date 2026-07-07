@@ -55,7 +55,7 @@ export default function LandingPage() {
     <div className="min-h-screen text-slate-800 dark:text-slate-100 overflow-x-hidden selection:bg-[#1B3A6B]/10 selection:text-[#1B3A6B] relative bg-transparent">
       
       {/* Solid background base */}
-      <div className="fixed inset-0 -z-20 bg-slate-50 dark:bg-[#0b0f19] pointer-events-none" />
+      <div className="fixed inset-0 -z-20 bg-[#f3f5f8] dark:bg-[#0b0f19] pointer-events-none" />
 
 
 
@@ -94,11 +94,11 @@ export default function LandingPage() {
       <div className="relative z-10">
         <Navbar />
         <Hero />
-        <TargetIndustries />
+        {/* <TargetIndustries /> */}
         <BenefitCards />
         <PainSolutions />
         <Timeline />
-        <FeatureCarousel />
+        {/* <FeatureCarousel /> */}
         <Pricing />
         <Footer />
       </div>

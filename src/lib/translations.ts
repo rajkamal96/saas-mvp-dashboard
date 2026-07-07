@@ -9,9 +9,9 @@ export const translations = {
     navDemoBtn: "Rezerviraj demo",
 
     // Hero
-    heroBadge: "ZA MANJŠA PODJETJA Z EKIPO NA TERENU",
+    heroBadge: "ZA MANJŠA PODJETJA Z EKIPAMI NA TERENU",
     heroTitle: "Teren in pisarna. Kot ena ekipa.",
-    heroSubTitleMain: "Večja učinkovitost in enostavnejše vodenje.",
+    heroSubTitleMain: "Za večjo učinkovitost in enostavnejše vodenje.",
     heroSubtitle: "Razpršena sporočila, zapiski, opomniki, komunikacija in dokumenti s terena se uredijo v enoten sistem, ki temelji na izboljšani komunikaciji.",
     heroCtaMain: "Rezerviraj predstavitev",
     heroCtaSub: "Dogovori se za klic",

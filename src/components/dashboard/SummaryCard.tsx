@@ -39,21 +39,23 @@ interface SummaryCardProps {
 export function SummaryCard({ title, dark = false, children }: SummaryCardProps) {
   return (
     <article
-      className="rounded-[2rem] border border-white p-6 hover:-translate-y-1 transition-all duration-300"
+      className="rounded-[2rem] p-10 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-start"
       style={{
-        background: dark ? "#1D2A3D" : "rgba(255, 255, 255, 0.70)",
+        background: dark ? "#1D2A3D" : "rgba(255, 255, 255, 0.002)",
         boxShadow: "0px 12px 30px rgba(15, 23, 42, 0.3), inset 0px 1px 0px #FFFFFF",
+        minHeight: "243px",
+        width: "100%",
       }}
     >
       {/* Header */}
-      <div className="flex items-center gap-3 mb-6">
+      <div className="flex items-center gap-[15px] mb-6">
         <CardIconBox icon={<DashboardIcon />} />
         <h2
           style={{
-            fontFamily: "'PT Sans', sans-serif",
+            fontFamily: "'PT Sans', sans-serif !important",
             fontWeight: 700,
             fontSize: "24px",
-            lineHeight: "31px",
+            lineHeight: "24px",
             color: dark ? "#FFFFFF" : "#1C1A1A",
           }}
         >
@@ -77,13 +79,13 @@ interface OverviewRowProps {
 
 export function OverviewRow({ progress, task, location, name }: OverviewRowProps) {
   const textStyle: React.CSSProperties = {
-    fontFamily: "Inter, sans-serif",
+    fontFamily: "'PT Sans', sans-serif",
     fontWeight: 400,
     fontSize: "14px",
-    lineHeight: "17px",
+    lineHeight: "14px",
     color: "#64748B",
   };
-  const dotStyle: React.CSSProperties = { color: "#94A3B8", fontSize: "14px" };
+  const dotStyle: React.CSSProperties = { color: "#64748B", fontSize: "14px" };
 
   return (
     <div className="flex items-center gap-2 min-w-0 w-full overflow-hidden">

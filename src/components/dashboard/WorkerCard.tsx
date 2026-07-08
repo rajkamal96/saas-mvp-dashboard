@@ -6,11 +6,12 @@ import { Worker, TaskItem } from "@/lib/mockData";
 // ── Link/attachment SVG icon ──────────────────────────────────────────────────
 function AttachmentIcon() {
   return (
-    <svg width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
-        d="M0.5 7.54918L6.15229 1.78552C7.83319 0.0714946 10.5585 0.0714946 12.2394 1.78552C13.9203 3.49954 13.9201 6.27867 12.2392 7.99269L5.71734 14.6431C4.59674 15.7858 2.7802 15.7856 1.6596 14.6429C0.538995 13.5002 0.53872 11.6478 1.65932 10.5051L8.1812 3.85471C8.7415 3.28337 9.65041 3.28337 10.2107 3.85471C10.771 4.42605 10.7706 5.35216 10.2103 5.9235L4.55802 11.6872"
+        d="M1 8.51912L7.08708 2.37122C8.89729 0.542928 11.8323 0.542928 13.6425 2.37122C15.4527 4.19951 15.4524 7.16391 13.6422 8.9922L6.61868 16.0859C5.41188 17.3048 3.4556 17.3046 2.2488 16.0858C1.04199 14.8669 1.0417 12.891 2.2485 11.6721L9.27206 4.57836C9.87546 3.96893 10.8543 3.96893 11.4577 4.57836C12.0611 5.18779 12.0607 6.17563 11.4573 6.78506L5.37018 12.933"
         stroke="#151E23"
-        strokeOpacity="0.15"
+        strokeOpacity="0.3"
+        strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
@@ -57,39 +58,39 @@ function TaskRow({ task, onToggle }: TaskRowProps) {
         style={{
           fontFamily: "'PT Sans', sans-serif",
           fontWeight: 400,
-          fontSize: "12px",
-          lineHeight: "16px",
-          letterSpacing: "-0.2px",
+          fontSize: task.completed ? "12px" : "14px",
+          lineHeight: task.completed ? "16px" : "18px",
+          letterSpacing: task.completed ? "-0.2px" : "0.1px",
           color: task.completed ? "#94A3B8" : "#64748B",
-          textDecoration: task.completed ? "line-through" : "none",
+          textDecoration: "none",
         }}
       >
         {task.text}
       </span>
 
-      {/* Attachment icon (only if task has no completedAt) */}
-      {!task.completed && !task.completedAt && (
-        <span className="shrink-0 opacity-30">
-          <AttachmentIcon />
-        </span>
-      )}
-
-      {/* Completed time */}
-      {task.completedAt && (
-        <span
-          className="shrink-0 ml-auto"
-          style={{
-            fontFamily: "'PT Sans', sans-serif",
-            fontWeight: 400,
-            fontSize: "12px",
-            lineHeight: "16px",
-            letterSpacing: "0.1px",
-            color: "#D3D3D3",
-            textAlign: "right",
-          }}
-        >
-          {task.completedAt}
-        </span>
+      {/* Attachment and Time for Completed tasks */}
+      {task.completed && (
+        <div className="flex items-center gap-[6px] shrink-0 ml-auto">
+          <span className="shrink-0">
+            <AttachmentIcon />
+          </span>
+          {task.completedAt && (
+            <span
+              className="shrink-0"
+              style={{
+                fontFamily: "'PT Sans', sans-serif",
+                fontWeight: 400,
+                fontSize: "12px",
+                lineHeight: "16px",
+                letterSpacing: "0.1px",
+                color: "#D3D3D3",
+                textAlign: "right",
+              }}
+            >
+              {task.completedAt}
+            </span>
+          )}
+        </div>
       )}
     </button>
   );
@@ -140,19 +141,39 @@ export function WorkerCard({ worker, onToggleTask, date = "23/05/26", orderId = 
 
         {/* Progress badge */}
         <div
-          className="flex items-baseline justify-center"
           style={{
             width: "36px",
             height: "36px",
-            background: "rgba(255, 255, 255, 0.9)",
-            border: "1px solid #FFFFFF",
+            background: "#EFF6FF",
+            border: "1px solid rgba(29, 78, 216, 0.5)",
+            boxShadow: "0px 8px 18px -12px rgba(15, 23, 42, 0.35), inset 0px 1px 0px 1px #FFFFFF",
             borderRadius: "12px",
+            display: "flex",
+            alignItems: "baseline",
+            justifyContent: "center",
+            paddingTop: "3px",
           }}
         >
-          <span style={{ fontFamily: "'PT Sans', sans-serif", fontWeight: 700, fontSize: "14px", color: "#1D4ED8" }}>
+          <span
+            style={{
+              fontFamily: "'PT Sans', sans-serif",
+              fontWeight: 700,
+              fontSize: "20px",
+              color: "#EB1D1D",
+              lineHeight: "27.25px"
+            }}
+          >
             {done}
           </span>
-          <span style={{ fontFamily: "'PT Sans', sans-serif", fontWeight: 400, fontSize: "11px", color: "#94A3B8" }}>
+          <span
+            style={{
+              fontFamily: "'PT Sans', sans-serif",
+              fontWeight: 700,
+              fontSize: "14px",
+              color: "#5A5A65",
+              lineHeight: "27.25px"
+            }}
+          >
             /{total}
           </span>
         </div>
@@ -164,9 +185,9 @@ export function WorkerCard({ worker, onToggleTask, date = "23/05/26", orderId = 
         {/* Inner white card */}
         <div
           style={{
-            background: "#FFFFFF",
-            border: "1px solid #DBEAFE",
-            boxShadow: "0px 0px 6px rgba(59, 130, 246, 0.12), inset 0px 1px 0px #FFFFFF",
+            background: "rgba(255, 255, 255, 0.95)",
+            border: "1px solid #FFFFFF",
+            boxShadow: "0px 0px 6px rgba(59, 130, 246, 0.05)",
             borderRadius: "21.6px",
             padding: "16px",
           }}
@@ -180,7 +201,7 @@ export function WorkerCard({ worker, onToggleTask, date = "23/05/26", orderId = 
               color: "#0F172A",
             }}
           >
-            {worker.currentTask}
+            {worker.currentTask.slice(0, 35) + (worker.currentTask.length > 35 ? "..." : "")}
           </p>
           <p
             style={{
@@ -188,11 +209,14 @@ export function WorkerCard({ worker, onToggleTask, date = "23/05/26", orderId = 
               fontWeight: 400,
               fontSize: "14px",
               lineHeight: "18px",
-              color: "#151E23",
+              color: "#465467",
               marginTop: "2px",
             }}
           >
-            {worker.location ?? "Ljubljana"} • {worker.role}
+            {(() => {
+              const sub = `${worker.location ?? "Ljubljana"} • ${worker.role}`;
+              return sub.slice(0, 100) + (sub.length > 100 ? "..." : "");
+            })()}
           </p>
         </div>
 
@@ -202,16 +226,55 @@ export function WorkerCard({ worker, onToggleTask, date = "23/05/26", orderId = 
             paddingTop: "12px",
             display: "flex",
             flexDirection: "column",
-            gap: "7.5px",
+            gap: "16px",
           }}
         >
-          {worker.tasks.map(task => (
-            <TaskRow
-              key={task.id}
-              task={task}
-              onToggle={() => onToggleTask(worker.id, task.id)}
-            />
-          ))}
+          {(() => {
+            const completedTasks = worker.tasks.filter(t => t.completed);
+            const uncompletedTasks = worker.tasks.filter(t => !t.completed);
+
+            return (
+              <>
+                {/* Completed task (max 1) */}
+                {completedTasks.length > 0 && (
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                    }}
+                  >
+                    {completedTasks.slice(0, 1).map(task => (
+                      <TaskRow
+                        key={task.id}
+                        task={task}
+                        onToggle={() => onToggleTask(worker.id, task.id)}
+                      />
+                    ))}
+                  </div>
+                )}
+
+                {/* Incomplete tasks (max 2) with 8px gap */}
+                {uncompletedTasks.length > 0 && (
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "8px",
+                      paddingBottom: "12px",
+                    }}
+                  >
+                    {uncompletedTasks.slice(0, 2).map(task => (
+                      <TaskRow
+                        key={task.id}
+                        task={task}
+                        onToggle={() => onToggleTask(worker.id, task.id)}
+                      />
+                    ))}
+                  </div>
+                )}
+              </>
+            );
+          })()}
         </div>
       </div>
     </div>

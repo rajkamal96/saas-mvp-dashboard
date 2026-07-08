@@ -235,3 +235,13 @@
   -webkit-backdrop-filter: blur(40px) !important;
   backdrop-filter: blur(40px) !important;
 }
+
+/* PT Sans font mapping and overrides */
+[style*="PT Sans"] {
+  font-family: var(--font-pt-sans), 'PT Sans', sans-serif !important;
+}
+
+.dashboard-page,
+.dashboard-page * {
+  font-family: var(--font-pt-sans), 'PT Sans', sans-serif !important;
+}

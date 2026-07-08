@@ -1,22 +1,28 @@
 "use client";
 
 import React from "react";
-import { Message } from "@/lib/mockData";
+import { Order } from "@/lib/mockData";
 
 interface CommunicationCardProps {
-  message: Message;
+  order: Order;
   onResolve: () => void;
   onDismiss: () => void;
   onAttachmentClick?: () => void;
   onArchive?: () => void;
+  onCall?: () => void;
+  buttonsConfig?: "call-tick-decline" | "attachment-tick-decline" | "none";
+  showRedButton?: boolean;
 }
 
 export function CommunicationCard({
-  message,
+  order,
   onResolve,
   onDismiss,
   onAttachmentClick = () => {},
   onArchive = () => {},
+  onCall = () => {},
+  buttonsConfig = "attachment-tick-decline",
+  showRedButton = false,
 }: CommunicationCardProps) {
   return (
     <div
@@ -70,46 +76,74 @@ export function CommunicationCard({
             alignItems: "center",
           }}
         >
-          {message.workerName} • {message.time}
+          {order.workerName} • {order.time}
         </span>
 
-        {/* Dismiss Button */}
-        <button
-          onClick={onDismiss}
-          style={{
-            boxSizing: "border-box",
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-            padding: "0px",
-            width: "36px",
-            height: "36px",
-            background: "rgba(255, 255, 255, 0.9)",
-            border: "1px solid #FFFFFF",
-            borderRadius: "12px",
-            boxShadow:
-              "0px 8px 18px -12px rgba(15, 23, 42, 0.35), inset 0px 1px 0px 1px #FFFFFF",
-            cursor: "pointer",
-          }}
-          title="Dismiss"
-        >
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 16 16"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+        {/* Top-Right Buttons */}
+        <div className="flex items-center gap-2">
+          {showRedButton && (
+            <button
+              style={{
+                boxSizing: "border-box",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                padding: "0px",
+                width: "36px",
+                height: "36px",
+                cursor: "pointer",
+                background: "transparent",
+                border: "none",
+              }}
+              title="Options"
+            >
+              <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="1" y="1" width="34" height="34" rx="11" fill="#FF0000" stroke="white" strokeWidth="2"/>
+                <circle cx="18" cy="12" r="1.5" fill="white" />
+                <circle cx="18" cy="18" r="1.5" fill="white" />
+                <circle cx="18" cy="24" r="1.5" fill="white" />
+              </svg>
+            </button>
+          )}
+
+          {/* Dismiss Button */}
+          <button
+            onClick={onDismiss}
+            style={{
+              boxSizing: "border-box",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+              padding: "0px",
+              width: "36px",
+              height: "36px",
+              background: "rgba(255, 255, 255, 0.9)",
+              border: "1px solid #FFFFFF",
+              borderRadius: "12px",
+              boxShadow:
+                "0px 8px 18px -12px rgba(15, 23, 42, 0.35), inset 0px 1px 0px 1px #FFFFFF",
+              cursor: "pointer",
+            }}
+            title="Dismiss"
           >
-            <path
-              d="M14.6066 14.6066L7.80336 7.80336M7.80336 7.80336L1 1M7.80336 7.80336L14.6067 1M7.80336 7.80336L1 14.6067"
-              stroke="#6D778E"
-              strokeWidth="2.2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </button>
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 16 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.6066 14.6066L7.80336 7.80336M7.80336 7.80336L1 1M7.80336 7.80336L14.6067 1M7.80336 7.80336L1 14.6067"
+                stroke="#6D778E"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
 
       {/* Middle: Inner white card (Meeting Prep) */}
@@ -139,13 +173,10 @@ export function CommunicationCard({
             lineHeight: "20px",
             color: "#1C1A1A",
             width: "100%",
-            whiteSpace: "nowrap",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
           }}
-          title={message.text}
+          title={order.title}
         >
-          {message.text}
+          {order.title.slice(0, 35) + (order.title.length > 35 ? "..." : "")}
         </p>
         <p
           style={{
@@ -156,12 +187,12 @@ export function CommunicationCard({
             color: "#64748B",
             marginTop: "2px",
             width: "100%",
-            whiteSpace: "nowrap",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
           }}
         >
-          {message.targetTask || "Danes je zadnji dan."}
+          {(() => {
+            const desc = order.description || "";
+            return desc.slice(0, 100) + (desc.length > 100 ? "..." : "");
+          })()}
         </p>
       </div>
 
@@ -195,119 +226,159 @@ export function CommunicationCard({
             color: "#FFFFFF",
           }}
         >
-          {message.time}
+          {order.time}
         </span>
 
         {/* Right: Three buttons group */}
-        <div className="flex items-center gap-2">
-          {/* Button 1: Paperclip */}
-          <button
-            onClick={onAttachmentClick}
-            style={{
-              boxSizing: "border-box",
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "center",
-              alignItems: "center",
-              padding: "0px",
-              width: "32px",
-              height: "32px",
-              background: "rgba(255, 255, 255, 0.9)",
-              border: "1px solid #FFFFFF",
-              boxShadow: "inset 0px 1px 0px 1px #FFFFFF",
-              borderRadius: "12px",
-              cursor: "pointer",
-            }}
-            title="Attachments"
-          >
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#6D778E"
-              strokeWidth="2.2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48" />
-            </svg>
-          </button>
+        {buttonsConfig !== "none" && (
+          <div className="flex items-center gap-2">
+            {/* Button 1: Call (only if call-tick-decline) */}
+            {buttonsConfig === "call-tick-decline" && (
+              <button
+                onClick={onCall}
+                style={{
+                  boxSizing: "border-box",
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  padding: "0px",
+                  width: "32px",
+                  height: "32px",
+                  background: "rgba(255, 255, 255, 0.9)",
+                  border: "1px solid #FFFFFF",
+                  boxShadow: "inset 0px 1px 0px 1px #FFFFFF",
+                  borderRadius: "12px",
+                  cursor: "pointer",
+                }}
+                title="Call"
+              >
+                <svg
+                  width="18"
+                  height="16"
+                  viewBox="0 0 20 18"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M7.22477 1.25722C6.8873 0.497902 6.0702 0 5.16154 0H2.10521C0.942534 0 0 0.848098 0 1.89453C0 10.7892 8.01177 18 17.8945 18C19.0572 18 19.9995 17.1516 19.9995 16.1052L20 13.354C20 12.5362 19.4469 11.8009 18.6033 11.4971L15.674 10.4429C14.9161 10.1701 14.0533 10.2929 13.4263 10.7632L12.6702 11.3307C11.7873 11.9929 10.4882 11.9402 9.67552 11.2088L7.54672 9.29106C6.73403 8.55963 6.67398 7.39134 7.40975 6.59669L8.04016 5.9163C8.56268 5.35196 8.70032 4.57516 8.39719 3.89309L7.22477 1.25722Z"
+                    fill="#6D778E"
+                  />
+                </svg>
+              </button>
+            )}
 
-          {/* Button 2: Checkmark (Resolve) */}
-          <button
-            onClick={onResolve}
-            style={{
-              boxSizing: "border-box",
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "center",
-              alignItems: "center",
-              padding: "0px",
-              width: "32px",
-              height: "32px",
-              background: "rgba(255, 255, 255, 0.9)",
-              border: "1px solid #FFFFFF",
-              boxShadow: "inset 0px 1px 0px 1px #FFFFFF",
-              borderRadius: "12px",
-              cursor: "pointer",
-            }}
-            title="Approve / Resolve"
-          >
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 16 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M13.3333 4L6 11.3333L2.66667 8"
-                stroke="#6D778E"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
+            {/* Button 2: Paperclip (only if attachment-tick-decline) */}
+            {buttonsConfig === "attachment-tick-decline" && (
+              <button
+                onClick={onAttachmentClick}
+                style={{
+                  boxSizing: "border-box",
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  padding: "0px",
+                  width: "32px",
+                  height: "32px",
+                  background: "rgba(255, 255, 255, 0.9)",
+                  border: "1px solid #FFFFFF",
+                  boxShadow: "inset 0px 1px 0px 1px #FFFFFF",
+                  borderRadius: "12px",
+                  cursor: "pointer",
+                }}
+                title="Attachments"
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#6D778E"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48" />
+                </svg>
+              </button>
+            )}
 
-          {/* Button 3: Archive / Decline */}
-          <button
-            onClick={onArchive}
-            style={{
-              boxSizing: "border-box",
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "center",
-              alignItems: "center",
-              padding: "0px",
-              width: "32px",
-              height: "32px",
-              background: "rgba(255, 255, 255, 0.9)",
-              border: "1px solid #FFFFFF",
-              boxShadow: "inset 0px 1px 0px 1px #FFFFFF",
-              borderRadius: "12px",
-              cursor: "pointer",
-            }}
-            title="Archive"
-          >
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 16 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+            {/* Button 3: Checkmark (Resolve) */}
+            <button
+              onClick={onResolve}
+              style={{
+                boxSizing: "border-box",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+                padding: "0px",
+                width: "32px",
+                height: "32px",
+                background: "rgba(255, 255, 255, 0.9)",
+                border: "1px solid #FFFFFF",
+                boxShadow: "inset 0px 1px 0px 1px #FFFFFF",
+                borderRadius: "12px",
+                cursor: "pointer",
+              }}
+              title="Approve / Resolve"
             >
-              <path
-                d="M14.6066 14.6066L7.80336 7.80336M7.80336 7.80336L1 1M7.80336 7.80336L14.6067 1M7.80336 7.80336L1 14.6067"
-                stroke="#6D778E"
-                strokeWidth="2.2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
-        </div>
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M13.3333 4L6 11.3333L2.66667 8"
+                  stroke="#6D778E"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+
+            {/* Button 4: Archive / Decline */}
+            <button
+              onClick={onArchive}
+              style={{
+                boxSizing: "border-box",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+                padding: "0px",
+                width: "32px",
+                height: "32px",
+                background: "rgba(255, 255, 255, 0.9)",
+                border: "1px solid #FFFFFF",
+                boxShadow: "inset 0px 1px 0px 1px #FFFFFF",
+                borderRadius: "12px",
+                cursor: "pointer",
+              }}
+              title="Archive"
+            >
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M14.6066 14.6066L7.80336 7.80336M7.80336 7.80336L1 1M7.80336 7.80336L14.6067 1M7.80336 7.80336L1 14.6067"
+                  stroke="#6D778E"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

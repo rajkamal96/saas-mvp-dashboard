@@ -1,11 +1,34 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useLanguage } from "@/lib/useLanguage";
 
 export function Pricing() {
   const { t } = useLanguage();
+  const [isYearly, setIsYearly] = useState(false);
+  const [displayPrice, setDisplayPrice] = useState(59);
+
+  useEffect(() => {
+    const target = isYearly ? 49 : 59;
+    if (displayPrice === target) return;
+
+    const duration = 260;
+    const steps = Math.abs(target - displayPrice);
+    const stepTime = Math.max(6, Math.floor(duration / steps));
+
+    const timer = setInterval(() => {
+      setDisplayPrice((prev) => {
+        if (prev === target) {
+          clearInterval(timer);
+          return prev;
+        }
+        return prev < target ? prev + 1 : prev - 1;
+      });
+    }, stepTime);
+
+    return () => clearInterval(timer);
+  }, [isYearly, displayPrice]);
 
   const features = [
     t("priceFeature1"),
@@ -20,13 +43,45 @@ export function Pricing() {
 
   return (
     <section id="cenik" className="max-w-7xl mx-auto px-6 py-20">
-      <div className="text-center max-w-3xl mx-auto mb-16">
+      <div className="text-center max-w-3xl mx-auto mb-12">
         <p className="font-['JetBrains_Mono',monospace] text-[10px] md:text-xs font-semibold tracking-[-0.04em] text-blue-500 mb-4 uppercase">
           {t("priceTitle")}
         </p>
         <h2 className="text-3xl md:text-5xl font-normal tracking-tight text-slate-950">
           {t("priceSubtitle")}
         </h2>
+      </div>
+
+      {/* Skeuomorphic Toggle */}
+      <div className="mb-12 flex justify-center">
+        <label className="relative flex items-center p-1 bg-[#e2e8f0] rounded-full cursor-pointer w-[16rem] shadow-[inset_0_2px_4px_rgba(0,0,0,0.06),0_1px_1px_rgba(255,255,255,1)] border border-slate-300">
+          <input
+            type="checkbox"
+            className="sr-only"
+            checked={isYearly}
+            onChange={(e) => setIsYearly(e.target.checked)}
+          />
+          {/* Toggle Pill */}
+          <div
+            className={`absolute left-1 top-1 bottom-1 w-[calc(50%-0.25rem)] bg-gradient-to-b from-white to-slate-50 rounded-full shadow-[0_2px_5px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,1)] border border-slate-200 transition-transform duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+              isYearly ? "translate-x-full" : "translate-x-0"
+            }`}
+          />
+          <span
+            className={`relative w-1/2 text-center text-xs font-normal transition-colors duration-300 py-2.5 z-10 ${
+              isYearly ? "text-slate-400" : "text-slate-800"
+            }`}
+          >
+            {t("billingMonthly")}
+          </span>
+          <span
+            className={`relative w-1/2 flex items-center justify-center gap-1.5 text-center text-xs font-normal transition-colors duration-300 py-2.5 z-10 ${
+              isYearly ? "text-slate-800" : "text-slate-400"
+            }`}
+          >
+            {t("billingAnnually")}
+          </span>
+        </label>
       </div>
 
       <div className="flex justify-center items-center">
@@ -45,9 +100,11 @@ export function Pricing() {
                   FLAT RATE
                 </p>
                 <div className="flex items-baseline text-slate-950 mt-4">
-                  <span className="text-[3rem] md:text-[4rem] font-light tracking-tight">59</span>
+                  <span className="text-[3rem] md:text-[4rem] font-light tracking-tight">{displayPrice}</span>
                   <span className="text-[2rem] font-light tracking-tight ml-1">€</span>
-                  <span className="text-xs font-light text-slate-400 ml-2">{t("priceCardUnit")}</span>
+                  <span className="text-xs font-light text-slate-400 ml-2">
+                    {isYearly ? t("priceCardUnitYearly") : t("priceCardUnit")}
+                  </span>
                 </div>
                 <p className="mt-4 text-xs leading-6 text-slate-500 font-light">
                   {t("priceCardSub")}

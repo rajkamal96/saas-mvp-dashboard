@@ -19,6 +19,55 @@ import { OfficeCard } from "@/components/dashboard/OfficeCard";
 import { CommunicationCard } from "@/components/dashboard/CommunicationCard";
 import { WorkerDetailModal } from "@/components/dashboard/WorkerDetailModal";
 
+interface ColumnHeaderProps {
+  title: string;
+  onAddClick?: () => void;
+}
+
+function ColumnHeader({ title, onAddClick }: ColumnHeaderProps) {
+  return (
+    <div className="flex items-center justify-between pl-0 pr-6 mb-2">
+      <span
+        style={{
+          fontFamily: "'PT Sans', sans-serif",
+          fontWeight: 700,
+          fontSize: "24px",
+          lineHeight: "24px",
+        }}
+        className="text-slate-900"
+      >
+        {title}
+      </span>
+      <button
+        onClick={onAddClick}
+        style={{
+          width: "36px",
+          height: "36px",
+          borderRadius: "12px",
+          background: "rgba(255, 255, 255, 0.002)",
+          border: "0.7px solid rgba(96, 165, 250, 0.5)",
+          boxShadow: "0px 8px 18px -12px rgba(15, 23, 42, 0.35), inset 0px 1px 0px 1px #FFFFFF",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          cursor: "pointer",
+        }}
+        className="hover:bg-slate-50/50 transition-colors"
+      >
+        <svg width="12" height="12" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M17.9705 9.48535H9.48528M9.48528 9.48535H1M9.48528 9.48535V1.00007M9.48528 9.48535V17.9706"
+            stroke="#6D778E"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </button>
+    </div>
+  );
+}
+
 export default function OfficeDashboard() {
   const { t } = useLanguage();
   const router = useRouter();
@@ -60,7 +109,7 @@ export default function OfficeDashboard() {
     setMessages(prev => prev.filter(m => m.id !== messageId));
 
   return (
-    <div className="min-h-screen bg-[#f3f5f8] font-sans text-slate-800">
+    <div className="min-h-screen bg-[#f3f5f8] text-slate-800 dashboard-page">
 
       {/* Header */}
       <header className="sticky top-0 z-40 bg-white/84 backdrop-blur-2xl border-b border-white/90 shadow-[0_14px_38px_-22px_rgba(15,23,42,0.12),inset_0_1px_0_rgba(255,255,255,1)] h-16 flex items-center justify-between px-8">
@@ -88,7 +137,7 @@ export default function OfficeDashboard() {
 
           {/* HITRI PREGLED */}
           <SummaryCard title="HITRI PREGLED">
-            <div className="space-y-[25px]">
+            <div className="flex flex-col gap-[4px]">
               {workers.map(w => {
                 const done = w.tasks.filter(t => t.completed).length;
                 const total = w.tasks.length;
@@ -107,7 +156,7 @@ export default function OfficeDashboard() {
 
           {/* NUJNE ZADEVE */}
           <SummaryCard title="NUJNE ZADEVE" dark>
-            <div className="space-y-[23px]">
+            <div className="flex flex-col gap-[6px]">
               {orders.map(o => (
                 <UrgentRow
                   key={o.id}
@@ -124,141 +173,114 @@ export default function OfficeDashboard() {
         {/* ── Three Aura-styled columns ── */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-          {/* COLUMN 1 — DANES TEREN (Aura light card + WorkerCards inside) */}
-          <article className="group bg-white/70 rounded-[2rem] border border-white shadow-[0_18px_44px_-28px_rgba(15,23,42,0.34),inset_0_1px_0_white] overflow-hidden hover:bg-white/88 hover:-translate-y-1 transition-all duration-300">
-            {/* Visual panel */}
-            <div className="relative isolate mx-4 mt-4 rounded-[1.5rem] overflow-hidden bg-gradient-to-b from-white to-slate-100 border border-white shadow-[0_18px_42px_-30px_rgba(15,23,42,0.28),inset_0_1px_0_white] [clip-path:inset(0_round_1.5rem)]">
-              <div className="absolute inset-0 z-0 opacity-[0.16]" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, rgba(15,23,42,0.10) 1px, transparent 0)", backgroundSize: "1.5rem 1.5rem" }} />
-              <div className="absolute top-[-35%] right-[-20%] z-0 w-[10rem] h-[10rem] rounded-full bg-blue-200/55 blur-[4rem] pointer-events-none" />
-              <div className="relative z-10 p-4 space-y-3">
-                {/* Panel header */}
-                <div className="flex items-center justify-between">
-                  <span className="font-['JetBrains_Mono',monospace] text-[10px] text-slate-400">DANES — TEREN</span>
-                  <button className="w-7 h-7 rounded-lg bg-white border border-slate-200 flex items-center justify-center shadow-[0_2px_6px_rgba(15,23,42,0.06)] cursor-pointer hover:bg-slate-50 transition-colors">
-                    <Plus className="w-3.5 h-3.5 text-slate-500" />
-                  </button>
-                </div>
-                {/* WorkerCards */}
-                {workers.map((w, idx) => (
-                  <WorkerCard
-                    key={w.id}
-                    worker={w}
-                    onToggleTask={handleToggleTask}
-                    date="23/05/26"
-                    orderId={`#${480 + idx + 1}`}
-                    onClick={() => {
-                      setSelectedWorker(w);
-                      setIsWorkerDetailOpen(true);
-                    }}
-                  />
-                ))}
-              </div>
+          {/* COLUMN 1 — DANES TEREN */}
+          <div className="flex flex-col gap-3">
+            {/* Column Header Row */}
+            <ColumnHeader title="DANES — TEREN" />
+            <div
+              style={{
+                background: "linear-gradient(180deg, rgba(96, 165, 250, 0.08) 0%, rgba(37, 99, 235, 0.08) 100%)",
+                border: "1px solid #1D4ED8",
+                boxShadow: "0px 24px 60px -30px rgba(59, 130, 246, 0.55), inset 0px 1px 0px 1px rgba(255, 255, 255, 0.35)",
+                borderRadius: "32px",
+                padding: "16px",
+                display: "flex",
+                flexDirection: "column",
+                gap: "24px",
+              }}
+              className="group hover:-translate-y-1 transition-all duration-300"
+            >
+              {workers.slice(0, 3).map((w, idx) => (
+                <WorkerCard
+                  key={w.id}
+                  worker={w}
+                  onToggleTask={handleToggleTask}
+                  date="23/05/26"
+                  orderId={`#${480 + idx + 1}`}
+                  onClick={() => {
+                    setSelectedWorker(w);
+                    setIsWorkerDetailOpen(true);
+                  }}
+                />
+              ))}
             </div>
-            {/* Card footer */}
-            <div className="p-6">
-              <div className="flex items-start gap-4">
-                <div className="w-11 h-11 shrink-0 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center shadow-[inset_0_1px_0_white]">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                </div>
-                <div>
-                  <h3 className="text-xl font-normal tracking-tight text-slate-950">Danes — Teren</h3>
-                  <p className="mt-2 text-sm leading-6 text-slate-500 font-light">Pregled vseh terenskih delavcev, njihovih nalog in trenutnega statusa v živo.</p>
-                  <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-blue-50 border border-blue-100 px-3 py-1.5 text-[11px] text-blue-600">
-                    <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />{workers.filter(w => w.status === "v_teku").length} aktivnih delavcev
-                  </div>
-                </div>
-              </div>
-            </div>
-          </article>
+          </div>
 
-          {/* COLUMN 2 — DANES PISARNA (Aura light card, same as column 1, containing beige OfficeCards) */}
-          <article className="group bg-white/70 rounded-[2rem] border border-white shadow-[0_18px_44px_-28px_rgba(15,23,42,0.34),inset_0_1px_0_white] overflow-hidden hover:bg-white/88 hover:-translate-y-1 transition-all duration-300">
-            {/* Visual panel */}
-            <div className="relative isolate mx-4 mt-4 rounded-[1.5rem] overflow-hidden bg-gradient-to-b from-white to-slate-100 border border-white shadow-[0_18px_42px_-30px_rgba(15,23,42,0.28),inset_0_1px_0_white] [clip-path:inset(0_round_1.5rem)]">
-              <div className="absolute inset-0 z-0 opacity-[0.16]" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, rgba(15,23,42,0.10) 1px, transparent 0)", backgroundSize: "1.5rem 1.5rem" }} />
-              <div className="absolute top-[-35%] right-[-20%] z-0 w-[10rem] h-[10rem] rounded-full bg-blue-200/55 blur-[4rem] pointer-events-none" />
-              <div className="relative z-10 p-4 space-y-3">
-                {/* Panel header */}
-                <div className="flex items-center justify-between">
-                  <span className="font-['JetBrains_Mono',monospace] text-[10px] text-slate-400">DANES — PISARNA</span>
-                  <button className="w-7 h-7 rounded-lg bg-white border border-slate-200 flex items-center justify-center shadow-[0_2px_6px_rgba(15,23,42,0.06)] cursor-pointer hover:bg-slate-50 transition-colors">
-                    <Plus className="w-3.5 h-3.5 text-slate-500" />
-                  </button>
-                </div>
-                {/* OfficeCards */}
-                {orders.map(o => (
-                  <OfficeCard
+          {/* COLUMN 2 — DANES PISARNA */}
+          <div className="flex flex-col gap-3">
+            {/* Column Header Row */}
+            <ColumnHeader title="DANES — PISARNA" />
+            <div
+              style={{
+                background: "linear-gradient(180deg, #60A5FA 0%, #2563EB 100%)",
+                border: "1px solid #1D4ED8",
+                boxShadow: "0px 24px 60px -30px rgba(59, 130, 246, 0.55), inset 0px 1px 0px 1px rgba(255, 255, 255, 0.35)",
+                borderRadius: "32px",
+                padding: "16px",
+                display: "flex",
+                flexDirection: "column",
+                gap: "24px",
+              }}
+              className="group hover:-translate-y-1 transition-all duration-300"
+            >
+              {orders.slice(0, 3).map((o, idx) => {
+                // Determine buttons configuration based on card index
+                let buttonsConfig: 'call-tick-decline' | 'attachment-tick-decline' | 'none' = 'attachment-tick-decline';
+                if (idx === 0) {
+                  buttonsConfig = 'call-tick-decline';
+                } else if (idx === 2) {
+                  buttonsConfig = 'none';
+                }
+
+                return (
+                  <CommunicationCard
                     key={o.id}
                     order={o}
-                    onApprove={() => handleApprove(o.id)}
-                    onDecline={() => handleDecline(o.id)}
+                    buttonsConfig={buttonsConfig}
+                    showRedButton={idx === 0}
+                    onResolve={() => handleApprove(o.id)}
                     onDismiss={() => handleDismissOrder(o.id)}
+                    onArchive={() => handleDecline(o.id)}
                     onCall={() => alert(`Klicanje: ${o.workerName}`)}
+                    onAttachmentClick={() => alert(`Showing attachments for ${o.title}`)}
                   />
-                ))}
-              </div>
+                );
+              })}
             </div>
-            {/* Card footer */}
-            <div className="p-6">
-              <div className="flex items-start gap-4">
-                <div className="w-11 h-11 shrink-0 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center shadow-[inset_0_1px_0_white]">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>
-                </div>
-                <div>
-                  <h3 className="text-xl font-normal tracking-tight text-slate-950">Danes — Pisarna</h3>
-                  <p className="mt-2 text-sm leading-6 text-slate-500 font-light">Nalogi in akcije za danes. Potrjujte, zavračajte in usmerjajte ekipo iz ene točke.</p>
-                  <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-blue-50 border border-blue-100 px-3 py-1.5 text-[11px] text-blue-600">
-                    <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />{orders.filter(o => o.status === "caka_potrditev").length} čaka potrditev
-                  </div>
-                </div>
-              </div>
-            </div>
-          </article>
+          </div>
 
-          {/* COLUMN 3 — KOMUNIKACIJA (Aura featured blue, swapped color from column 2) */}
-          <article className="group relative bg-gradient-to-b from-blue-400 to-blue-600 rounded-[2rem] border border-blue-700 shadow-[0_24px_60px_-30px_rgba(59,130,246,0.55),inset_0_1px_0_rgba(255,255,255,0.35)] overflow-hidden hover:-translate-y-1 transition-all duration-300">
-            <div className="absolute top-[-35%] right-[-20%] w-[18rem] h-[18rem] rounded-full bg-white/25 blur-[4rem] pointer-events-none" />
-            <div className="absolute bottom-[-40%] left-[-25%] w-[16rem] h-[16rem] rounded-full bg-sky-200/20 blur-[4rem] pointer-events-none" />
-            {/* Visual panel */}
-            <div className="relative mx-4 mt-4 rounded-[1.5rem] overflow-hidden bg-gradient-to-b from-blue-400 to-blue-600 border border-blue-700 shadow-[0_18px_42px_-24px_rgba(59,130,246,0.55),inset_0_1px_0_rgba(255,255,255,0.35)] min-h-[14rem]">
-              <div className="absolute top-[-35%] right-[-20%] w-[14rem] h-[14rem] rounded-full bg-white/24 blur-[4rem] pointer-events-none" />
-              <div className="absolute inset-0 opacity-[0.12]" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.35) 1px, transparent 0)", backgroundSize: "1.35rem 1.35rem" }} />
-              <div className="relative z-10 p-4 space-y-3">
-                <div className="flex items-center justify-between mb-1">
-                  <span className="font-['JetBrains_Mono',monospace] text-[10px] text-blue-100">KOMUNIKACIJA</span>
-                  <button className="w-7 h-7 rounded-lg bg-white/90 border border-white flex items-center justify-center shadow-[0_4px_8px_-4px_rgba(15,23,42,0.25)] cursor-pointer hover:bg-white transition-colors">
-                    <Plus className="w-4 h-4 text-blue-600" />
-                  </button>
-                </div>
-                {messages.slice(0, 3).map(m => (
-                  <CommunicationCard
+          {/* COLUMN 3 — KOMUNIKACIJA */}
+          <div className="flex flex-col gap-3">
+            {/* Column Header Row */}
+            <ColumnHeader title="KOMUNIKACIJA" />
+            <div
+              style={{
+                background: "linear-gradient(180deg, rgba(241, 241, 255, 0.19) 0%, rgba(241, 241, 255, 0.19) 100%)",
+                border: "0.6px solid #1D4ED8",
+                boxShadow: "0px 24px 60px -30px rgba(59, 130, 246, 0.55), inset 0px 1px 0px 1px rgba(255, 255, 255, 0.35)",
+                borderRadius: "32px",
+                padding: "16px",
+                display: "flex",
+                flexDirection: "column",
+                gap: "24px",
+              }}
+              className="group hover:-translate-y-1 transition-all duration-300"
+            >
+              {messages.slice(0, 3).map((m, idx) => {
+                return (
+                  <OfficeCard
                     key={m.id}
                     message={m}
+                    iconType={idx === 2 ? "document" : "mic"}
+                    showRedButton={idx === 1}
                     onResolve={() => handleResolveMessage(m.id)}
                     onDismiss={() => handleDismissMessage(m.id)}
-                    onAttachmentClick={() => alert(`Showing attachments for message from ${m.workerName}`)}
                     onArchive={() => handleArchiveMessage(m.id)}
                   />
-                ))}
-              </div>
+                );
+              })}
             </div>
-            {/* Card footer */}
-            <div className="relative p-6">
-              <div className="flex items-start gap-4">
-                <div className="w-11 h-11 shrink-0 rounded-2xl bg-white/20 border border-white/30 flex items-center justify-center shadow-[inset_0_1px_0_rgba(255,255,255,0.35)]">
-                  <MessageSquare className="w-5 h-5 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-normal tracking-tight text-white">Komunikacija</h3>
-                  <p className="mt-2 text-sm leading-6 text-blue-100 font-light">Glasovna sporočila, AI prepis in vse terenske posodobitve na enem mestu.</p>
-                  <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-white/15 border border-white/25 px-3 py-1.5 text-[11px] text-white">
-                    <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />{messages.length} novih sporočil
-                  </div>
-                </div>
-              </div>
-            </div>
-          </article>
-
+          </div>
         </div>
       </div>
       <WorkerDetailModal

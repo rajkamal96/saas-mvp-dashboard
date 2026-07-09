@@ -132,7 +132,8 @@ function TaskRow({ task, onToggle, disabled }: TaskRowProps) {
         e.stopPropagation();
         onToggle();
       }}
-      className="flex items-center gap-[6px] w-full text-left cursor-pointer"
+      className="flex items-center gap-[6px] w-full text-left cursor-pointer bg-transparent border-none p-0 outline-none"
+      style={{ background: "transparent", border: "none", padding: 0 }}
     >
       {/* Checkbox */}
       <div

@@ -30,15 +30,24 @@ export function Pricing() {
     return () => clearInterval(timer);
   }, [isYearly, displayPrice]);
 
-  const features = [
-    t("priceFeature1"),
-    t("priceFeature2"),
-    t("priceFeature3"),
-    t("priceFeature4"),
-    t("priceFeature5"),
-    t("priceFeature6"),
-    t("priceFeature7"),
-    t("priceFeature8")
+  const sections = [
+    {
+      title: t("priceSec1Title"),
+      items: [t("priceSec1Item1"), t("priceSec1Item2"), t("priceSec1Item3")],
+    },
+    {
+      title: t("priceSec2Title"),
+      items: [t("priceSec2Item1"), t("priceSec2Item2"), t("priceSec2Item3")],
+    },
+    {
+      title: t("priceSec3Title"),
+      items: [
+        t("priceSec3Item1"),
+        t("priceSec3Item2"),
+        t("priceSec3Item3"),
+        t("priceSec3Item4"),
+      ],
+    },
   ];
 
   return (
@@ -129,18 +138,40 @@ export function Pricing() {
             <div className="hidden md:block w-px bg-slate-200" />
 
             {/* Features checkmark list */}
-            <div className="md:w-1/2">
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">
-                {t("priceFeatureHeader")}
-              </p>
-              <ul className="space-y-3.5">
-                {features.map((feature, idx) => (
-                  <li key={idx} className="flex items-start gap-2.5 text-xs text-slate-600 font-light">
-                    <iconify-icon icon="solar:check-circle-linear" style={{ strokeWidth: 1.5 }} className="text-blue-500 text-lg shrink-0 mt-0.5" />
-                    <span>{feature}</span>
-                  </li>
+            <div className="md:w-1/2 flex flex-col justify-between">
+              <div className="space-y-6">
+                {sections.map((section, idx) => (
+                  <div key={idx}>
+                    <h4 className="text-[10px] font-bold text-blue-500 uppercase tracking-widest mb-3">
+                      {section.title}
+                    </h4>
+                    <ul className="space-y-3">
+                      {section.items.map((item, itemIdx) => (
+                        <li key={itemIdx} className="flex items-start gap-2.5 text-xs text-slate-600 font-light">
+                          <iconify-icon
+                            icon="solar:check-circle-linear"
+                            style={{ strokeWidth: 1.5 }}
+                            className="text-blue-500 text-lg shrink-0 mt-0.5"
+                          />
+                          <span className="mt-[2px]">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 ))}
-              </ul>
+              </div>
+
+              {/* Cancel Anytime with extra gap from top */}
+              <div className="mt-8 pt-4 border-t border-slate-200/60">
+                <div className="flex items-start gap-2.5 text-xs text-slate-600 font-light">
+                  <iconify-icon
+                    icon="solar:check-circle-linear"
+                    style={{ strokeWidth: 1.5 }}
+                    className="text-blue-500 text-lg shrink-0 mt-0.5"
+                  />
+                  <span className="font-medium text-slate-900 mt-[2px]">{t("priceCancelAnytime")}</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>

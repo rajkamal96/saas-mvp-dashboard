@@ -236,12 +236,16 @@
   backdrop-filter: blur(40px) !important;
 }
 
-/* PT Sans font mapping and overrides */
-[style*="PT Sans"] {
-  font-family: var(--font-pt-sans), 'PT Sans', sans-serif !important;
+/* PT Sans font mapping and overrides to Source Sans 3 */
+:root {
+  --font-pt-sans: var(--font-sans);
 }
 
-.dashboard-page,
-.dashboard-page * {
-  font-family: var(--font-pt-sans), 'PT Sans', sans-serif !important;
+body, button, input, select, textarea, span, p, h1, h2, h3, h4, h5, h6, a, div, li, ul, ol, label {
+  font-family: var(--font-sans), 'Source Sans 3', sans-serif !important;
+}
+
+/* Ensure code/mono elements still use mono */
+code, pre, .font-mono, [class*="font-mono"], [style*="JetBrains Mono"] {
+  font-family: var(--font-mono), monospace !important;
 }

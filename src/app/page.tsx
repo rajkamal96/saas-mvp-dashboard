@@ -95,7 +95,7 @@ export default function LandingPage() {
         <Navbar />
         <Hero />
         {/* <TargetIndustries /> */}
-        <BenefitCards />
+        {/* <BenefitCards /> */}
         <PainSolutions />
         <Timeline />
         {/* <FeatureCarousel /> */}

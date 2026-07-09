@@ -1,22 +1,16 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono, PT_Sans } from "next/font/google";
+import { Source_Sans_3, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import Script from "next/script";
 
-const inter = Inter({
+const sourceSans3 = Source_Sans_3({
   variable: "--font-sans",
   subsets: ["latin"],
 });
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-mono",
-  subsets: ["latin"],
-});
-
-const ptSans = PT_Sans({
-  variable: "--font-pt-sans",
-  weight: ["400", "700"],
   subsets: ["latin"],
 });
 
@@ -33,7 +27,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${jetbrainsMono.variable} ${ptSans.variable} h-full antialiased`}
+      className={`${sourceSans3.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <LanguageSwitcher />

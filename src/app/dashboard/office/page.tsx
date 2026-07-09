@@ -130,10 +130,26 @@ export default function OfficeDashboard() {
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto px-6 py-8 space-y-8">
+      <div className="max-w-7xl mx-auto px-6" style={{ paddingTop: "32px" }}>
+
+        {/* ── Dnevni pregled heading ── */}
+        <h1
+          style={{
+            fontFamily: "Inter, sans-serif",
+            fontWeight: 400,
+            fontSize: "60px",
+            lineHeight: "36px",
+            letterSpacing: "-0.75px",
+            color: "#0F172A",
+            marginBottom: "42px",
+            textAlign: "center",
+          }}
+        >
+          Dnevni pregled
+        </h1>
 
         {/* ── Top summary cards ── */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6" style={{ marginBottom: "32px" }}>
 
           {/* HITRI PREGLED */}
           <SummaryCard title="HITRI PREGLED">
@@ -237,7 +253,7 @@ export default function OfficeDashboard() {
                     key={o.id}
                     order={o}
                     buttonsConfig={buttonsConfig}
-                    showRedButton={idx === 0}
+                    showRedButton={idx === 0 || idx === 1}
                     onResolve={() => handleApprove(o.id)}
                     onDismiss={() => handleDismissOrder(o.id)}
                     onArchive={() => handleDecline(o.id)}
@@ -272,7 +288,7 @@ export default function OfficeDashboard() {
                     key={m.id}
                     message={m}
                     iconType={idx === 2 ? "document" : "mic"}
-                    showRedButton={idx === 1}
+                    showRedButton={idx === 0 || idx === 1}
                     onResolve={() => handleResolveMessage(m.id)}
                     onDismiss={() => handleDismissMessage(m.id)}
                     onArchive={() => handleArchiveMessage(m.id)}

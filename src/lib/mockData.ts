@@ -3,6 +3,7 @@ export interface TaskItem {
   text: string;
   completed: boolean;
   completedAt?: string;
+  hasAttachment?: boolean;
 }
 
 export interface Worker {
@@ -43,7 +44,7 @@ export interface Message {
 export const initialWorkers: Worker[] = [
   {
     id: "w1",
-    name: "Anthony Hopkins",
+    name: "Anthony H",
     avatar: "AH",
     role: "Novak d.o.o.",
     currentTask: "Kopalnica prenova",
@@ -53,9 +54,14 @@ export const initialWorkers: Worker[] = [
     unreadCount: 1,
     location: "Ljubljana",
     tasks: [
-      { id: "t1_1", text: "Odvoz materiala - Stane", completed: true, completedAt: "08:14" },
-      { id: "t1_2", text: "Dostava ploščic - Adam", completed: false },
-      { id: "t1_3", text: "Polaganje ploščic", completed: false }
+      { id: "t1_1", text: "Odvoz materiala - Stane", completed: true, completedAt: "10:34", hasAttachment: true },
+      { id: "t1_2", text: "Začetek del", completed: true, completedAt: "08:20" },
+      { id: "t1_3", text: "Odstranjevanje elementov", completed: true, completedAt: "09:10" },
+      { id: "t1_4", text: "Odvoz odpadkov", completed: true, completedAt: "09:55" },
+      { id: "t1_5", text: "Dostava ploščic - Adam", completed: false },
+      { id: "t1_6", text: "Polaganje ploščic", completed: false },
+      { id: "t1_7", text: "Menjava umivalnika, kadi", completed: false },
+      { id: "t1_8", text: "Dnevno poročilo", completed: false }
     ]
   },
   {
@@ -70,8 +76,11 @@ export const initialWorkers: Worker[] = [
     unreadCount: 0,
     location: "Ljubljana",
     tasks: [
-      { id: "t2_1", text: "Slika 3 - končano", completed: true, completedAt: "07:30" },
-      { id: "t2_2", text: "Dnevno poročilo", completed: false }
+      { id: "t2_1", text: "Čiščenje tal", completed: true, completedAt: "10:51", hasAttachment: true },
+      { id: "t2_2", text: "Čiščenje oken", completed: true, completedAt: "09:00" },
+      { id: "t2_3", text: "Čiščenje kopalnic", completed: true, completedAt: "09:45" },
+      { id: "t2_4", text: "Čiščenje kuhinje", completed: true, completedAt: "10:20" },
+      { id: "t2_5", text: "Dnevno poročilo", completed: false }
     ]
   },
   {
@@ -88,7 +97,8 @@ export const initialWorkers: Worker[] = [
     tasks: [
       { id: "t3_1", text: "Prevzem cvetja", completed: true, completedAt: "08:00" },
       { id: "t3_2", text: "Dostava", completed: false },
-      { id: "t3_3", text: "Potrdilo o dostavi", completed: false }
+      { id: "t3_3", text: "Potrdilo o dostavi", completed: false, hasAttachment: true },
+      { id: "t3_4", text: "Dnevno poročilo", completed: false }
     ]
   }
 ];
@@ -98,31 +108,31 @@ export const initialOrders: Order[] = [
     id: "o1",
     title: "Pokliči Maksa za rezervacijo",
     description: "Danes je zadnji dan. ",
-    time: "10:14",
+    time: "09:02",
     priority: "nujno",
     status: "caka_potrditev",
     workerId: "w1",
-    workerName: "ANA NOVAK"
+    workerName: "LIAM"
   },
   {
     id: "o2",
     title: "Podpiši izvozne dokumente",
     description: "",
-    time: "11:58",
+    time: "11:34",
     priority: "visoka",
     status: "caka_potrditev",
     workerId: "w2",
-    workerName: "ANTHONY H"
+    workerName: "SIMON"
   },
   {
     id: "o3",
     title: "Kosilo s Kristino",
     description: "",
-    time: "13:00",
+    time: "11:38",
     priority: "danes",
     status: "caka_potrditev",
     workerId: "w3",
-    workerName: "ALEKS"
+    workerName: "ADAM"
   }
 ];
 
@@ -133,7 +143,7 @@ export const initialMessages: Message[] = [
     workerId: "w1",
     workerName: "ANA NOVAK",
     text: "Stranke ni bilo na naslovu. Začenjam pol ure kasneje.  ",
-    time: "09:14",
+    time: "09:18",
     type: "glasovno",
     targetTask: "Čiščenje prostorov"
   },
@@ -142,7 +152,7 @@ export const initialMessages: Message[] = [
     workerId: "w2",
     workerName: "ANTHONY H",
     text: "Prometna nesreča pri Celju. Zaprta cesta do 13:30.",
-    time: "08:55",
+    time: "10:53",
     type: "glasovno",
     targetTask: "Kopalnica prenova"
   },
@@ -151,7 +161,7 @@ export const initialMessages: Message[] = [
     workerId: "w3",
     workerName: "ALEKS",
     text: "Preveri dokumente za Graz. Pokliči Ano.",
-    time: "10:30",
+    time: "11:02",
     type: "glasovno",
     targetTask: "Popravilo dvigala"
   },

@@ -82,28 +82,31 @@ export function CommunicationCard({
         {/* Top-Right Buttons */}
         <div className="flex items-center gap-2">
           {showRedButton && (
-            <button
+            <div
               style={{
                 boxSizing: "border-box",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
                 padding: "0px",
-                width: "36px",
-                height: "36px",
-                cursor: "pointer",
+                width: "34px",
+                height: "34px",
                 background: "transparent",
                 border: "none",
               }}
-              title="Options"
             >
-              <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="1" y="1" width="34" height="34" rx="11" fill="#FF0000" stroke="white" strokeWidth="2"/>
-                <circle cx="18" cy="12" r="1.5" fill="white" />
-                <circle cx="18" cy="18" r="1.5" fill="white" />
-                <circle cx="18" cy="24" r="1.5" fill="white" />
+              <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="1" y="1" width="32" height="32" rx="16" fill="white"/>
+                <g clipPath="url(#clip0_197_4935)">
+                  <path d="M17 0C7.61175 0 0 7.61175 0 17C0 26.3883 7.61175 34 17 34C26.3883 34 34 26.3883 34 17C34 7.61175 26.3883 0 17 0ZM15.0861 9.19842C14.9727 8.06367 15.8653 7.08333 17 7.08333C18.1348 7.08333 19.0273 8.06367 18.9139 9.19842C18.4708 13.6299 18.2223 16.1144 17.7792 20.5459C17.7381 20.9454 17.4023 21.25 17 21.25C16.5977 21.25 16.2619 20.9454 16.2208 20.5445L15.0861 9.19842ZM17 27.2708C16.0225 27.2708 15.2292 26.4775 15.2292 25.5C15.2292 24.5225 16.0225 23.7292 17 23.7292C17.9775 23.7292 18.7708 24.5225 18.7708 25.5C18.7708 26.4775 17.9775 27.2708 17 27.2708Z" fill="#FF0000"/>
+                </g>
+                <defs>
+                  <clipPath id="clip0_197_4935">
+                    <rect width="34" height="34" fill="white"/>
+                  </clipPath>
+                </defs>
               </svg>
-            </button>
+            </div>
           )}
 
           {/* Dismiss Button */}

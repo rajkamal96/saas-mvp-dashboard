@@ -14,6 +14,16 @@ const LABEL_STYLE: React.CSSProperties = {
   marginBottom: "12px",
 };
 
+const LABEL_STYLE_SLIDE_2: React.CSSProperties = {
+  fontFamily: "Inter, sans-serif",
+  fontWeight: 500,
+  fontSize: "12px",
+  lineHeight: "16px",
+  letterSpacing: "-0.48px",
+  color: "#93C5FD",
+  marginBottom: "16px",
+};
+
 const TITLE_STYLE: React.CSSProperties = {
   fontFamily: "Inter, sans-serif",
   fontWeight: 300,
@@ -264,11 +274,11 @@ export function TransformationSlider() {
                   alignItems: "flex-start",
                 }}
               >
-                <div style={LABEL_STYLE}>GLASOVNA SPOROČILA</div>
+                <div style={LABEL_STYLE_SLIDE_2}>GLASOVNA SPOROČILA</div>
                 <h3 style={TITLE_STYLE}>Teren govori. Pisarna ukrepa. Delo teče hitreje.</h3>
 
                 {/* Intro paragraph */}
-                <p style={{ ...BODY_STYLE, margin: "0 0 24px 0" }}>
+                <p style={{ ...BODY_STYLE, margin: "0 0 36px 0" }}>
                   Namesto telefonskega klica terenec govori v mikrofon. AI iz govora pripravi
                   kratek, jasen zapis, ki je takoj prikazan na delovni tabli pisarne. Informacije
                   postanejo uporabne takoj in pisarna lahko ukrepa.
@@ -277,40 +287,40 @@ export function TransformationSlider() {
                 {/* Example 1 */}
                 <div style={{ marginBottom: "16px" }}>
                   {/* Label + quoted speech: weight 400 */}
-                  <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 400, fontSize: "14px", lineHeight: "20px", color: "#CBD5E1", margin: "0 0 2px 0" }}>
+                  <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 400, fontSize: "14px", lineHeight: "20px", color: "#CBD5E1", margin: "0 0 4px 0" }}>
                     Primer. Terenec govori:
                   </p>
-                  <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 300, fontSize: "14px", lineHeight: "20px", color: "#CBD5E1", margin: "0 0 4px 0" }}>
+                  <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 300, fontSize: "14px", lineHeight: "20px", color: "#CBD5E1", margin: "0 0 16px 0" }}>
                     &ldquo;Poslušaj, prišlo je do prometne nesreče na obvoznici, premikamo se s polžjo hitrostjo in zabijam čas tukaj, ko se mudi. Zgleda, da bom lahko prevzel šele okrog enajstih namesto ob desetih.&rdquo;
                   </p>
                   {/* AI label + AI output: weight 400 for label, 300 for quote */}
-                  <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 400, fontSize: "14px", lineHeight: "20px", color: "#CBD5E1", margin: "0 0 2px 0" }}>
+                  <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 400, fontSize: "14px", lineHeight: "20px", color: "#CBD5E1", margin: "0 0 4px 0" }}>
                     AI sporočilo pretvori v tekst, ki se prikaže na delovni tabli pisarne.
                   </p>
-                  <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 300, fontSize: "14px", lineHeight: "20px", color: "#CBD5E1", margin: "0 0 4px 0" }}>
+                  <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 300, fontSize: "14px", lineHeight: "20px", color: "#CBD5E1", margin: "0 0 16px 0" }}>
                     &ldquo;Prometna nesreča na obvoznici. Prevzem okrog 11:00.&rdquo;
                   </p>
                   {/* Outcome: weight 400 */}
-                  <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 400, fontSize: "14px", lineHeight: "20px", color: "#CBD5E1", margin: 0 }}>
+                  <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 400, fontSize: "14px", lineHeight: "20px", color: "#CBD5E1", margin: "0 0 24px 0" }}>
                     Pisarna je obveščena, naročnika lahko obvesti o zamudi ali organizira prevzem tovora preko drugega.
                   </p>
                 </div>
 
                 {/* Example 2 */}
                 <div style={{ marginBottom: "16px" }}>
-                  <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 400, fontSize: "14px", lineHeight: "20px", color: "#CBD5E1", margin: "0 0 2px 0" }}>
+                  <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 400, fontSize: "14px", lineHeight: "20px", color: "#CBD5E1", margin: "0 0 4px 0" }}>
                     Drug primer: Terenec govori:
                   </p>
-                  <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 300, fontSize: "14px", lineHeight: "20px", color: "#CBD5E1", margin: "0 0 4px 0" }}>
+                  <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 300, fontSize: "14px", lineHeight: "20px", color: "#CBD5E1", margin: "0 0 16px 0" }}>
                     &ldquo;Evo, vse smo zaključil. Aja, porabil smo še dve kartuši silikona pa eno PU peno. Ne vem, če je še kaj ostalo v kakem kombiju al če mamo v skladišču.&rdquo;
                   </p>
-                  <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 400, fontSize: "14px", lineHeight: "20px", color: "#CBD5E1", margin: "0 0 2px 0" }}>
+                  <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 400, fontSize: "14px", lineHeight: "20px", color: "#CBD5E1", margin: "0 0 4px 0" }}>
                     AI prepozna porabljen material in pripravi zapis, ki se prikaže na delovni tabli pisarne.
                   </p>
-                  <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 300, fontSize: "14px", lineHeight: "20px", color: "#CBD5E1", margin: "0 0 4px 0" }}>
+                  <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 300, fontSize: "14px", lineHeight: "20px", color: "#CBD5E1", margin: "0 0 16px 0" }}>
                     &ldquo;Porabljeno: 2× kartuša silikona, 1× PU pena. Preveri zalogo.&rdquo;
                   </p>
-                  <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 400, fontSize: "14px", lineHeight: "20px", color: "#CBD5E1", margin: 0 }}>
+                  <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 400, fontSize: "14px", lineHeight: "20px", color: "#CBD5E1", margin: "0 0 24px 0" }}>
                     Pisarna posodobi zalogo in doda artikle na seznam za naročilo.
                   </p>
                 </div>

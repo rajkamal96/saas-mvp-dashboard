@@ -3,12 +3,27 @@
 import React from "react";
 import { Worker, TaskItem } from "@/lib/mockData";
 
-// ── Link/attachment SVG icon ──────────────────────────────────────────────────
-function AttachmentIcon() {
+// ── Attachment icon — COMPLETED tasks (lighter, 13×15) ───────────────────────
+function AttachmentIconCompleted() {
   return (
-    <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="13" height="15" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
-        d="M1 8.51912L7.08708 2.37122C8.89729 0.542928 11.8323 0.542928 13.6425 2.37122C15.4527 4.19951 15.4524 7.16391 13.6422 8.9922L6.61868 16.0859C5.41188 17.3048 3.4556 17.3046 2.2488 16.0858C1.04199 14.8669 1.0417 12.891 2.2485 11.6721L9.27206 4.57836C9.87546 3.96893 10.8543 3.96893 11.4577 4.57836C12.0611 5.18779 12.0607 6.17563 11.4573 6.78506L5.37018 12.933"
+        d="M0.5 7.54918L6.15229 1.78552C7.83319 0.0714946 10.5585 0.0714946 12.2394 1.78552C13.9203 3.49954 13.9201 6.27867 12.2392 7.99269L5.71734 14.6431C4.59674 15.7858 2.7802 15.7856 1.6596 14.6429C0.538995 13.5002 0.53872 11.6478 1.65932 10.5051L8.1812 3.85471C8.7415 3.28337 9.65041 3.28337 10.2107 3.85471C10.771 4.42605 10.7706 5.35216 10.2103 5.9235L4.55802 11.6872"
+        stroke="#151E23"
+        strokeOpacity="0.15"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+// ── Attachment icon — INCOMPLETE tasks (darker, 14×16) ───────────────────────
+function AttachmentIconIncomplete() {
+  return (
+    <svg width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M0.5 7.54918L6.15229 1.78552C7.83319 0.0714946 10.5585 0.0714946 12.2394 1.78552C13.9203 3.49954 13.9201 6.27867 12.2392 7.99269L5.71734 14.6431C4.59674 15.7858 2.7802 15.7856 1.6596 14.6429C0.538995 13.5002 0.53872 11.6478 1.65932 10.5051L8.1812 3.85471C8.7415 3.28337 9.65041 3.28337 10.2107 3.85471C10.771 4.42605 10.7706 5.35216 10.2103 5.9235L4.55802 11.6872"
         stroke="#151E23"
         strokeOpacity="0.3"
         strokeWidth="2"
@@ -23,9 +38,94 @@ function AttachmentIcon() {
 interface TaskRowProps {
   task: TaskItem;
   onToggle: () => void;
+  disabled?: boolean;
 }
 
-function TaskRow({ task, onToggle }: TaskRowProps) {
+function TaskRow({ task, onToggle, disabled }: TaskRowProps) {
+  if (disabled) {
+    return (
+      <div className="flex items-center gap-[6px] w-full text-left">
+        {/* Checkbox */}
+        <div
+          className="shrink-0 flex items-center justify-center"
+          style={{
+            width: "16px",
+            height: "16px",
+            background: task.completed ? "transparent" : "#E1E4E8",
+            borderRadius: "4px",
+            border: task.completed ? "2px solid #41C46D" : "none",
+          }}
+        >
+          {task.completed && (
+            <svg width="10" height="7" viewBox="0 0 10 7" fill="none">
+              <path d="M1 3.5L3.5 6L9 1" stroke="#41C46D" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          )}
+        </div>
+
+        {/* Task text */}
+        <span
+          className="flex-1 truncate"
+          style={{
+            fontFamily: "'PT Sans', sans-serif",
+            fontWeight: 400,
+            fontSize: task.completed ? "12px" : "14px",
+            lineHeight: task.completed ? "16px" : "18px",
+            letterSpacing: task.completed ? "-0.2px" : "0.1px",
+            color: task.completed ? "#94A3B8" : "#64748B",
+            textDecoration: "none",
+          }}
+        >
+          {task.text}
+        </span>
+
+        {/* Attachment icon + Time — for completed tasks with hasAttachment */}
+        {task.completed && task.hasAttachment && task.completedAt && (
+          <div className="flex items-center gap-[6px] shrink-0 ml-auto">
+            <span className="shrink-0"><AttachmentIconCompleted /></span>
+            <span
+              className="shrink-0"
+              style={{
+                fontFamily: "'PT Sans', sans-serif",
+                fontWeight: 400,
+                fontSize: "12px",
+                lineHeight: "16px",
+                letterSpacing: "0.1px",
+                color: "#D3D3D3",
+                textAlign: "right",
+              }}
+            >
+              {task.completedAt}
+            </span>
+          </div>
+        )}
+
+        {/* Time only — for completed tasks without hasAttachment */}
+        {task.completed && !task.hasAttachment && task.completedAt && (
+          <span
+            className="shrink-0 ml-auto"
+            style={{
+              fontFamily: "'PT Sans', sans-serif",
+              fontWeight: 400,
+              fontSize: "12px",
+              lineHeight: "16px",
+              letterSpacing: "0.1px",
+              color: "#D3D3D3",
+              textAlign: "right",
+            }}
+          >
+            {task.completedAt}
+          </span>
+        )}
+
+        {/* Attachment icon only — for incomplete tasks with hasAttachment */}
+        {!task.completed && task.hasAttachment && (
+          <span className="shrink-0 ml-auto"><AttachmentIconIncomplete /></span>
+        )}
+      </div>
+    );
+  }
+
   return (
     <button
       onClick={(e) => {
@@ -68,29 +168,48 @@ function TaskRow({ task, onToggle }: TaskRowProps) {
         {task.text}
       </span>
 
-      {/* Attachment and Time for Completed tasks */}
-      {task.completed && (
+      {/* Attachment icon + Time — for completed tasks with hasAttachment */}
+      {task.completed && task.hasAttachment && task.completedAt && (
         <div className="flex items-center gap-[6px] shrink-0 ml-auto">
-          <span className="shrink-0">
-            <AttachmentIcon />
+          <span className="shrink-0"><AttachmentIconCompleted /></span>
+          <span
+            className="shrink-0"
+            style={{
+              fontFamily: "'PT Sans', sans-serif",
+              fontWeight: 400,
+              fontSize: "12px",
+              lineHeight: "16px",
+              letterSpacing: "0.1px",
+              color: "#D3D3D3",
+              textAlign: "right",
+            }}
+          >
+            {task.completedAt}
           </span>
-          {task.completedAt && (
-            <span
-              className="shrink-0"
-              style={{
-                fontFamily: "'PT Sans', sans-serif",
-                fontWeight: 400,
-                fontSize: "12px",
-                lineHeight: "16px",
-                letterSpacing: "0.1px",
-                color: "#D3D3D3",
-                textAlign: "right",
-              }}
-            >
-              {task.completedAt}
-            </span>
-          )}
         </div>
+      )}
+
+      {/* Time only — for completed tasks without hasAttachment */}
+      {task.completed && !task.hasAttachment && task.completedAt && (
+        <span
+          className="shrink-0 ml-auto"
+          style={{
+            fontFamily: "'PT Sans', sans-serif",
+            fontWeight: 400,
+            fontSize: "12px",
+            lineHeight: "16px",
+            letterSpacing: "0.1px",
+            color: "#D3D3D3",
+            textAlign: "right",
+          }}
+        >
+          {task.completedAt}
+        </span>
+      )}
+
+      {/* Attachment icon only — for incomplete tasks with hasAttachment */}
+      {!task.completed && task.hasAttachment && (
+        <span className="shrink-0 ml-auto"><AttachmentIconIncomplete /></span>
       )}
     </button>
   );
@@ -103,9 +222,10 @@ interface WorkerCardProps {
   date?: string;   // e.g. "23/05/26"
   orderId?: string; // e.g. "#484"
   onClick?: () => void;
+  disableActions?: boolean;
 }
 
-export function WorkerCard({ worker, onToggleTask, date = "23/05/26", orderId = "#484", onClick }: WorkerCardProps) {
+export function WorkerCard({ worker, onToggleTask, date = "23/05/26", orderId = "#484", onClick, disableActions }: WorkerCardProps) {
   const done = worker.tasks.filter(t => t.completed).length;
   const total = worker.tasks.length;
 
@@ -248,6 +368,7 @@ export function WorkerCard({ worker, onToggleTask, date = "23/05/26", orderId = 
                         key={task.id}
                         task={task}
                         onToggle={() => onToggleTask(worker.id, task.id)}
+                        disabled={disableActions}
                       />
                     ))}
                   </div>
@@ -268,6 +389,7 @@ export function WorkerCard({ worker, onToggleTask, date = "23/05/26", orderId = 
                         key={task.id}
                         task={task}
                         onToggle={() => onToggleTask(worker.id, task.id)}
+                        disabled={disableActions}
                       />
                     ))}
                   </div>

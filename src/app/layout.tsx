@@ -30,7 +30,7 @@ export default function RootLayout({
       className={`${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <LanguageSwitcher />
+        {/* <LanguageSwitcher /> */}
         {children}
         <Script 
           src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js" 

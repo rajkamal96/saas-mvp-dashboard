@@ -95,7 +95,7 @@ export function Pricing() {
 
       <div className="flex justify-center items-center">
         {/* Single Premium Pricing Card styled exactly like Aura Pro */}
-        <div className="relative w-full max-w-md rounded-[2rem] bg-gradient-to-b from-blue-50/50 to-[#f8fafc] border border-white shadow-[0_15px_35px_-10px_rgba(59,130,246,0.15),inset_0_2px_0_rgba(255,255,255,1)] transition-all duration-500 hover:shadow-[0_25px_50px_-12px_rgba(59,130,246,0.2),inset_0_2px_0_rgba(255,255,255,1)] hover:-translate-y-1">
+        <div className="relative w-full max-w-xl rounded-[2rem] bg-gradient-to-b from-blue-50/50 to-[#f8fafc] border border-white shadow-[0_15px_35px_-10px_rgba(59,130,246,0.15),inset_0_2px_0_rgba(255,255,255,1)] transition-all duration-500 hover:shadow-[0_25px_50px_-12px_rgba(59,130,246,0.2),inset_0_2px_0_rgba(255,255,255,1)] hover:-translate-y-1">
           
           {/* Floating Badge */}
           <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-gradient-to-b from-blue-400 to-blue-500 text-white text-[0.65rem] font-medium rounded-full shadow-[0_2px_6px_rgba(59,130,246,0.4),inset_0_1px_0_rgba(255,255,255,0.4)] border border-blue-600 tracking-wide z-10 uppercase">
@@ -113,12 +113,9 @@ export function Pricing() {
                     {isYearly ? t("priceCardUnitYearly") : t("priceCardUnit")}
                   </span>
                 </div>
-                <p className="mt-4 text-sm font-normal text-slate-500 leading-relaxed">
+                <p className="mt-4 text-sm font-normal text-slate-500 leading-relaxed whitespace-pre-line">
                   {t("priceCardSub")}
                 </p>
-              </div>
-              <div className="w-11 h-11 min-w-11 min-h-11 shrink-0 rounded-2xl bg-gradient-to-b from-white to-blue-50 shadow-[0_6px_16px_rgba(59,130,246,0.12),inset_0_1px_0_white] flex items-center justify-center text-blue-500 border border-blue-100">
-                <iconify-icon icon="solar:stars-linear" style={{ strokeWidth: 1.5 }} className="block text-[22px] leading-none"></iconify-icon>
               </div>
             </div>
 

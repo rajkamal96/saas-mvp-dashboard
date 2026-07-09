@@ -72,6 +72,20 @@ export function DashboardPreview() {
   const [orders, setOrders] = useState<Order[]>(initialOrders);
   const [messages, setMessages] = useState<Message[]>(initialMessages);
 
+  const handleToggleTask = (workerId: string, taskId: string) => {
+    setWorkers(prev => prev.map(w => {
+      if (w.id !== workerId) return w;
+      return {
+        ...w,
+        tasks: w.tasks.map(t =>
+          t.id === taskId
+            ? { ...t, completed: !t.completed, completedAt: !t.completed ? new Date().toLocaleTimeString("sl-SI", { hour: "2-digit", minute: "2-digit" }) : undefined }
+            : t
+        ),
+      };
+    }));
+  };
+
   const handleApprove = (orderId: string) => {
     setOrders(prev => prev.map(o => o.id === orderId ? { ...o, status: "potrjeno" } : o));
   };
@@ -81,19 +95,19 @@ export function DashboardPreview() {
   };
 
   const handleDismissOrder = (orderId: string) => {
-    setOrders(initialOrders);
+    setOrders(prev => prev.filter(o => o.id !== orderId));
   };
 
   const handleResolveMessage = (messageId: string) => {
-    setMessages(initialMessages);
+    setMessages(prev => prev.filter(m => m.id !== messageId));
   };
 
   const handleDismissMessage = (messageId: string) => {
-    setMessages(initialMessages);
+    setMessages(prev => prev.filter(m => m.id !== messageId));
   };
 
   const handleArchiveMessage = (messageId: string) => {
-    setMessages(initialMessages);
+    setMessages(prev => prev.filter(m => m.id !== messageId));
   };
 
   return (
@@ -101,7 +115,7 @@ export function DashboardPreview() {
       {/* Section Header */}
       <div className="text-center max-w-5xl mx-auto mb-16">
         <p className="font-['JetBrains_Mono',monospace] text-[10px] md:text-xs font-semibold tracking-[-0.04em] text-blue-500 mb-4 uppercase">
-          {t("previewBadge") || "INTERAKTIVNI PREDOGLED"}
+          {t("previewBadge") || "KOMANDNI CENTER V ŽIVO"}
         </p>
         <h2 className="text-3xl md:text-5xl font-normal tracking-tight text-slate-950 max-w-3xl mx-auto">
           {t("previewTitle") || "Upravljajte celotno ekipo iz enotnega komandnega centra"}
@@ -119,10 +133,26 @@ export function DashboardPreview() {
         <div className="absolute bottom-[-35%] right-[5%] w-[30rem] h-[30rem] rounded-full bg-sky-200/20 blur-[6rem] pointer-events-none" />
 
         {/* Outer Dashboard Shell */}
-        <div className="relative space-y-8">
+        <div className="relative">
           
-          {/* Summary Cards Row - with multiple items matching the dashboard */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Dnevni pregled heading */}
+          <h2
+            style={{
+              fontFamily: "Inter, sans-serif",
+              fontWeight: 400,
+              fontSize: "60px",
+              lineHeight: "36px",
+              letterSpacing: "-0.75px",
+              color: "#0F172A",
+              marginBottom: "42px",
+              textAlign: "center",
+            }}
+          >
+            Dnevni pregled
+          </h2>
+
+          {/* Summary Cards Row */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6" style={{ marginBottom: "32px" }}>
             <SummaryCard title="HITRI PREGLED">
               <div className="flex flex-col gap-[4px]">
                 {workers.map(w => {
@@ -155,9 +185,9 @@ export function DashboardPreview() {
             </SummaryCard>
           </div>
 
-          {/* 3 Columns Grid - with exactly 1 card in each, and + add buttons */}
+          {/* 3 Columns Grid - with all 3 cards in each column exactly like the dashboard */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Column 1 - Teren (NO action in landing page) */}
+            {/* Column 1 - Teren */}
             <div className="flex flex-col gap-3">
               <ColumnHeader title="DANES-TEREN" onAddClick={() => {}} />
               <div
@@ -173,13 +203,17 @@ export function DashboardPreview() {
                 }}
                 className="group hover:-translate-y-1 transition-all duration-300"
               >
-                <WorkerCard
-                  worker={workers[0]}
-                  onToggleTask={() => {}}
-                  date="23/05/26"
-                  orderId="#481"
-                  onClick={undefined}
-                />
+                {workers.slice(0, 3).map((w, idx) => (
+                  <WorkerCard
+                    key={w.id}
+                    worker={w}
+                    onToggleTask={handleToggleTask}
+                    date="23/05/26"
+                    orderId={idx === 2 ? "#486" : "#484"}
+                    onClick={undefined}
+                    disableActions={true}
+                  />
+                ))}
               </div>
             </div>
 
@@ -199,16 +233,28 @@ export function DashboardPreview() {
                 }}
                 className="group hover:-translate-y-1 transition-all duration-300"
               >
-                <CommunicationCard
-                  order={orders[0]}
-                  buttonsConfig="call-tick-decline"
-                  showRedButton={true}
-                  onResolve={() => handleApprove(orders[0].id)}
-                  onDismiss={() => handleDismissOrder(orders[0].id)}
-                  onArchive={() => handleDecline(orders[0].id)}
-                  onCall={() => alert(`Klicanje: ${orders[0].workerName}`)}
-                  onAttachmentClick={() => alert(`Showing attachments for ${orders[0].title}`)}
-                />
+                {orders.slice(0, 3).map((o, idx) => {
+                  let buttonsConfig: 'call-tick-decline' | 'attachment-tick-decline' | 'none' = 'attachment-tick-decline';
+                  if (idx === 0) {
+                    buttonsConfig = 'call-tick-decline';
+                  } else if (idx === 2) {
+                    buttonsConfig = 'none';
+                  }
+
+                  return (
+                    <CommunicationCard
+                      key={o.id}
+                      order={o}
+                      buttonsConfig={buttonsConfig}
+                      showRedButton={idx === 0 || idx === 1}
+                      onResolve={() => handleApprove(o.id)}
+                      onDismiss={() => handleDismissOrder(o.id)}
+                      onArchive={() => handleDecline(o.id)}
+                      onCall={() => alert(`Klicanje: ${o.workerName}`)}
+                      onAttachmentClick={() => alert(`Showing attachments for ${o.title}`)}
+                    />
+                  );
+                })}
               </div>
             </div>
 
@@ -228,14 +274,17 @@ export function DashboardPreview() {
                 }}
                 className="group hover:-translate-y-1 transition-all duration-300"
               >
-                <OfficeCard
-                  message={messages[0]}
-                  iconType="mic"
-                  showRedButton={false}
-                  onResolve={() => handleResolveMessage(messages[0].id)}
-                  onDismiss={() => handleDismissMessage(messages[0].id)}
-                  onArchive={() => handleArchiveMessage(messages[0].id)}
-                />
+                {messages.slice(0, 3).map((m, idx) => (
+                  <OfficeCard
+                    key={m.id}
+                    message={m}
+                    iconType={idx === 2 ? "document" : "mic"}
+                    showRedButton={idx === 0 || idx === 1}
+                    onResolve={() => handleResolveMessage(m.id)}
+                    onDismiss={() => handleDismissMessage(m.id)}
+                    onArchive={() => handleArchiveMessage(m.id)}
+                  />
+                ))}
               </div>
             </div>
           </div>

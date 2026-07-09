@@ -66,7 +66,7 @@ export function PainSolutions() {
           
           {/* Heading — Figma style */}
           <div className="flex flex-col items-start gap-1 mb-8">
-            <span className="font-['Roboto',sans-serif] text-xs font-normal tracking-[0.1em] text-[#60A5FA] uppercase">
+            <span className="font-['Roboto',sans-serif] text-base font-medium tracking-[0.1em] text-[#60A5FA] uppercase">
               {t("tabsLabel")}
             </span>
             <h2 className="font-['Inter',sans-serif] text-3xl md:text-5xl font-normal tracking-tight text-white mt-2">
@@ -90,7 +90,7 @@ export function PainSolutions() {
                   height: "42px",
                   fontFamily: "Inter, sans-serif",
                   fontWeight: 400,
-                  fontSize: "13px",
+                  fontSize: "14px",
                   lineHeight: "20px",
                   ...(activeTab === idx
                     ? {
@@ -137,7 +137,7 @@ export function PainSolutions() {
                     <span className="shrink-0 text-white flex items-center justify-center">
                       <iconify-icon icon="solar:checklist-linear" style={{ fontSize: "18px", color: "#BFDBFE" }} />
                     </span>
-                    <p className="font-['Inter',sans-serif] text-sm md:text-base font-normal text-white leading-normal">
+                    <p className="font-['Inter',sans-serif] text-base md:text-base font-normal text-white leading-normal">
                       {t("benefitsMobiItem1")}
                     </p>
                   </div>
@@ -147,7 +147,7 @@ export function PainSolutions() {
                     <span className="shrink-0 text-white flex items-center justify-center">
                       <iconify-icon icon="solar:gallery-linear" style={{ fontSize: "18px", color: "#BFDBFE" }} />
                     </span>
-                    <p className="font-['Inter',sans-serif] text-sm md:text-base font-normal text-white leading-normal">
+                    <p className="font-['Inter',sans-serif] text-base md:text-base font-normal text-white leading-normal">
                       {t("benefitsMobiItem2")}
                     </p>
                   </div>
@@ -157,7 +157,7 @@ export function PainSolutions() {
                     <span className="shrink-0 text-white flex items-center justify-center">
                       <iconify-icon icon="solar:microphone-linear" style={{ fontSize: "18px", color: "#BFDBFE" }} />
                     </span>
-                    <p className="font-['Inter',sans-serif] text-sm md:text-base font-normal text-white leading-normal">
+                    <p className="font-['Inter',sans-serif] text-base md:text-base font-normal text-white leading-normal">
                       {t("benefitsMobiItem3")}
                     </p>
                   </div>
@@ -181,7 +181,7 @@ export function PainSolutions() {
                     <span className="shrink-0 text-white flex items-center justify-center">
                       <iconify-icon icon="solar:shield-check-linear" style={{ fontSize: "18px", color: "#BFDBFE" }} />
                     </span>
-                    <p className="font-['Inter',sans-serif] text-sm md:text-base font-normal text-white leading-normal">
+                    <p className="font-['Inter',sans-serif] text-base md:text-base font-normal text-white leading-normal">
                       {t("benefitsOfficeItem1")}
                     </p>
                   </div>
@@ -191,7 +191,7 @@ export function PainSolutions() {
                     <span className="shrink-0 text-white flex items-center justify-center">
                       <iconify-icon icon="solar:users-group-two-rounded-linear" style={{ fontSize: "18px", color: "#BFDBFE" }} />
                     </span>
-                    <p className="font-['Inter',sans-serif] text-sm md:text-base font-normal text-white leading-normal">
+                    <p className="font-['Inter',sans-serif] text-base md:text-base font-normal text-white leading-normal">
                       {t("benefitsOfficeItem2")}
                     </p>
                   </div>
@@ -201,7 +201,7 @@ export function PainSolutions() {
                     <span className="shrink-0 text-white flex items-center justify-center">
                       <iconify-icon icon="solar:refresh-square-linear" style={{ fontSize: "18px", color: "#BFDBFE" }} />
                     </span>
-                    <p className="font-['Inter',sans-serif] text-sm md:text-base font-normal text-white leading-normal">
+                    <p className="font-['Inter',sans-serif] text-base md:text-base font-normal text-white leading-normal">
                       {t("benefitsOfficeItem3")}
                     </p>
                   </div>

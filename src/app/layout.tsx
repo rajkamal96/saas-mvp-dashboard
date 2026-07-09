@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Source_Sans_3, JetBrains_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import Script from "next/script";
 
-const sourceSans3 = Source_Sans_3({
+const inter = Inter({
   variable: "--font-sans",
   subsets: ["latin"],
 });
@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${sourceSans3.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <LanguageSwitcher />

@@ -7,6 +7,8 @@ import { TargetIndustries } from "@/components/landing/TargetIndustries";
 import { BenefitCards } from "@/components/landing/BenefitCards";
 import { PainSolutions } from "@/components/landing/PainSolutions";
 import { Timeline } from "@/components/landing/Timeline";
+import { DashboardPreview } from "@/components/landing/DashboardPreview";
+import { TransformationSlider } from "@/components/landing/TransformationSlider";
 import { FeatureCarousel } from "@/components/landing/FeatureCarousel";
 import { Pricing } from "@/components/landing/Pricing";
 import { Footer } from "@/components/landing/Footer";
@@ -98,6 +100,8 @@ export default function LandingPage() {
         {/* <BenefitCards /> */}
         <PainSolutions />
         <Timeline />
+        <DashboardPreview />
+        <TransformationSlider />
         {/* <FeatureCarousel /> */}
         <Pricing />
         <Footer />

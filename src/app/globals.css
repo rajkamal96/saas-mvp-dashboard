@@ -236,13 +236,13 @@
   backdrop-filter: blur(40px) !important;
 }
 
-/* PT Sans font mapping and overrides to Source Sans 3 */
+/* PT Sans font mapping and overrides to Inter */
 :root {
   --font-pt-sans: var(--font-sans);
 }
 
 body, button, input, select, textarea, span, p, h1, h2, h3, h4, h5, h6, a, div, li, ul, ol, label {
-  font-family: var(--font-sans), 'Source Sans 3', sans-serif !important;
+  font-family: var(--font-sans), 'Inter', sans-serif !important;
 }
 
 /* Ensure code/mono elements still use mono */

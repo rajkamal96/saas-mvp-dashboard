@@ -96,6 +96,11 @@ export const translations = {
     timelineStep4Title: "Celotna zgodovina ostane shranjena",
     timelineStep4Desc: "Vsaka fotografija, dokument, sporočilo in vse narejene spremembe ostanejo trajno povezane z isto delovno nalogo. Kasnejše iskanje je enostavno.",
 
+    // Interactive Preview
+    previewBadge: "KOMANDNI CENTER V ŽIVO",
+    previewTitle: "Upravljajte celotno ekipo iz enotnega komandnega centra",
+    previewSubtitle: "Preizkusite interaktivni predogled delovanja nadzorne plošče neposredno spodaj.",
+
     // Features Showcase
     showcaseTitle: "Interaktiven prikaz delovanja",
     showcaseSubtitle: "Preklapljajte med zavihki za vizualni ogled ključnih modulov aplikacije.",
@@ -350,6 +355,11 @@ export const translations = {
     timelineStep3Desc: "Sees everyone's progress from the office without phone calls. AI transcribes voice notes in seconds (e.g. 'Maks needs paint'), facilitating action.",
     timelineStep4Title: "Full history remains archived",
     timelineStep4Desc: "Every photo, document, message, and status update stays linked to the same work order. Retrieval is quick and easy.",
+
+    // Interactive Preview
+    previewBadge: "LIVE COMMAND CENTER",
+    previewTitle: "Manage your entire team from a single command center",
+    previewSubtitle: "Experience a live interactive preview of the office dashboard below.",
 
     // Features Showcase
     showcaseTitle: "Interactive Flow Demonstration",

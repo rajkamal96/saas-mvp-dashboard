@@ -96,14 +96,13 @@ export default function LandingPage() {
       <div className="relative z-10">
         <Navbar />
         <Hero />
-        {/* <TargetIndustries /> */}
-        {/* <BenefitCards /> */}
         <PainSolutions />
         <Timeline />
         <DashboardPreview />
         <TransformationSlider />
         {/* <FeatureCarousel /> */}
         <Pricing />
+        <TargetIndustries />
         <Footer />
       </div>
     </div>

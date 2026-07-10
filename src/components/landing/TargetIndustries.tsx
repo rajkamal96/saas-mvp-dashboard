@@ -1,50 +1,190 @@
 "use client";
 
 import React from "react";
-import { useLanguage } from "@/lib/useLanguage";
 
 export function TargetIndustries() {
-  const { t } = useLanguage();
-
-  const industries = [
-    "Elektroinštalacije",
-    "Vodovodne inštalacije",
-    "Gradbeništvo & Montaža",
-    "Urejanje okolice & Vrtnarstvo",
-    "Čiščenje in vzdrževanje",
-    "Servis strojev & Opreme",
-    "Telekomunikacije"
+  const row1 = [
+    "Gradbena podjetja",
+    "Slikopleskarstvo",
+    "Keramika in zaključna dela",
+    "Fasaderstvo",
+    "Montaže",
+    "Akviziterstvo",
+    "Varnostne službe"
   ];
 
-  return (
-    <section id="panoge" className="max-w-7xl mx-auto px-6 py-12">
-      <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-r from-slate-50 to-slate-100/50 border border-white p-8 md:p-10 shadow-[0_10px_30px_-15px_rgba(15,23,42,0.15),inset_0_1px_0_white]">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-blue-100/30 rounded-full blur-3xl pointer-events-none" />
+  const row2 = [
+    "Servisi",
+    "Vodovodne inštalacije",
+    "Elektro inštalacije",
+    "Avtovleka in avtoservis",
+    "Čistilni servisi",
+    "Energetika",
+    "Dostava in logistika"
+  ];
 
-        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8">
-          <div className="max-w-md">
-            <p className="font-['JetBrains_Mono',monospace] text-[10px] md:text-xs font-semibold tracking-[-0.04em] text-blue-500 mb-2 uppercase">
-              {t("indTitle")}
-            </p>
-            <h3 className="text-xl md:text-2xl font-semibold tracking-tight text-slate-950">
-              Prilagojeno za vsako ekipo na terenu
-            </h3>
-            <p className="mt-2 text-xs md:text-sm leading-6 text-slate-500 font-light">
-              Dnevnik.app se brez težav prilagodi specifikam vaše panoge in strukturi dela.
-            </p>
-          </div>
+  const row3 = [
+    "Vzdrževalna dela",
+    "Urejanje okolice",
+    "Upravniki stavb",
+    "Inženiringi in projektiranje",
+    "Organizatorji prireditev, porok",
+    "Zavarovalništvo"
+  ];
 
-          <div className="flex flex-wrap items-center gap-2 max-w-xl">
-            {industries.map((ind, i) => (
-              <span 
-                key={i} 
-                className="rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-xs font-normal text-slate-700 shadow-[0_2px_6px_rgba(15,23,42,0.03),inset_0_1px_0_white] hover:border-[#1B3A6B] hover:text-[#1B3A6B] hover:-translate-y-0.5 transition-all duration-300 cursor-default"
-              >
-                {ind}
-              </span>
-            ))}
-          </div>
+  const row4 = [
+    "Inšpekcije in pregledi",
+    "Selitve",
+    "Komunalna podjetja",
+    "Kurirske službe"
+  ];
+
+  const renderRow = (items: string[]) => (
+    <div 
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        flexWrap: "wrap",
+        justifyContent: "center",
+        alignItems: "center",
+        gap: "12px",
+        width: "100%"
+      }}
+    >
+      {items.map((item, idx) => (
+        <div
+          key={idx}
+          style={{
+            boxSizing: "border-box",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-start",
+            padding: "6px 12px",
+            background: "rgba(255, 255, 255, 0.04)",
+            border: "0.7px solid #1D4ED8",
+            borderRadius: "9999px",
+            transition: "all 0.3s ease"
+          }}
+          className="hover:scale-[1.03] hover:bg-blue-500/5 hover:border-blue-600 transition-all cursor-default"
+        >
+          <span
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              fontStyle: "normal",
+              fontWeight: 400,
+              fontSize: "12px",
+              lineHeight: "16px",
+              display: "flex",
+              alignItems: "center",
+              color: "rgba(29, 78, 216, 0.6)",
+              transition: "color 0.3s ease"
+            }}
+            className="hover:text-blue-600"
+          >
+            {item}
+          </span>
         </div>
+      ))}
+    </div>
+  );
+
+  return (
+    <section 
+      style={{
+        width: "100%",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        padding: "80px 24px",
+        gap: "40px",
+        background: "transparent"
+      }}
+      className="relative z-10"
+    >
+      {/* Intro Title & Subtitle */}
+      <div 
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          padding: "0px",
+          gap: "16px",
+          maxWidth: "768px",
+          width: "100%",
+          textAlign: "center"
+        }}
+      >
+        <span
+          style={{
+            fontFamily: "'Inter', sans-serif",
+            fontStyle: "normal",
+            fontWeight: 400,
+            fontSize: "12px",
+            lineHeight: "16px",
+            display: "flex",
+            alignItems: "center",
+            textAlign: "center",
+            letterSpacing: "-0.48px",
+            color: "#3B82F6",
+            textTransform: "uppercase"
+          }}
+        >
+          USTVARJENO ZA
+        </span>
+        <h2
+          style={{
+            fontFamily: "'Inter', sans-serif",
+            fontStyle: "normal",
+            fontWeight: 400,
+            fontSize: "32px",
+            lineHeight: "40px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            textAlign: "center",
+            letterSpacing: "-1.5px",
+            color: "#020617",
+            margin: 0
+          }}
+        >
+          Podjetja, ki želijo več pregleda in lažje vodenje
+        </h2>
+      </div>
+
+      {/* Grid of Industry Pills */}
+      <div 
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          padding: "0px",
+          gap: "20px",
+          width: "100%",
+          maxWidth: "1100px"
+        }}
+      >
+        {renderRow(row1)}
+        {renderRow(row2)}
+        {renderRow(row3)}
+        {renderRow(row4)}
+      </div>
+
+      {/* Footer Text */}
+      <div
+        style={{
+          fontFamily: "'Inter', sans-serif",
+          fontStyle: "normal",
+          fontWeight: 300,
+          fontSize: "16px",
+          lineHeight: "28px",
+          display: "flex",
+          alignItems: "center",
+          textAlign: "center",
+          color: "#475569",
+          marginTop: "12px"
+        }}
+      >
+        ...in mnoge druge...
       </div>
     </section>
   );

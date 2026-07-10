@@ -83,7 +83,7 @@ export function CommunicationCard({
             alignItems: "center",
           }}
         >
-          {order.workerName} • {order.time}
+          {order.workerName} • {order.createdAt}
         </span>
 
         {/* Top-Right Buttons */}
@@ -226,18 +226,20 @@ export function CommunicationCard({
         }}
       >
         {/* Left: Time display */}
-        <span
-          style={{
-            fontFamily: "'Inter', sans-serif",
-            fontWeight: 300,
-            fontSize: "24px",
-            lineHeight: "32px",
-            letterSpacing: "-0.6px",
-            color: "#FFFFFF",
-          }}
-        >
-          {order.time}
-        </span>
+        {order.time && (
+          <span
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              fontWeight: 300,
+              fontSize: "24px",
+              lineHeight: "32px",
+              letterSpacing: "-0.6px",
+              color: "#FFFFFF",
+            }}
+          >
+            {order.time}
+          </span>
+        )}
 
         {/* Right: Three buttons group */}
         {buttonsConfig !== "none" && (

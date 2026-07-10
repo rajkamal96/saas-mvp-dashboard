@@ -5,6 +5,13 @@ import { useRouter } from "next/navigation";
 import { useLanguage } from "@/lib/useLanguage";
 import { Button } from "@/components/ui/button";
 import { WorkerDetailModal } from "@/components/dashboard/WorkerDetailModal";
+import {
+  AuraLabel,
+  AuraInput,
+  AuraFileInput,
+  AuraIconButton,
+  auraCard,
+} from "@/components/dashboard/AuraForm";
 import { initialWorkers } from "@/lib/mockData";
 
 interface TaskItem {
@@ -40,6 +47,8 @@ export default function WorkerDashboard() {
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
   const [addStepOpen, setAddStepOpen] = useState(false);
   const [newStepText, setNewStepText] = useState("");
+  const [newStepHasAttachment, setNewStepHasAttachment] = useState(false);
+  const [newStepAttachmentName, setNewStepAttachmentName] = useState("");
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   // Chat messages
@@ -95,6 +104,24 @@ export default function WorkerDashboard() {
       )
     );
     showToast("Status opravila posodobljen!");
+  };
+
+  const moveTaskUp = (index: number) => {
+    if (index <= 0) return;
+    setTasks(prev => {
+      const next = [...prev];
+      [next[index - 1], next[index]] = [next[index], next[index - 1]];
+      return next;
+    });
+  };
+
+  const moveTaskDown = (index: number) => {
+    setTasks(prev => {
+      if (index >= prev.length - 1) return prev;
+      const next = [...prev];
+      [next[index], next[index + 1]] = [next[index + 1], next[index]];
+      return next;
+    });
   };
 
   const handleSendMessage = () => {
@@ -240,7 +267,7 @@ export default function WorkerDashboard() {
 
           {/* Settings / Signout confirm Button */}
           <button 
-            onClick={() => {}}
+            onClick={() => router.push("/login")}
             style={{
               boxSizing: "border-box",
               width: "36px",
@@ -387,19 +414,17 @@ export default function WorkerDashboard() {
                 const nextTask = tasks[index + 1];
                 const hasGapAfter = task.completed && nextTask && !nextTask.completed;
                 return (
-                  <button
+                  <div
                     key={task.id}
-                    onClick={() => {}}
-                    className="flex items-center gap-2.5 w-full text-left cursor-pointer group bg-transparent border-none p-0 outline-none"
+                    className="flex items-center gap-2 w-full group"
                     style={{
-                      marginBottom: hasGapAfter ? "12px" : "0px",
-                      background: "transparent",
-                      border: "none",
-                      padding: "0"
+                      marginBottom: hasGapAfter ? "12px" : "0px"
                     }}
                   >
                     {/* Checkbox */}
-                    <div
+                    <button
+                      type="button"
+                      onClick={() => handleToggleTask(task.id)}
                       className="shrink-0 flex items-center justify-center transition-all"
                       style={{
                         width: "16px",
@@ -414,11 +439,13 @@ export default function WorkerDashboard() {
                           <path d="M1 3.5L3.5 6L9 1" stroke="#41C46D" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                       )}
-                    </div>
+                    </button>
 
                     {/* Task text */}
-                    <span
-                      className="flex-1 truncate transition-all"
+                    <button
+                      type="button"
+                      onClick={() => handleToggleTask(task.id)}
+                      className="flex-1 text-left truncate transition-all bg-transparent border-none p-0 outline-none"
                       style={{
                         fontFamily: "'PT Sans', sans-serif",
                         fontWeight: 400,
@@ -429,7 +456,7 @@ export default function WorkerDashboard() {
                       }}
                     >
                       {task.text}
-                    </span>
+                    </button>
 
                     {/* Meta labels (Time + Attachment icon) */}
                     <div className="flex items-center gap-1.5 shrink-0">
@@ -454,7 +481,29 @@ export default function WorkerDashboard() {
                         </span>
                       )}
                     </div>
-                  </button>
+
+                    {/* Reorder controls */}
+                    <div className="flex flex-col gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <button
+                        type="button"
+                        onClick={() => moveTaskUp(index)}
+                        disabled={index === 0}
+                        className="leading-none text-slate-400 hover:text-[#1B3A6B] disabled:opacity-30"
+                        aria-label="Move up"
+                      >
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => moveTaskDown(index)}
+                        disabled={index === tasks.length - 1}
+                        className="leading-none text-slate-400 hover:text-[#1B3A6B] disabled:opacity-30"
+                        aria-label="Move down"
+                      >
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                      </button>
+                    </div>
+                  </div>
                 );
               })}
             </div>
@@ -495,7 +544,7 @@ export default function WorkerDashboard() {
 
               {/* DODAJ KORAK */}
               <button 
-                onClick={() => {}}
+                onClick={() => setAddStepOpen(true)}
                 className="flex items-center justify-end gap-3 w-1/2 text-right hover:opacity-80 transition-opacity bg-transparent border-none p-0 outline-none"
                 style={{ background: "transparent", border: "none", padding: 0 }}
               >
@@ -525,7 +574,7 @@ export default function WorkerDashboard() {
             <div className="flex justify-between items-center w-full">
               {/* POKLIČI */}
               <button 
-                onClick={() => {}}
+                onClick={() => window.location.href = "tel:+38640123456"}
                 className="flex items-center gap-3 w-1/2 text-left hover:opacity-80 transition-opacity bg-transparent border-none p-0 outline-none"
                 style={{ background: "transparent", border: "none", padding: 0 }}
               >
@@ -552,7 +601,7 @@ export default function WorkerDashboard() {
 
               {/* E-POŠTA */}
               <button 
-                onClick={() => {}}
+                onClick={() => window.location.href = "mailto:pisarna@dnevnik.app"}
                 className="flex items-center justify-end gap-3 w-1/2 text-right hover:opacity-80 transition-opacity bg-transparent border-none p-0 outline-none"
                 style={{ background: "transparent", border: "none", padding: 0 }}
               >
@@ -595,7 +644,7 @@ export default function WorkerDashboard() {
           >
             {/* GLASOVNO */}
             <button
-              onClick={() => {}}
+              onClick={handleStartRecord}
               className="flex-1 flex flex-col items-center gap-2 group cursor-pointer bg-transparent border-none p-0 outline-none"
               style={{ background: "transparent", border: "none", padding: 0 }}
             >
@@ -622,7 +671,7 @@ export default function WorkerDashboard() {
 
             {/* SPOROČILA */}
             <button
-              onClick={() => {}}
+              onClick={() => setChatOpen(true)}
               className="flex-1 flex flex-col items-center gap-2 group cursor-pointer bg-transparent border-none p-0 outline-none"
               style={{ background: "transparent", border: "none", padding: 0 }}
             >
@@ -777,42 +826,101 @@ export default function WorkerDashboard() {
         {/* ── Popup modal: Dodaj nov korak ── */}
         {addStepOpen && (
           <div className="absolute inset-0 bg-black/45 backdrop-blur-sm z-30 flex items-center justify-center p-4">
-            <div className="bg-white rounded-2xl p-5 w-full max-w-[280px] shadow-2xl border border-slate-100 flex flex-col gap-4 animate-in zoom-in-95 duration-200">
-              <h4 className="font-bold text-sm text-slate-900 text-center">Dodaj nov korak</h4>
-              <input 
-                type="text" 
-                placeholder="npr. Čiščenje delovnega območja"
-                value={newStepText}
-                onChange={(e) => setNewStepText(e.target.value)}
-                className="w-full h-10 border border-slate-200 rounded-xl px-3 text-xs focus:outline-none focus:ring-1 focus:ring-blue-500 text-slate-800 bg-slate-50"
-              />
-              <div className="flex gap-2">
-                <button 
-                  onClick={() => {
-                    setAddStepOpen(false);
-                    setNewStepText("");
-                  }}
-                  className="flex-1 h-9 rounded-xl border border-slate-200 text-xs font-semibold text-slate-500 hover:bg-slate-50 cursor-pointer"
-                >
-                  Prekliči
-                </button>
-                <button 
-                  onClick={() => {
-                    if (newStepText.trim()) {
-                      setTasks(prev => [
-                        ...prev, 
-                        { id: `t_${Date.now()}`, text: newStepText, completed: false }
-                      ]);
-                      showToast("Korak uspešno dodan!");
+            <div className={auraCard}>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  if (!newStepText.trim()) return;
+                  setTasks(prev => [
+                    ...prev,
+                    {
+                      id: `t_${Date.now()}`,
+                      text: newStepText,
+                      completed: false,
+                      hasAttachment: newStepHasAttachment,
+                    },
+                  ]);
+                  showToast("Korak uspešno dodan!");
+                  setAddStepOpen(false);
+                  setNewStepText("");
+                  setNewStepHasAttachment(false);
+                  setNewStepAttachmentName("");
+                }}
+                className="w-full max-w-[280px] flex flex-col gap-4"
+              >
+                <div className="text-center">
+                  <h4 className="text-lg font-semibold tracking-tight text-slate-900">
+                    Dodaj nov korak
+                  </h4>
+                </div>
+
+                <div className="flex flex-col gap-3">
+                  <div>
+                    <AuraLabel strong>Naziv koraka *</AuraLabel>
+                    <AuraInput
+                      type="text"
+                      placeholder="npr. Čiščenje delovnega območja"
+                      value={newStepText}
+                      onChange={(e) => setNewStepText(e.target.value)}
+                      maxLength={30}
+                      required
+                      strong
+                    />
+                    <div className="flex justify-end mt-1">
+                      <span className="text-[10px] text-slate-400">
+                        {newStepText.length}/30
+                      </span>
+                    </div>
+                  </div>
+
+                  <AuraIconButton
+                    active={newStepHasAttachment}
+                    onClick={() => {
+                      setNewStepHasAttachment(!newStepHasAttachment);
+                      if (newStepHasAttachment) setNewStepAttachmentName("");
+                    }}
+                    icon={
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48" />
+                      </svg>
+                    }
+                    label="Priponka"
+                    title="Dodaj prilogo"
+                  />
+
+                  {newStepHasAttachment && (
+                    <div className="flex flex-col gap-1">
+                      <AuraFileInput
+                        id="step-attachment"
+                        onFileSelect={setNewStepAttachmentName}
+                      />
+                      {newStepAttachmentName && (
+                        <span className="text-[11px] text-slate-500 truncate">
+                          {newStepAttachmentName}
+                        </span>
+                      )}
+                    </div>
+                  )}
+                </div>
+
+                <div className="flex gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
                       setAddStepOpen(false);
                       setNewStepText("");
-                    }
-                  }}
-                  className="flex-1 h-9 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold cursor-pointer"
-                >
-                  Dodaj
-                </button>
-              </div>
+                      setNewStepHasAttachment(false);
+                      setNewStepAttachmentName("");
+                    }}
+                    className="flex-1 h-9 rounded-xl border border-slate-200 text-xs font-semibold text-slate-500 hover:bg-slate-50 transition-colors"
+                  >
+                    Prekliči
+                  </button>
+                  <button type="submit" className="flex-1 h-9 rounded-xl bg-[#1B3A6B] hover:bg-[#142c52] text-white text-xs font-semibold transition-colors">
+                    Dodaj
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         )}

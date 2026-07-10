@@ -25,6 +25,7 @@ export interface Order {
   title: string;
   description: string;
   time: string;
+  createdAt: string;
   priority: 'normalna' | 'danes' | 'visoka' | 'nujno';
   status: 'caka_potrditev' | 'potrjeno' | 'zavrnjeno';
   workerId: string;
@@ -109,6 +110,7 @@ export const initialOrders: Order[] = [
     title: "Pokliči Maksa za rezervacijo",
     description: "Danes je zadnji dan. ",
     time: "10:30",
+    createdAt: "09:02",
     priority: "nujno",
     status: "caka_potrditev",
     workerId: "w1",
@@ -118,7 +120,8 @@ export const initialOrders: Order[] = [
     id: "o2",
     title: "Podpiši izvozne dokumente",
     description: "",
-    time: "12:00",
+    time: "",
+    createdAt: "11:34",
     priority: "visoka",
     status: "caka_potrditev",
     workerId: "w2",
@@ -129,6 +132,7 @@ export const initialOrders: Order[] = [
     title: "Kosilo s Kristino",
     description: "",
     time: "13:30",
+    createdAt: "11:38",
     priority: "danes",
     status: "caka_potrditev",
     workerId: "w3",

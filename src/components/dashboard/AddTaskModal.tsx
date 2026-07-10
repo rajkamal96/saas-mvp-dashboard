@@ -3,6 +3,13 @@
 import React, { useState } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Worker } from "@/lib/mockData";
+import {
+  AuraLabel,
+  AuraInput,
+  AuraSelect,
+  auraCard,
+  auraButton,
+} from "./AuraForm";
 
 interface AddTaskModalProps {
   isOpen: boolean;
@@ -47,174 +54,107 @@ export function AddTaskModal({ isOpen, onOpenChange, workers, onAddTask }: AddTa
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent
         style={{
-          background: "rgba(241, 245, 249, 1)",
-          border: "1px solid rgba(29, 78, 216, 1)",
-          boxShadow: "0px 6px 15px rgba(0, 0, 0, 0.15)",
-          borderRadius: "9px",
-          padding: "20px",
-          maxWidth: "320px",
+          background: "transparent",
+          border: "none",
+          boxShadow: "none",
+          padding: 0,
+          maxWidth: "380px",
           width: "90%",
         }}
         className="outline-none"
       >
-        <form onSubmit={handleSubmit} className="flex flex-col gap-5 text-slate-800">
-          {/* Header */}
-          <h3
-            style={{
-              fontFamily: "'PT Sans', sans-serif",
-              fontWeight: 700,
-              fontSize: "18px",
-              textAlign: "center",
-              color: "#334155",
-            }}
-          >
-            Dodaj opravilo
-          </h3>
-
-          {/* Form */}
-          <div className="flex flex-col gap-3">
-            {/* Opravilo */}
-            <div className="grid grid-cols-[1fr_2.2fr] items-center gap-3">
-              <span className="text-xs text-[#718797] font-semibold">Opravilo</span>
-              <input
-                type="text"
-                value={opravilo}
-                onChange={e => setOpravilo(e.target.value)}
-                maxLength={22}
-                required
-                style={{
-                  background: "#EBEFF2",
-                  border: "none",
-                  borderRadius: "6px",
-                  padding: "6px 12px",
-                  fontSize: "13px",
-                  color: "#1E293B",
-                  outline: "none",
-                }}
-              />
+        <div className={auraCard}>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4 text-slate-800">
+            {/* Header */}
+            <div className="text-center">
+              <h3 className="text-xl font-semibold tracking-tight text-slate-900">
+                Dodaj opravilo
+              </h3>
             </div>
 
-            {/* Kraj */}
-            <div className="grid grid-cols-[1fr_2.2fr] items-center gap-3">
-              <span className="text-xs text-[#718797] font-semibold">Kraj</span>
-              <input
-                type="text"
-                value={kraj}
-                onChange={e => setKraj(e.target.value)}
-                maxLength={15}
-                style={{
-                  background: "#EBEFF2",
-                  border: "none",
-                  borderRadius: "6px",
-                  padding: "6px 12px",
-                  fontSize: "13px",
-                  color: "#1E293B",
-                  outline: "none",
-                }}
-              />
-            </div>
-
-            {/* Naročnik */}
-            <div className="grid grid-cols-[1fr_2.2fr] items-center gap-3">
-              <span className="text-xs text-[#718797] font-semibold">Naročnik</span>
-              <input
-                type="text"
-                value={narocnik}
-                onChange={e => setNarocnik(e.target.value)}
-                maxLength={15}
-                style={{
-                  background: "#EBEFF2",
-                  border: "none",
-                  borderRadius: "6px",
-                  padding: "6px 12px",
-                  fontSize: "13px",
-                  color: "#1E293B",
-                  outline: "none",
-                }}
-              />
-            </div>
-
-            {/* Datum */}
-            <div className="grid grid-cols-[1fr_2.2fr] items-center gap-3">
-              <span className="text-xs text-[#718797] font-semibold">Datum</span>
-              <input
-                type="text"
-                value={datum}
-                onChange={e => setDatum(e.target.value)}
-                maxLength={10}
-                style={{
-                  background: "#EBEFF2",
-                  border: "none",
-                  borderRadius: "6px",
-                  padding: "6px 12px",
-                  fontSize: "13px",
-                  color: "#1E293B",
-                  outline: "none",
-                }}
-              />
-            </div>
-
-            {/* Divider */}
-            <hr className="border-[#1D4ED8]/20 my-1" />
-
-            {/* Odgovorni */}
-            <div className="grid grid-cols-[1fr_2.2fr] items-center gap-3">
-              <span className="text-xs text-[#718797] font-semibold">Odgovorni</span>
-              <div className="relative w-full">
-                <select
-                  value={selectedWorkerId}
-                  onChange={e => setSelectedWorkerId(e.target.value)}
+            {/* Form */}
+            <div className="flex flex-col gap-3">
+              {/* Opravilo — required, stronger styling */}
+              <div>
+                <AuraLabel strong>Opravilo *</AuraLabel>
+                <AuraInput
+                  type="text"
+                  value={opravilo}
+                  onChange={(e) => setOpravilo(e.target.value)}
+                  maxLength={22}
                   required
-                  style={{
-                    background: "#EBEFF2",
-                    border: "none",
-                    borderRadius: "6px",
-                    padding: "6px 28px 6px 12px",
-                    fontSize: "13px",
-                    color: selectedWorkerId ? "#1E293B" : "#718797",
-                    outline: "none",
-                    width: "100%",
-                    appearance: "none",
-                  }}
+                  strong
+                  placeholder="Npr. Kopalnica prenova"
+                />
+              </div>
+
+              {/* Kraj */}
+              <div>
+                <AuraLabel>Kraj</AuraLabel>
+                <AuraInput
+                  type="text"
+                  value={kraj}
+                  onChange={(e) => setKraj(e.target.value)}
+                  maxLength={15}
+                  placeholder="Npr. Ljubljana"
+                />
+              </div>
+
+              {/* Naročnik */}
+              <div>
+                <AuraLabel>Naročnik</AuraLabel>
+                <AuraInput
+                  type="text"
+                  value={narocnik}
+                  onChange={(e) => setNarocnik(e.target.value)}
+                  maxLength={15}
+                  placeholder="Npr. Novak d.o.o."
+                />
+              </div>
+
+              {/* Datum */}
+              <div>
+                <AuraLabel>Datum</AuraLabel>
+                <AuraInput
+                  type="text"
+                  value={datum}
+                  onChange={(e) => setDatum(e.target.value)}
+                  maxLength={10}
+                  placeholder="02.02.2026"
+                  className="placeholder:text-slate-300"
+                />
+              </div>
+
+              {/* Divider */}
+              <hr className="border-[#1B3A6B]/10 my-1" />
+
+              {/* Odgovorni — required, stronger styling */}
+              <div>
+                <AuraLabel strong>Odgovorni *</AuraLabel>
+                <AuraSelect
+                  value={selectedWorkerId}
+                  onChange={(e) => setSelectedWorkerId(e.target.value)}
+                  required
+                  strong
                 >
-                  <option value="" disabled hidden></option>
-                  {workers.map(w => (
+                  <option value="" disabled hidden>
+                    Izberite delavca
+                  </option>
+                  {workers.map((w) => (
                     <option key={w.id} value={w.id}>
                       {w.name}
                     </option>
                   ))}
-                </select>
-                <div className="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none flex items-center">
-                  <svg width="10" height="6" viewBox="0 0 10 6" fill="none">
-                    <path d="M1 1L5 5L9 1" stroke="#718797" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </div>
+                </AuraSelect>
               </div>
             </div>
-          </div>
 
-          {/* Action button */}
-          <div className="flex justify-center mt-2">
-            <button
-              type="submit"
-              style={{
-                background: "rgba(29, 78, 216, 1)",
-                color: "#FFFFFF",
-                fontSize: "11px",
-                fontWeight: 700,
-                padding: "8px 24px",
-                borderRadius: "6px",
-                border: "none",
-                cursor: "pointer",
-                letterSpacing: "0.5px",
-                textTransform: "uppercase"
-              }}
-              className="hover:bg-blue-700 active:scale-[0.98] transition-all"
-            >
+            {/* Action button */}
+            <button type="submit" className={auraButton}>
               DODAJ NA URNIK
             </button>
-          </div>
-        </form>
+          </form>
+        </div>
       </DialogContent>
     </Dialog>
   );

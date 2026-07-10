@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { Logo } from "@/components/Logo";
 import { useLanguage } from "@/lib/useLanguage";
@@ -20,6 +20,7 @@ import { CommunicationCard } from "@/components/dashboard/CommunicationCard";
 import { WorkerDetailModal } from "@/components/dashboard/WorkerDetailModal";
 import { AddTaskModal } from "@/components/dashboard/AddTaskModal";
 import { AddReminderModal } from "@/components/dashboard/AddReminderModal";
+import { AddWorkerCard } from "@/components/dashboard/AddWorkerCard";
 
 interface ColumnHeaderProps {
   title: string;
@@ -81,6 +82,7 @@ export default function OfficeDashboard() {
   const [isWorkerDetailOpen, setIsWorkerDetailOpen] = useState(false);
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
   const [isAddReminderOpen, setIsAddReminderOpen] = useState(false);
+  const [isAddWorkerOpen, setIsAddWorkerOpen] = useState(false);
 
   const handleAddReminder = (reminderData: {
     title: string;
@@ -107,6 +109,7 @@ export default function OfficeDashboard() {
       title: reminderData.title,
       description: reminderData.description,
       time: reminderData.time,
+      createdAt: new Date().toLocaleTimeString("sl-SI", { hour: "2-digit", minute: "2-digit" }),
       priority: reminderData.isUrgent ? 'nujno' : 'normalna',
       status: 'caka_potrditev',
       workerId: '',
@@ -139,6 +142,31 @@ export default function OfficeDashboard() {
     }));
   };
 
+  const handleAddWorker = (workerData: {
+    name: string;
+    role: string;
+    phone: string;
+    email: string;
+  }) => {
+    const newWorker: Worker = {
+      id: `w_${Date.now()}`,
+      name: workerData.name,
+      avatar: workerData.name.split(" ").map(n => n[0]).join("").slice(0, 2).toUpperCase(),
+      role: workerData.role || "Brez podjetja",
+      currentTask: "Novo opravilo",
+      status: "v_teku",
+      phone: workerData.phone,
+      email: workerData.email,
+      unreadCount: 0,
+      location: "Ljubljana",
+      tasks: [
+        { id: `t_${Date.now()}_1`, text: "Začetek del", completed: false },
+        { id: `t_${Date.now()}_2`, text: "Dnevno poročilo", completed: false },
+      ],
+    };
+    setWorkers(prev => [...prev, newWorker]);
+  };
+
   const handleToggleTask = (workerId: string, taskId: string) => {
     setWorkers(prev => prev.map(w => {
       if (w.id !== workerId) return w;
@@ -168,6 +196,15 @@ export default function OfficeDashboard() {
 
   const handleArchiveMessage = (messageId: string) =>
     setMessages(prev => prev.filter(m => m.id !== messageId));
+
+  const handleTasksChange = useCallback((updatedTasks: { id: string; text: string; completed: boolean; completedAt?: string }[]) => {
+    if (!selectedWorker) return;
+    setWorkers(prev => prev.map(w =>
+      w.id === selectedWorker.id
+        ? { ...w, tasks: updatedTasks.map(t => ({ id: t.id, text: t.text, completed: t.completed, completedAt: t.completedAt })) }
+        : w
+    ));
+  }, [selectedWorker]);
 
   return (
     <div className="min-h-screen bg-[#f3f5f8] text-slate-800 dashboard-page">
@@ -253,7 +290,7 @@ export default function OfficeDashboard() {
           {/* COLUMN 1 — DANES TEREN */}
           <div className="flex flex-col gap-3">
             {/* Column Header Row */}
-            <ColumnHeader title="DANES — TEREN" onAddClick={() => setIsAddTaskOpen(true)} />
+            <ColumnHeader title="DANES — TEREN" onAddClick={() => setIsAddWorkerOpen(true)} />
             <div
               style={{
                 background: "linear-gradient(180deg, rgba(96, 165, 250, 0.08) 0%, rgba(37, 99, 235, 0.08) 100%)",
@@ -366,6 +403,7 @@ export default function OfficeDashboard() {
         isOpen={isWorkerDetailOpen}
         onOpenChange={setIsWorkerDetailOpen}
         worker={selectedWorker}
+        onTasksChange={handleTasksChange}
       />
       <AddTaskModal
         isOpen={isAddTaskOpen}
@@ -377,6 +415,11 @@ export default function OfficeDashboard() {
         isOpen={isAddReminderOpen}
         onOpenChange={setIsAddReminderOpen}
         onAddReminder={handleAddReminder}
+      />
+      <AddWorkerCard
+        isOpen={isAddWorkerOpen}
+        onOpenChange={setIsAddWorkerOpen}
+        onAddWorker={handleAddWorker}
       />
     </div>
   );

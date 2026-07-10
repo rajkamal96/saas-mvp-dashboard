@@ -4,48 +4,125 @@ import React from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Worker } from "@/lib/mockData";
 import { Paperclip } from "lucide-react";
+import {
+  AuraLabel,
+  AuraInput,
+  AuraSelect,
+  AuraFileInput,
+  AuraIconButton,
+  auraCard,
+  auraButton,
+} from "./AuraForm";
 
 interface WorkerDetailModalProps {
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
   worker: Worker | null;
   inlineDrawer?: boolean;
+  onTasksChange?: (tasks: TaskItem[]) => void;
 }
 
-export function WorkerDetailModal({ isOpen, onOpenChange, worker, inlineDrawer = false }: WorkerDetailModalProps) {
+interface TaskItem {
+  id: string;
+  text: string;
+  completed: boolean;
+  time?: string;
+  attachment: boolean;
+  requiresAttachment?: boolean;
+}
+
+interface AttachmentItem {
+  id: string;
+  name: string;
+  time: string;
+  url?: string;
+}
+
+interface TimelineItem {
+  id: string;
+  time: string;
+  text: string;
+  type: "step" | "attachment" | "message" | "voice";
+}
+
+function nowTime() {
+  return new Date().toLocaleTimeString("sl-SI", { hour: "2-digit", minute: "2-digit" });
+}
+
+export function WorkerDetailModal({ isOpen, onOpenChange, worker, inlineDrawer = false, onTasksChange }: WorkerDetailModalProps) {
   const [addTaskOpen, setAddTaskOpen] = React.useState(false);
   const [addStepOpen, setAddStepOpen] = React.useState(false);
 
+  // Sub-dialog: Dodaj opravilo
+  const [taskOpravilo, setTaskOpravilo] = React.useState("");
+  const [taskKraj, setTaskKraj] = React.useState("");
+  const [taskNarocnik, setTaskNarocnik] = React.useState("");
+  const [taskDatum, setTaskDatum] = React.useState("");
+  const [taskOdgovorni, setTaskOdgovorni] = React.useState("");
+
+  // Sub-dialog: Dodaj korak
+  const [stepText, setStepText] = React.useState("");
+  const [stepHasAttachment, setStepHasAttachment] = React.useState(false);
+  const [stepAttachmentName, setStepAttachmentName] = React.useState("");
+
+  // Confirm step completion
+  const [confirmStepId, setConfirmStepId] = React.useState<string | null>(null);
+
+  // Attachment preview
+  const [previewAttachment, setPreviewAttachment] = React.useState<AttachmentItem | null>(null);
+
+  // Attach-only dialog
+  const [attachOnlyOpen, setAttachOnlyOpen] = React.useState(false);
+  const [attachOnlyName, setAttachOnlyName] = React.useState("");
+
+  // Core lists
+  const [tasks, setTasks] = React.useState<TaskItem[]>([
+    { id: "s1", text: "Začetek dela", completed: true, time: "9:11", attachment: true },
+    { id: "s2", text: "Odstranjevanje elementov", completed: true, time: "9:18", attachment: false },
+    { id: "s3", text: "Odvoz materiala - Stane", completed: true, time: "10:34", attachment: true },
+    { id: "s4", text: "Menjava odvodnih cevi", completed: true, time: "10:51", attachment: false },
+    { id: "s5", text: "Dostava ploščic - Adam", completed: false, time: "", attachment: false, requiresAttachment: true },
+    { id: "s6", text: "Polaganje ploščic", completed: false, time: "", attachment: true },
+    { id: "s7", text: "Menjava umivalnika, kadi", completed: false, time: "", attachment: false },
+    { id: "s8", text: "Dnevno poročilo", completed: false, time: "", attachment: true, requiresAttachment: true },
+  ]);
+
+  const [attachments, setAttachments] = React.useState<AttachmentItem[]>([
+    { id: "a1", name: "Contract", time: "9:11" },
+    { id: "a2", name: "Photo - start", time: "9:18" },
+    { id: "a3", name: "Furniture Payment", time: "9:33" },
+    { id: "a4", name: "Import document", time: "9:42" },
+    { id: "a5", name: "Photo - damage", time: "12:18" },
+    { id: "a6", name: "Photo - finished", time: "14:54" },
+  ]);
+
+  const [timeline, setTimeline] = React.useState<TimelineItem[]>([
+    { id: "t1", time: "9:33", text: "Prevzem tovora", type: "attachment" },
+    { id: "t2", time: "11:51", text: "Dostava v Celju (11:40)", type: "message" },
+    { id: "t3", time: "10:23", text: "Zvočni zapis: Prometna nesreča pri Celju. Zamuda 45 minut.", type: "voice" },
+    { id: "t4", time: "10:29", text: "Zvočni zapis: Pokliči.", type: "voice" },
+    { id: "t5", time: "10:41", text: "Sporočilo: Peljem nazaj. Pokliči čimprej.", type: "message" },
+  ]);
+
+  const addTimeline = (text: string, type: TimelineItem["type"]) => {
+    setTimeline(prev => [{ id: `e_${Date.now()}`, time: nowTime(), text, type }, ...prev]);
+  };
+
+  const resetAddTask = () => {
+    setTaskOpravilo("");
+    setTaskKraj("");
+    setTaskNarocnik("");
+    setTaskDatum("");
+    setTaskOdgovorni("");
+  };
+
+  const resetAddStep = () => {
+    setStepText("");
+    setStepHasAttachment(false);
+    setStepAttachmentName("");
+  };
+
   if (!worker) return null;
-
-  const tasks = [
-    { text: "Začetek dela", completed: true, time: "9:11", attachment: true },
-    { text: "Odstranjevanje elementov", completed: true, time: "9:18", attachment: false },
-    { text: "Odvoz materiala - Stane", completed: true, time: "10:34", attachment: true },
-    { text: "Menjava odvodnih cevi", completed: true, time: "10:51", attachment: false },
-    { text: "Dostava ploščic - Adam", completed: false, time: "", attachment: false },
-    { text: "Polaganje ploščic", completed: false, time: "", attachment: true },
-    { text: "Menjava umivalnika, kadi", completed: false, time: "", attachment: false },
-    { text: "Dnevno poročilo", completed: false, time: "", attachment: true },
-  ];
-
-  const attachments = [
-    { name: "Contract", time: "9:11" },
-    { name: "Photo - start", time: "9:18" },
-    { name: "Furniture Payment", time: "9:33" },
-    { name: "Import document", time: "9:42" },
-    { name: "Photo - damage", time: "12:18" },
-    { name: "Photo - finished", time: "14:54" },
-  ];
-
-  const timeline = [
-    { time: "9:33", text: "Prevzem tovora", attachment: true },
-    { time: "11:51", text: "Dostava v Celju (11:40)", attachment: false },
-    { time: "10:23", text: "Zvočni zapis: Prometna nesreča pri Celju. Zamuda 45 minut.", attachment: true },
-    { time: "10:29", text: "Zvočni zapis: Pokliči.", attachment: true },
-    { time: "10:41", text: "Sporočilo: Peljem nazaj. Pokliči čimprej.", attachment: false },
-    { time: "10:29", text: "Zvočni zapis: Pokliči.", attachment: true },
-  ];
 
   const renderContentBody = () => (
     <div className="flex flex-col gap-[48px] text-[#1E293B]">
@@ -77,7 +154,7 @@ export function WorkerDetailModal({ isOpen, onOpenChange, worker, inlineDrawer =
                 lineHeight: "27px"
               }}
             >
-              4
+              {tasks.filter(t => t.completed).length}
             </span>
             <span
               style={{
@@ -88,7 +165,7 @@ export function WorkerDetailModal({ isOpen, onOpenChange, worker, inlineDrawer =
                 lineHeight: "27px"
               }}
             >
-              /8
+              /{tasks.length}
             </span>
           </div>
         </div>
@@ -303,10 +380,11 @@ export function WorkerDetailModal({ isOpen, onOpenChange, worker, inlineDrawer =
           >
             Predvidena dela
           </span>
-          {/* Plus action icon */}
+          {/* Plus action icon to add a new step */}
           <button
             onClick={(e) => {
               e.stopPropagation();
+              setAddStepOpen(true);
             }}
             className="w-5 h-5 flex items-center justify-center hover:scale-[1.05] transition-all bg-transparent border-none p-0 outline-none cursor-pointer"
           >
@@ -318,8 +396,19 @@ export function WorkerDetailModal({ isOpen, onOpenChange, worker, inlineDrawer =
 
         {/* Task lists with checkboxes */}
         <div className="flex flex-col gap-2">
-          {tasks.map((task, idx) => (
-            <div key={idx} className="flex items-center gap-2">
+          {tasks.map((task) => (
+            <button
+              key={task.id}
+              type="button"
+              onClick={() => {
+                if (task.completed) return;
+                if (task.requiresAttachment && !task.attachment) {
+                  return;
+                }
+                setConfirmStepId(task.id);
+              }}
+              className="flex items-center gap-2 w-full text-left bg-transparent border-none p-0 outline-none group"
+            >
               {/* Checkbox */}
               <div
                 className="shrink-0 flex items-center justify-center"
@@ -348,6 +437,9 @@ export function WorkerDetailModal({ isOpen, onOpenChange, worker, inlineDrawer =
                 className="flex-1 truncate"
               >
                 {task.text}
+                {task.requiresAttachment && !task.attachment && (
+                  <span className="ml-1.5 text-[10px] text-red-500 font-semibold">*</span>
+                )}
               </span>
 
               {/* Completion time / clip icon */}
@@ -359,7 +451,7 @@ export function WorkerDetailModal({ isOpen, onOpenChange, worker, inlineDrawer =
                   <span className="text-xs text-[#D3D3D3] font-normal">{task.time}</span>
                 )}
               </div>
-            </div>
+            </button>
           ))}
         </div>
       </div>
@@ -379,9 +471,9 @@ export function WorkerDetailModal({ isOpen, onOpenChange, worker, inlineDrawer =
           >
             Priponke
           </span>
-          {/* Plus action icon to open Dodaj korak */}
+          {/* Plus action icon to add attachment only */}
           <button
-            onClick={() => setAddStepOpen(true)}
+            onClick={() => setAttachOnlyOpen(true)}
             className="w-5 h-5 flex items-center justify-center hover:scale-[1.05] transition-all bg-transparent border-none p-0 outline-none cursor-pointer"
           >
             <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -391,19 +483,25 @@ export function WorkerDetailModal({ isOpen, onOpenChange, worker, inlineDrawer =
         </div>
 
         <div className="flex flex-col gap-2">
-          {attachments.map((att, idx) => (
-            <div key={idx} className="flex items-center justify-between">
+          {attachments.map((att) => (
+            <button
+              key={att.id}
+              type="button"
+              onClick={() => setPreviewAttachment(att)}
+              className="flex items-center justify-between w-full text-left bg-transparent border-none p-0 outline-none group"
+            >
               <span
                 style={{
                   fontFamily: "'PT Sans', sans-serif",
                   fontSize: "13px",
                   color: "#1E293B",
                 }}
+                className="group-hover:text-[#1B3A6B] transition-colors"
               >
                 {att.name}
               </span>
               <span className="text-xs text-[#64748B] font-normal">{att.time}</span>
-            </div>
+            </button>
           ))}
         </div>
       </div>
@@ -424,8 +522,8 @@ export function WorkerDetailModal({ isOpen, onOpenChange, worker, inlineDrawer =
         </span>
 
         <div className="flex flex-col gap-3">
-          {timeline.map((event, idx) => (
-            <div key={idx} className="flex items-start justify-between gap-3">
+          {timeline.map((event) => (
+            <div key={event.id} className="flex items-start justify-between gap-3">
               <div className="flex gap-2">
                 <span className="text-xs text-[#64748B] font-normal shrink-0 mt-0.5">
                   {event.time}
@@ -441,8 +539,13 @@ export function WorkerDetailModal({ isOpen, onOpenChange, worker, inlineDrawer =
                   {event.text}
                 </span>
               </div>
-              {event.attachment && (
+              {event.type === "attachment" && (
                 <Paperclip className="w-3.5 h-3.5 text-slate-300 shrink-0 mt-0.5" />
+              )}
+              {event.type === "voice" && (
+                <svg width="12" height="12" viewBox="0 0 32 36" fill="#6D778E" className="shrink-0 mt-0.5">
+                  <path d="M20.8542 17.1124C19.2762 18.3754 8.94271 26.6494 6.55021 28.5664L2.50471 24.5209L14.0067 10.2649L20.8542 17.1124ZM28.8177 2.31188C25.7352 -0.770625 20.7357 -0.770625 17.6532 2.31188C15.6207 4.34588 15.4482 6.57487 15.3492 7.36538L23.7642 15.7804C24.4902 15.6994 26.7672 15.5269 28.8177 13.4764C31.9017 10.3939 31.9017 5.39438 28.8177 2.31188ZM14.0667 29.2219C10.6287 29.2219 9.05821 31.3624 6.84271 32.7544C5.27371 33.7384 3.78871 33.2389 3.07471 32.3554C2.81521 32.0389 2.07421 30.8989 3.33571 29.5924L3.14821 29.4049L1.45921 27.7684C-0.598793 29.8924 -0.234293 32.4304 1.04071 34.0039C2.50321 35.8099 5.44471 36.7219 8.23321 34.9714C10.6107 33.4789 11.6637 31.8394 14.0667 31.8394C15.6207 31.8394 17.0367 32.5354 19.2942 35.9989L21.4857 34.5709C19.3962 31.3609 17.3337 29.2219 14.0667 29.2219Z" />
+                </svg>
               )}
             </div>
           ))}
@@ -522,249 +625,426 @@ export function WorkerDetailModal({ isOpen, onOpenChange, worker, inlineDrawer =
       )}
 
       {/* ── Sub-Dialog 1: Dodaj opravilo ── */}
-      <Dialog open={addTaskOpen} onOpenChange={setAddTaskOpen}>
+      <Dialog open={addTaskOpen} onOpenChange={(open) => {
+        setAddTaskOpen(open);
+        if (!open) resetAddTask();
+      }}>
         <DialogContent
           style={{
-            background: "rgba(241, 245, 249, 1)",
-            border: "1px solid rgba(29, 78, 216, 1)",
-            boxShadow: "0px 6px 15px rgba(0, 0, 0, 0.15)",
-            borderRadius: "9px",
-            padding: "20px",
-            maxWidth: "320px",
+            background: "transparent",
+            border: "none",
+            boxShadow: "none",
+            padding: 0,
+            maxWidth: "380px",
             width: "90%",
           }}
           className="outline-none"
         >
-          <div className="flex flex-col gap-5 text-slate-800">
-            {/* Header */}
-            <h3
-              style={{
-                fontFamily: "'PT Sans', sans-serif",
-                fontWeight: 700,
-                fontSize: "18px",
-                textAlign: "center",
-                color: "#334155",
-              }}
-            >
-              Dodaj opravilo
-            </h3>
-
-            {/* Form */}
-            <div className="flex flex-col gap-3">
-              {/* Opravilo */}
-              <div className="grid grid-cols-[1fr_2.2fr] items-center gap-3">
-                <span className="text-xs text-[#718797] font-semibold">Opravilo</span>
-                <input
-                  type="text"
-                  style={{
-                    background: "#EBEFF2",
-                    border: "none",
-                    borderRadius: "6px",
-                    padding: "6px 12px",
-                    fontSize: "13px",
-                    color: "#1E293B",
-                    outline: "none",
-                  }}
-                />
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (!taskOpravilo.trim()) return;
+              // In a real app this would propagate upward; here we just close.
+              setAddTaskOpen(false);
+              resetAddTask();
+            }}
+            className={auraCard}
+          >
+            <div className="flex flex-col gap-4 text-slate-800">
+              {/* Header */}
+              <div className="text-center">
+                <h3 className="text-xl font-semibold tracking-tight text-slate-900">
+                  Dodaj opravilo
+                </h3>
               </div>
 
-              {/* Kraj */}
-              <div className="grid grid-cols-[1fr_2.2fr] items-center gap-3">
-                <span className="text-xs text-[#718797] font-semibold">Kraj</span>
-                <input
-                  type="text"
-                  style={{
-                    background: "#EBEFF2",
-                    border: "none",
-                    borderRadius: "6px",
-                    padding: "6px 12px",
-                    fontSize: "13px",
-                    color: "#1E293B",
-                    outline: "none",
-                  }}
-                />
-              </div>
+              {/* Form */}
+              <div className="flex flex-col gap-3">
+                <div>
+                  <AuraLabel strong>Opravilo *</AuraLabel>
+                  <AuraInput
+                    type="text"
+                    value={taskOpravilo}
+                    onChange={(e) => setTaskOpravilo(e.target.value)}
+                    maxLength={22}
+                    required
+                    strong
+                    placeholder="Npr. Kopalnica prenova"
+                  />
+                </div>
 
-              {/* Naročnik */}
-              <div className="grid grid-cols-[1fr_2.2fr] items-center gap-3">
-                <span className="text-xs text-[#718797] font-semibold">Naročnik</span>
-                <input
-                  type="text"
-                  style={{
-                    background: "#EBEFF2",
-                    border: "none",
-                    borderRadius: "6px",
-                    padding: "6px 12px",
-                    fontSize: "13px",
-                    color: "#1E293B",
-                    outline: "none",
-                  }}
-                />
-              </div>
+                <div>
+                  <AuraLabel>Kraj</AuraLabel>
+                  <AuraInput
+                    type="text"
+                    value={taskKraj}
+                    onChange={(e) => setTaskKraj(e.target.value)}
+                    maxLength={15}
+                    placeholder="Npr. Ljubljana"
+                  />
+                </div>
 
-              {/* Datum */}
-              <div className="grid grid-cols-[1fr_2.2fr] items-center gap-3">
-                <span className="text-xs text-[#718797] font-semibold">Datum</span>
-                <input
-                  type="text"
-                  style={{
-                    background: "#EBEFF2",
-                    border: "none",
-                    borderRadius: "6px",
-                    padding: "6px 12px",
-                    fontSize: "13px",
-                    color: "#1E293B",
-                    outline: "none",
-                  }}
-                />
-              </div>
+                <div>
+                  <AuraLabel>Naročnik</AuraLabel>
+                  <AuraInput
+                    type="text"
+                    value={taskNarocnik}
+                    onChange={(e) => setTaskNarocnik(e.target.value)}
+                    maxLength={15}
+                    placeholder="Npr. Novak d.o.o."
+                  />
+                </div>
 
-              {/* Divider */}
-              <hr className="border-[#9C24FF]/20 my-1" />
+                <div>
+                  <AuraLabel>Datum</AuraLabel>
+                  <AuraInput
+                    type="text"
+                    value={taskDatum}
+                    onChange={(e) => setTaskDatum(e.target.value)}
+                    maxLength={10}
+                    placeholder="02.02.2026"
+                    className="placeholder:text-slate-300"
+                  />
+                </div>
 
-              {/* Odgovorni */}
-              <div className="grid grid-cols-[1fr_2.2fr] items-center gap-3">
-                <span className="text-xs text-[#718797] font-semibold">Odgovorni</span>
-                <div className="relative w-full">
-                  <select
-                    style={{
-                      background: "#EBEFF2",
-                      border: "none",
-                      borderRadius: "6px",
-                      padding: "6px 28px 6px 12px",
-                      fontSize: "13px",
-                      color: "#718797",
-                      outline: "none",
-                      width: "100%",
-                      appearance: "none",
-                    }}
+                <hr className="border-[#1B3A6B]/10 my-1" />
+
+                <div>
+                  <AuraLabel strong>Odgovorni *</AuraLabel>
+                  <AuraSelect
+                    value={taskOdgovorni}
+                    onChange={(e) => setTaskOdgovorni(e.target.value)}
+                    required
+                    strong
                   >
-                    <option value=""></option>
+                    <option value="" disabled hidden>
+                      Izberite delavca
+                    </option>
                     <option value="anthony">Anthony Hopkins</option>
-                  </select>
-                  <div className="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none flex items-center">
-                    <svg width="10" height="6" viewBox="0 0 10 6" fill="none">
-                      <path d="M1 1L5 5L9 1" stroke="#718797" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </div>
+                  </AuraSelect>
                 </div>
               </div>
-            </div>
 
-            {/* Action button */}
-            <div className="flex justify-center mt-2">
-              <button
-                onClick={() => setAddTaskOpen(false)}
-                style={{
-                  background: "rgba(29, 78, 216, 1)",
-                  color: "#FFFFFF",
-                  fontSize: "11px",
-                  fontWeight: 700,
-                  padding: "8px 24px",
-                  borderRadius: "6px",
-                  border: "none",
-                  cursor: "pointer",
-                  letterSpacing: "0.5px",
-                  textTransform: "uppercase"
-                }}
-                className="hover:bg-blue-700 active:scale-[0.98] transition-all"
-              >
+              <button type="submit" className={auraButton}>
                 DODAJ NA URNIK
               </button>
             </div>
-          </div>
+          </form>
         </DialogContent>
       </Dialog>
 
       {/* ── Sub-Dialog 2: Dodaj še en korak ── */}
-      <Dialog open={addStepOpen} onOpenChange={setAddStepOpen}>
+      <Dialog open={addStepOpen} onOpenChange={(open) => {
+        setAddStepOpen(open);
+        if (!open) resetAddStep();
+      }}>
         <DialogContent
           style={{
-            background: "rgba(241, 245, 249, 1)",
-            border: "1px solid rgba(29, 78, 216, 1)",
-            boxShadow: "0px 6px 15px rgba(0, 0, 0, 0.15)",
-            borderRadius: "9px",
-            padding: "20px",
-            maxWidth: "320px",
+            background: "transparent",
+            border: "none",
+            boxShadow: "none",
+            padding: 0,
+            maxWidth: "360px",
             width: "90%",
           }}
           className="outline-none"
         >
-          <div className="flex flex-col gap-5 text-slate-800">
-            {/* Header */}
-            <h3
-              style={{
-                fontFamily: "'PT Sans', sans-serif",
-                fontWeight: 700,
-                fontSize: "18px",
-                textAlign: "center",
-                color: "#334155",
-              }}
-            >
-              Dodaj še en korak
-            </h3>
-
-            {/* Form */}
-            <div className="flex flex-col gap-4">
-              {/* Korak */}
-              <div className="grid grid-cols-[1fr_2.2fr] items-center gap-3">
-                <span className="text-xs text-[#718797] font-semibold">Korak</span>
-                <input
-                  type="text"
-                  style={{
-                    background: "#EBEFF2",
-                    border: "none",
-                    borderRadius: "6px",
-                    padding: "6px 12px",
-                    fontSize: "13px",
-                    color: "#1E293B",
-                    outline: "none",
-                  }}
-                />
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (!stepText.trim()) return;
+              const newStepId = `s_${Date.now()}`;
+              const newTask: TaskItem = {
+                id: newStepId,
+                text: stepText,
+                completed: false,
+                attachment: stepHasAttachment,
+              };
+              const nextTasks = [...tasks, newTask];
+              setTasks(nextTasks);
+              onTasksChange?.(nextTasks);
+              if (stepHasAttachment && stepAttachmentName) {
+                const newAttachment: AttachmentItem = {
+                  id: `a_${Date.now()}`,
+                  name: stepAttachmentName,
+                  time: nowTime(),
+                };
+                setAttachments(prev => [newAttachment, ...prev]);
+                addTimeline(`Priponka: ${stepAttachmentName}`, "attachment");
+              }
+              addTimeline(`Nov korak: ${stepText}`, "step");
+              setAddStepOpen(false);
+              resetAddStep();
+            }}
+            className={auraCard}
+          >
+            <div className="flex flex-col gap-4 text-slate-800">
+              {/* Header */}
+              <div className="text-center">
+                <h3 className="text-xl font-semibold tracking-tight text-slate-900">
+                  Dodaj še en korak
+                </h3>
               </div>
 
-              {/* Priponka */}
-              <div className="grid grid-cols-[1fr_2.2fr] items-center gap-3">
-                <span className="text-xs text-[#718797] font-semibold">Priponka</span>
-                <div className="flex items-center">
-                  <input
-                    type="checkbox"
-                    style={{
-                      width: "18px",
-                      height: "18px",
-                      borderRadius: "4px",
-                      border: "none",
-                      background: "#EBEFF2",
-                      accentColor: "rgba(59, 130, 246, 1)",
-                      cursor: "pointer"
-                    }}
+              {/* Form */}
+              <div className="flex flex-col gap-3">
+                <div>
+                  <AuraLabel strong>Korak *</AuraLabel>
+                  <AuraInput
+                    type="text"
+                    value={stepText}
+                    onChange={(e) => setStepText(e.target.value)}
+                    maxLength={30}
+                    required
+                    strong
+                    placeholder="npr. Čiščenje delovnega območja"
                   />
+                  <div className="flex justify-end mt-1">
+                    <span className="text-[10px] text-slate-400">
+                      {stepText.length}/30
+                    </span>
+                  </div>
                 </div>
-              </div>
-            </div>
 
-            {/* Action button */}
-            <div className="flex justify-center mt-2">
-              <button
-                onClick={() => setAddStepOpen(false)}
-                style={{
-                  background: "rgba(29, 78, 216, 1)",
-                  color: "#FFFFFF",
-                  fontSize: "11px",
-                  fontWeight: 700,
-                  padding: "8px 24px",
-                  borderRadius: "6px",
-                  border: "none",
-                  cursor: "pointer",
-                  letterSpacing: "0.5px",
-                  textTransform: "uppercase"
-                }}
-                className="hover:bg-blue-700 active:scale-[0.98] transition-all"
-              >
+                <AuraIconButton
+                  active={stepHasAttachment}
+                  onClick={() => {
+                    setStepHasAttachment(!stepHasAttachment);
+                    if (stepHasAttachment) setStepAttachmentName("");
+                  }}
+                  icon={
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48" />
+                    </svg>
+                  }
+                  label="Priponka"
+                  title="Dodaj prilogo"
+                />
+
+                {stepHasAttachment && (
+                  <div className="flex flex-col gap-1">
+                    <AuraFileInput
+                      id="detail-step-attachment"
+                      onFileSelect={setStepAttachmentName}
+                    />
+                    {stepAttachmentName && (
+                      <span className="text-[11px] text-slate-500 truncate">
+                        {stepAttachmentName}
+                      </span>
+                    )}
+                  </div>
+                )}
+              </div>
+
+              <button type="submit" className={auraButton}>
                 DODAJ KORAK
               </button>
             </div>
-          </div>
+          </form>
+        </DialogContent>
+      </Dialog>
+
+      {/* ── Sub-Dialog 3: Attach only (Priponke) ── */}
+      <Dialog open={attachOnlyOpen} onOpenChange={(open) => {
+        setAttachOnlyOpen(open);
+        if (!open) setAttachOnlyName("");
+      }}>
+        <DialogContent
+          style={{
+            background: "transparent",
+            border: "none",
+            boxShadow: "none",
+            padding: 0,
+            maxWidth: "360px",
+            width: "90%",
+          }}
+          className="outline-none"
+        >
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (!attachOnlyName.trim()) return;
+              const newAttachment: AttachmentItem = {
+                id: `a_${Date.now()}`,
+                name: attachOnlyName,
+                time: nowTime(),
+              };
+              setAttachments(prev => [newAttachment, ...prev]);
+              addTimeline(`Priponka: ${attachOnlyName}`, "attachment");
+              setAttachOnlyOpen(false);
+              setAttachOnlyName("");
+            }}
+            className={auraCard}
+          >
+            <div className="flex flex-col gap-4 text-slate-800">
+              <div className="text-center">
+                <h3 className="text-xl font-semibold tracking-tight text-slate-900">
+                  Dodaj priponko
+                </h3>
+              </div>
+
+              <div className="flex flex-col gap-3">
+                <AuraFileInput
+                  id="attach-only-file"
+                  onFileSelect={setAttachOnlyName}
+                />
+                {attachOnlyName && (
+                  <span className="text-[11px] text-slate-500 truncate">
+                    {attachOnlyName}
+                  </span>
+                )}
+              </div>
+
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setAttachOnlyOpen(false);
+                    setAttachOnlyName("");
+                  }}
+                  className="flex-1 h-9 rounded-xl border border-slate-200 text-xs font-semibold text-slate-500 hover:bg-slate-50 transition-colors"
+                >
+                  Prekliči
+                </button>
+                <button
+                  type="submit"
+                  disabled={!attachOnlyName.trim()}
+                  className="flex-1 h-9 rounded-xl bg-[#1B3A6B] hover:bg-[#142c52] disabled:opacity-40 disabled:cursor-not-allowed text-white text-xs font-semibold transition-colors"
+                >
+                  Dodaj
+                </button>
+              </div>
+            </div>
+          </form>
+        </DialogContent>
+      </Dialog>
+
+      {/* ── Sub-Dialog 4: Confirm step finished ── */}
+      <Dialog open={!!confirmStepId} onOpenChange={(open) => {
+        if (!open) setConfirmStepId(null);
+      }}>
+        <DialogContent
+          style={{
+            background: "transparent",
+            border: "none",
+            boxShadow: "none",
+            padding: 0,
+            maxWidth: "380px",
+            width: "90%",
+          }}
+          className="outline-none"
+        >
+          {(() => {
+            const task = tasks.find(t => t.id === confirmStepId);
+            if (!task) return null;
+            const missingAttachment = task.requiresAttachment && !task.attachment;
+            return (
+              <div className={auraCard}>
+                <div className="flex flex-col gap-4 text-slate-800">
+                  <div className="text-center">
+                    <h3 className="text-xl font-semibold tracking-tight text-slate-900">
+                      Zaključi korak
+                    </h3>
+                  </div>
+
+                  <p className="text-sm text-slate-600 text-center">
+                    Potrdite, da je korak <strong className="text-slate-900">{task.text}</strong> zaključen.
+                  </p>
+
+                  {missingAttachment && (
+                    <div className="flex flex-col gap-3 p-3 rounded-xl bg-red-50 border border-red-100">
+                      <p className="text-sm text-red-600 font-semibold text-center">
+                        Priponka manjka
+                      </p>
+                      <p className="text-xs text-slate-500 text-center">
+                        Za zaključek tega koraka morate priložiti datoteko.
+                      </p>
+                      <AuraFileInput
+                        id="confirm-step-attachment"
+                        onFileSelect={(name) => {
+                          if (!name.trim()) return;
+                          const attId = `a_${Date.now()}`;
+                          setAttachments(prev => [{ id: attId, name, time: nowTime() }, ...prev]);
+                          setTasks(prev => prev.map(t => t.id === task.id ? { ...t, attachment: true } : t));
+                          addTimeline(`Priponka: ${name}`, "attachment");
+                        }}
+                      />
+                    </div>
+                  )}
+
+                  <div className="flex gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setConfirmStepId(null)}
+                      className="flex-1 h-10 rounded-xl border border-slate-200 text-xs font-semibold text-slate-500 hover:bg-slate-50 transition-colors"
+                    >
+                      Prekliči
+                    </button>
+                    <button
+                      type="button"
+                      disabled={missingAttachment}
+                      onClick={() => {
+                        const completedAt = nowTime();
+                        const nextTasks = tasks.map(t => t.id === task.id ? { ...t, completed: true, time: completedAt } : t);
+                        setTasks(nextTasks);
+                        onTasksChange?.(nextTasks);
+                        addTimeline(`Zaključen korak: ${task.text}`, "step");
+                        setConfirmStepId(null);
+                      }}
+                      className="flex-1 h-10 rounded-xl bg-[#1B3A6B] hover:bg-[#142c52] disabled:opacity-40 disabled:cursor-not-allowed text-white text-xs font-semibold transition-colors"
+                    >
+                      Potrdi zaključek
+                    </button>
+                  </div>
+                </div>
+              </div>
+            );
+          })()}
+        </DialogContent>
+      </Dialog>
+
+      {/* ── Sub-Dialog 5: Attachment quick view ── */}
+      <Dialog open={!!previewAttachment} onOpenChange={(open) => {
+        if (!open) setPreviewAttachment(null);
+      }}>
+        <DialogContent
+          style={{
+            background: "transparent",
+            border: "none",
+            boxShadow: "none",
+            padding: 0,
+            maxWidth: "420px",
+            width: "90%",
+          }}
+          className="outline-none"
+        >
+          {previewAttachment && (
+            <div className={auraCard}>
+              <div className="flex flex-col gap-4 text-slate-800">
+                <div className="text-center">
+                  <h3 className="text-xl font-semibold tracking-tight text-slate-900">
+                    Pregled priponke
+                  </h3>
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <div className="aspect-video rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center">
+                    <Paperclip className="w-10 h-10 text-slate-300" />
+                  </div>
+                  <p className="text-sm font-medium text-slate-800">{previewAttachment.name}</p>
+                  <p className="text-xs text-slate-500">Dodano ob {previewAttachment.time}</p>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setPreviewAttachment(null)}
+                  className="w-full h-10 rounded-xl bg-[#1B3A6B] hover:bg-[#142c52] text-white text-xs font-semibold transition-colors"
+                >
+                  Zapri
+                </button>
+              </div>
+            </div>
+          )}
         </DialogContent>
       </Dialog>
     </>

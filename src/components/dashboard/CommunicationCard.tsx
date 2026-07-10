@@ -197,12 +197,13 @@ export function CommunicationCard({
             color: "#64748B",
             marginTop: "2px",
             width: "100%",
+            display: "-webkit-box",
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: "vertical",
+            overflow: "hidden",
           }}
         >
-          {(() => {
-            const desc = order.description || "";
-            return desc.slice(0, 100) + (desc.length > 100 ? "..." : "");
-          })()}
+          {order.description}
         </p>
       </div>
 

@@ -4,6 +4,7 @@ export interface TaskItem {
   completed: boolean;
   completedAt?: string;
   hasAttachment?: boolean;
+  requiresAttachment?: boolean;
 }
 
 export interface Worker {
@@ -59,10 +60,10 @@ export const initialWorkers: Worker[] = [
       { id: "t1_2", text: "Začetek del", completed: true, completedAt: "08:20" },
       { id: "t1_3", text: "Odstranjevanje elementov", completed: true, completedAt: "09:10" },
       { id: "t1_4", text: "Odvoz odpadkov", completed: true, completedAt: "09:55" },
-      { id: "t1_5", text: "Dostava ploščic - Adam", completed: false },
+      { id: "t1_5", text: "Dostava ploščic - Adam", completed: false, requiresAttachment: true },
       { id: "t1_6", text: "Polaganje ploščic", completed: false },
       { id: "t1_7", text: "Menjava umivalnika, kadi", completed: false },
-      { id: "t1_8", text: "Dnevno poročilo", completed: false }
+      { id: "t1_8", text: "Dnevno poročilo", completed: false, requiresAttachment: true }
     ]
   },
   {
@@ -120,7 +121,7 @@ export const initialOrders: Order[] = [
     id: "o2",
     title: "Podpiši izvozne dokumente",
     description: "",
-    time: "",
+    time: "12:00",
     createdAt: "11:34",
     priority: "visoka",
     status: "caka_potrditev",

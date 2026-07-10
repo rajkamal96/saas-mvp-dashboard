@@ -12,7 +12,7 @@ import {
   AuraIconButton,
   auraCard,
 } from "@/components/dashboard/AuraForm";
-import { initialWorkers } from "@/lib/mockData";
+import { initialWorkers, Worker } from "@/lib/mockData";
 
 interface TaskItem {
   id: string;
@@ -20,6 +20,7 @@ interface TaskItem {
   completed: boolean;
   completedAt?: string;
   hasAttachment?: boolean;
+  requiresAttachment?: boolean;
 }
 
 interface ChatMessage {
@@ -45,6 +46,7 @@ export default function WorkerDashboard() {
   const [chatOpen, setChatOpen] = useState(false);
   const [detailOpen, setDetailOpen] = useState(false);
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
+  const [detailKey, setDetailKey] = useState(0);
   const [addStepOpen, setAddStepOpen] = useState(false);
   const [newStepText, setNewStepText] = useState("");
   const [newStepHasAttachment, setNewStepHasAttachment] = useState(false);
@@ -106,24 +108,6 @@ export default function WorkerDashboard() {
     showToast("Status opravila posodobljen!");
   };
 
-  const moveTaskUp = (index: number) => {
-    if (index <= 0) return;
-    setTasks(prev => {
-      const next = [...prev];
-      [next[index - 1], next[index]] = [next[index], next[index - 1]];
-      return next;
-    });
-  };
-
-  const moveTaskDown = (index: number) => {
-    setTasks(prev => {
-      if (index >= prev.length - 1) return prev;
-      const next = [...prev];
-      [next[index], next[index + 1]] = [next[index + 1], next[index]];
-      return next;
-    });
-  };
-
   const handleSendMessage = () => {
     if (!chatInput.trim()) return;
     const newMsg: ChatMessage = {
@@ -164,6 +148,13 @@ export default function WorkerDashboard() {
 
   const done = tasks.filter(t => t.completed).length;
   const total = tasks.length;
+
+  const completedTasks = tasks.filter(t => t.completed);
+  const upcomingTasks = tasks.filter(t => !t.completed);
+  const displayTasks = [
+    ...completedTasks.slice(-1),
+    ...upcomingTasks.slice(0, 2),
+  ];
 
   return (
     <div className="min-h-screen bg-slate-100 dark:bg-[#0b0f19] flex items-center justify-center p-4 font-sans antialiased text-slate-800 dark:text-slate-200">
@@ -410,102 +401,73 @@ export default function WorkerDashboard() {
                 padding: "20px 20px 20px 20px" 
               }}
             >
-              {tasks.map((task, index) => {
-                const nextTask = tasks[index + 1];
-                const hasGapAfter = task.completed && nextTask && !nextTask.completed;
-                return (
-                  <div
-                    key={task.id}
-                    className="flex items-center gap-2 w-full group"
+              {displayTasks.map((task) => (
+                <div
+                  key={task.id}
+                  className="flex items-center gap-2 w-full group"
+                >
+                  {/* Checkbox */}
+                  <button
+                    type="button"
+                    onClick={() => handleToggleTask(task.id)}
+                    className="shrink-0 flex items-center justify-center transition-all"
                     style={{
-                      marginBottom: hasGapAfter ? "12px" : "0px"
+                      width: "16px",
+                      height: "16px",
+                      background: task.completed ? "transparent" : "#E1E4E8",
+                      borderRadius: "4px",
+                      border: task.completed ? "2px solid #41C46D" : "none"
                     }}
                   >
-                    {/* Checkbox */}
-                    <button
-                      type="button"
-                      onClick={() => handleToggleTask(task.id)}
-                      className="shrink-0 flex items-center justify-center transition-all"
-                      style={{
-                        width: "16px",
-                        height: "16px",
-                        background: task.completed ? "transparent" : "#E1E4E8",
-                        borderRadius: "4px",
-                        border: task.completed ? "2px solid #41C46D" : "none"
-                      }}
-                    >
-                      {task.completed && (
-                        <svg width="10" height="7" viewBox="0 0 10 7" fill="none">
-                          <path d="M1 3.5L3.5 6L9 1" stroke="#41C46D" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                      )}
-                    </button>
+                    {task.completed && (
+                      <svg width="10" height="7" viewBox="0 0 10 7" fill="none">
+                        <path d="M1 3.5L3.5 6L9 1" stroke="#41C46D" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    )}
+                  </button>
 
-                    {/* Task text */}
-                    <button
-                      type="button"
-                      onClick={() => handleToggleTask(task.id)}
-                      className="flex-1 text-left truncate transition-all bg-transparent border-none p-0 outline-none"
-                      style={{
-                        fontFamily: "'PT Sans', sans-serif",
-                        fontWeight: 400,
-                        fontSize: task.completed ? "12px" : "14px",
-                        lineHeight: task.completed ? "16px" : "18px",
-                        letterSpacing: task.completed ? "-0.2px" : "0.1px",
-                        color: "#64748B"
-                      }}
-                    >
-                      {task.text}
-                    </button>
+                  {/* Task text */}
+                  <button
+                    type="button"
+                    onClick={() => handleToggleTask(task.id)}
+                    className="flex-1 text-left truncate transition-all bg-transparent border-none p-0 outline-none"
+                    style={{
+                      fontFamily: "'PT Sans', sans-serif",
+                      fontWeight: 400,
+                      fontSize: task.completed ? "12px" : "14px",
+                      lineHeight: task.completed ? "16px" : "18px",
+                      letterSpacing: task.completed ? "-0.2px" : "0.1px",
+                      color: "#64748B"
+                    }}
+                  >
+                    {task.text}
+                  </button>
 
-                    {/* Meta labels (Time + Attachment icon) */}
-                    <div className="flex items-center gap-1.5 shrink-0">
-                      {task.hasAttachment && (
-                        <svg width="13" height="15" viewBox="0 0 14 16" fill="none" className="text-slate-400">
-                          <path d="M0.5 7.54918L6.15229 1.78552C7.83319 0.0714946 10.5585 0.0714946 12.2394 1.78552C13.9203 3.49954 13.9201 6.27867 12.2392 7.99269L5.71734 14.6431C4.59674 15.7858 2.7802 15.7856 1.6596 14.6429C0.538995 13.5002 0.53872 11.6478 1.65932 10.5051L8.1812 3.85471C8.7415 3.28337 9.65041 3.28337 10.2107 3.85471C10.771 4.42605 10.7706 5.35216 10.2103 5.9235L4.55802 11.6872" stroke="currentColor" strokeOpacity="0.15" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                      )}
-                      {task.completed && task.completedAt && (
-                        <span 
-                          style={{
-                            fontFamily: "'PT Sans', sans-serif",
-                            fontWeight: 400,
-                            fontSize: "12px",
-                            lineHeight: "16px",
-                            letterSpacing: "0.1px",
-                            color: "#D3D3D3",
-                            textAlign: "right"
-                          }}
-                        >
-                          {task.completedAt}
-                        </span>
-                      )}
-                    </div>
-
-                    {/* Reorder controls */}
-                    <div className="flex flex-col gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <button
-                        type="button"
-                        onClick={() => moveTaskUp(index)}
-                        disabled={index === 0}
-                        className="leading-none text-slate-400 hover:text-[#1B3A6B] disabled:opacity-30"
-                        aria-label="Move up"
+                  {/* Meta labels (Time + Attachment icon) */}
+                  <div className="flex items-center gap-1.5 shrink-0">
+                    {task.hasAttachment && (
+                      <svg width="13" height="15" viewBox="0 0 14 16" fill="none" className="text-slate-400">
+                        <path d="M0.5 7.54918L6.15229 1.78552C7.83319 0.0714946 10.5585 0.0714946 12.2394 1.78552C13.9203 3.49954 13.9201 6.27867 12.2392 7.99269L5.71734 14.6431C4.59674 15.7858 2.7802 15.7856 1.6596 14.6429C0.538995 13.5002 0.53872 11.6478 1.65932 10.5051L8.1812 3.85471C8.7415 3.28337 9.65041 3.28337 10.2107 3.85471C10.771 4.42605 10.7706 5.35216 10.2103 5.9235L4.55802 11.6872" stroke="currentColor" strokeOpacity="0.15" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    )}
+                    {task.completed && task.completedAt && (
+                      <span 
+                        style={{
+                          fontFamily: "'PT Sans', sans-serif",
+                          fontWeight: 400,
+                          fontSize: "12px",
+                          lineHeight: "16px",
+                          letterSpacing: "0.1px",
+                          color: "#D3D3D3",
+                          textAlign: "right"
+                        }}
                       >
-                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m18 15-6-6-6 6"/></svg>
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => moveTaskDown(index)}
-                        disabled={index === tasks.length - 1}
-                        className="leading-none text-slate-400 hover:text-[#1B3A6B] disabled:opacity-30"
-                        aria-label="Move down"
-                      >
-                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-                      </button>
-                    </div>
+                        {task.completedAt}
+                      </span>
+                    )}
                   </div>
-                );
-              })}
+                </div>
+              ))}
             </div>
           </div>
 
@@ -515,7 +477,10 @@ export default function WorkerDashboard() {
             <div className="flex justify-between items-center w-full">
               {/* PODROBNO */}
               <button 
-                onClick={() => setIsDetailModalOpen(true)}
+                onClick={() => {
+                  setIsDetailModalOpen(true);
+                  setDetailKey(k => k + 1);
+                }}
                 className="flex items-center gap-3 w-1/2 text-left hover:opacity-80 transition-opacity bg-transparent border-none p-0 outline-none"
                 style={{ background: "transparent", border: "none", padding: 0 }}
               >
@@ -951,9 +916,15 @@ export default function WorkerDashboard() {
         )}
 
         <WorkerDetailModal
+          key={detailKey}
           isOpen={isDetailModalOpen}
           onOpenChange={setIsDetailModalOpen}
-          worker={initialWorkers[0]}
+          worker={{
+            ...initialWorkers[0],
+            id: `mobile-${initialWorkers[0].id}`,
+            tasks,
+          } as Worker}
+          onTasksChange={(updatedTasks) => setTasks(updatedTasks as TaskItem[])}
           inlineDrawer={true}
         />
       </div>

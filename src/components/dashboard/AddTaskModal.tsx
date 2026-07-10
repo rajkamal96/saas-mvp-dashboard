@@ -2,11 +2,9 @@
 
 import React, { useState } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { Worker } from "@/lib/mockData";
 import {
   AuraLabel,
   AuraInput,
-  AuraSelect,
   auraCard,
   auraButton,
 } from "./AuraForm";
@@ -14,9 +12,8 @@ import {
 interface AddTaskModalProps {
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
-  workers: Worker[];
   onAddTask: (taskData: {
-    workerId: string;
+    delavec: string;
     opravilo: string;
     kraj: string;
     narocnik: string;
@@ -24,18 +21,18 @@ interface AddTaskModalProps {
   }) => void;
 }
 
-export function AddTaskModal({ isOpen, onOpenChange, workers, onAddTask }: AddTaskModalProps) {
+export function AddTaskModal({ isOpen, onOpenChange, onAddTask }: AddTaskModalProps) {
   const [opravilo, setOpravilo] = useState("");
   const [kraj, setKraj] = useState("");
   const [narocnik, setNarocnik] = useState("");
   const [datum, setDatum] = useState("");
-  const [selectedWorkerId, setSelectedWorkerId] = useState("");
+  const [delavec, setDelavec] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!selectedWorkerId || !opravilo) return;
+    if (!delavec || !opravilo) return;
     onAddTask({
-      workerId: selectedWorkerId,
+      delavec,
       opravilo,
       kraj,
       narocnik,
@@ -46,7 +43,7 @@ export function AddTaskModal({ isOpen, onOpenChange, workers, onAddTask }: AddTa
     setKraj("");
     setNarocnik("");
     setDatum("");
-    setSelectedWorkerId("");
+    setDelavec("");
     onOpenChange(false);
   };
 
@@ -125,27 +122,18 @@ export function AddTaskModal({ isOpen, onOpenChange, workers, onAddTask }: AddTa
                 />
               </div>
 
-              {/* Divider */}
-              <hr className="border-[#1B3A6B]/10 my-1" />
-
-              {/* Odgovorni — required, stronger styling */}
+              {/* Delavec — required, stronger styling */}
               <div>
-                <AuraLabel strong>Odgovorni *</AuraLabel>
-                <AuraSelect
-                  value={selectedWorkerId}
-                  onChange={(e) => setSelectedWorkerId(e.target.value)}
+                <AuraLabel strong>Delavec *</AuraLabel>
+                <AuraInput
+                  type="text"
+                  value={delavec}
+                  onChange={(e) => setDelavec(e.target.value)}
+                  maxLength={22}
                   required
                   strong
-                >
-                  <option value="" disabled hidden>
-                    Izberite delavca
-                  </option>
-                  {workers.map((w) => (
-                    <option key={w.id} value={w.id}>
-                      {w.name}
-                    </option>
-                  ))}
-                </AuraSelect>
+                  placeholder="Npr. Ana Novak"
+                />
               </div>
             </div>
 

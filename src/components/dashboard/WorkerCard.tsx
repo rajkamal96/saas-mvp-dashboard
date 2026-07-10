@@ -356,7 +356,7 @@ export function WorkerCard({ worker, onToggleTask, date = "23/05/26", orderId = 
 
             return (
               <>
-                {/* Completed task (max 1) */}
+                {/* Completed task (max 1, most recent) */}
                 {completedTasks.length > 0 && (
                   <div
                     style={{
@@ -364,7 +364,7 @@ export function WorkerCard({ worker, onToggleTask, date = "23/05/26", orderId = 
                       flexDirection: "column",
                     }}
                   >
-                    {completedTasks.slice(0, 1).map(task => (
+                    {completedTasks.slice(-1).map(task => (
                       <TaskRow
                         key={task.id}
                         task={task}

@@ -21,6 +21,22 @@ import { WorkerDetailModal } from "@/components/dashboard/WorkerDetailModal";
 import { AddTaskModal } from "@/components/dashboard/AddTaskModal";
 import { AddReminderModal } from "@/components/dashboard/AddReminderModal";
 import { AddWorkerCard } from "@/components/dashboard/AddWorkerCard";
+import { SortableItem } from "@/components/dashboard/SortableItem";
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+} from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
 
 interface ColumnHeaderProps {
   title: string;
@@ -79,10 +95,49 @@ export default function OfficeDashboard() {
   const [orders, setOrders] = useState<Order[]>(initialOrders);
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [selectedWorker, setSelectedWorker] = useState<Worker | null>(null);
+  const [detailKey, setDetailKey] = useState(0);
   const [isWorkerDetailOpen, setIsWorkerDetailOpen] = useState(false);
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
   const [isAddReminderOpen, setIsAddReminderOpen] = useState(false);
   const [isAddWorkerOpen, setIsAddWorkerOpen] = useState(false);
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
+    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
+  );
+
+  const handleWorkerDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (over && active.id !== over.id) {
+      setWorkers((prev) => {
+        const oldIndex = prev.findIndex((w) => w.id === active.id);
+        const newIndex = prev.findIndex((w) => w.id === over.id);
+        return arrayMove(prev, oldIndex, newIndex);
+      });
+    }
+  };
+
+  const handleOrderDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (over && active.id !== over.id) {
+      setOrders((prev) => {
+        const oldIndex = prev.findIndex((o) => o.id === active.id);
+        const newIndex = prev.findIndex((o) => o.id === over.id);
+        return arrayMove(prev, oldIndex, newIndex);
+      });
+    }
+  };
+
+  const handleMessageDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (over && active.id !== over.id) {
+      setMessages((prev) => {
+        const oldIndex = prev.findIndex((m) => m.id === active.id);
+        const newIndex = prev.findIndex((m) => m.id === over.id);
+        return arrayMove(prev, oldIndex, newIndex);
+      });
+    }
+  };
 
   const handleAddReminder = (reminderData: {
     title: string;
@@ -125,21 +180,29 @@ export default function OfficeDashboard() {
   };
 
   const handleAddTask = (taskData: {
-    workerId: string;
+    delavec: string;
     opravilo: string;
     kraj: string;
     narocnik: string;
     datum: string;
   }) => {
-    setWorkers(prev => prev.map(w => {
-      if (w.id !== taskData.workerId) return w;
-      return {
-        ...w,
-        currentTask: taskData.opravilo,
-        location: taskData.kraj,
-        role: taskData.narocnik,
-      };
-    }));
+    const newWorker: Worker = {
+      id: `w_${Date.now()}`,
+      name: taskData.delavec,
+      avatar: taskData.delavec.split(" ").map(n => n[0]).join("").slice(0, 2).toUpperCase(),
+      role: taskData.narocnik || "Brez podjetja",
+      currentTask: taskData.opravilo,
+      status: "v_teku",
+      phone: "",
+      email: "",
+      unreadCount: 0,
+      location: taskData.kraj || "Ljubljana",
+      tasks: [
+        { id: `t_${Date.now()}_1`, text: "Začetek del", completed: false },
+        { id: `t_${Date.now()}_2`, text: "Dnevno poročilo", completed: false },
+      ],
+    };
+    setWorkers(prev => [...prev, newWorker]);
   };
 
   const handleAddWorker = (workerData: {
@@ -197,11 +260,11 @@ export default function OfficeDashboard() {
   const handleArchiveMessage = (messageId: string) =>
     setMessages(prev => prev.filter(m => m.id !== messageId));
 
-  const handleTasksChange = useCallback((updatedTasks: { id: string; text: string; completed: boolean; completedAt?: string }[]) => {
+  const handleTasksChange = useCallback((updatedTasks: Worker["tasks"]) => {
     if (!selectedWorker) return;
     setWorkers(prev => prev.map(w =>
       w.id === selectedWorker.id
-        ? { ...w, tasks: updatedTasks.map(t => ({ id: t.id, text: t.text, completed: t.completed, completedAt: t.completedAt })) }
+        ? { ...w, tasks: updatedTasks }
         : w
     ));
   }, [selectedWorker]);
@@ -290,7 +353,7 @@ export default function OfficeDashboard() {
           {/* COLUMN 1 — DANES TEREN */}
           <div className="flex flex-col gap-3">
             {/* Column Header Row */}
-            <ColumnHeader title="DANES — TEREN" onAddClick={() => setIsAddWorkerOpen(true)} />
+            <ColumnHeader title="DANES — TEREN" onAddClick={() => setIsAddTaskOpen(true)} />
             <div
               style={{
                 background: "linear-gradient(180deg, rgba(96, 165, 250, 0.08) 0%, rgba(37, 99, 235, 0.08) 100%)",
@@ -304,19 +367,29 @@ export default function OfficeDashboard() {
               }}
               className="group hover:-translate-y-1 transition-all duration-300"
             >
-              {workers.slice(0, 3).map((w, idx) => (
-                <WorkerCard
-                  key={w.id}
-                  worker={w}
-                  onToggleTask={handleToggleTask}
-                  date="23/05/26"
-                  orderId={`#${480 + idx + 1}`}
-                  onClick={() => {
-                    setSelectedWorker(w);
-                    setIsWorkerDetailOpen(true);
-                  }}
-                />
-              ))}
+              <DndContext
+                sensors={sensors}
+                collisionDetection={closestCenter}
+                onDragEnd={handleWorkerDragEnd}
+              >
+                <SortableContext items={workers.slice(0, 3).map(w => w.id)} strategy={verticalListSortingStrategy}>
+                  {workers.slice(0, 3).map((w, idx) => (
+                    <SortableItem key={w.id} id={w.id}>
+                      <WorkerCard
+                        worker={w}
+                        onToggleTask={handleToggleTask}
+                        date="23/05/26"
+                        orderId={`#${480 + idx + 1}`}
+                        onClick={() => {
+                          setSelectedWorker(w);
+                          setIsWorkerDetailOpen(true);
+                          setDetailKey(k => k + 1);
+                        }}
+                      />
+                    </SortableItem>
+                  ))}
+                </SortableContext>
+              </DndContext>
             </div>
           </div>
 
@@ -337,31 +410,40 @@ export default function OfficeDashboard() {
               }}
               className="group hover:-translate-y-1 transition-all duration-300"
             >
-              {orders.map((o, idx) => {
-                // Determine buttons configuration based on card properties
-                let buttonsConfig: 'call-tick-decline' | 'attachment-tick-decline' | 'none' | 'dynamic' = 'attachment-tick-decline';
-                if ('hasEmail' in o || 'hasAttachment' in o || 'phoneNumber' in o || 'hasConfirm' in o || 'hasDecline' in o) {
-                  buttonsConfig = 'dynamic';
-                } else if (idx === 0) {
-                  buttonsConfig = 'call-tick-decline';
-                } else if (idx === 2) {
-                  buttonsConfig = 'none';
-                }
+              <DndContext
+                sensors={sensors}
+                collisionDetection={closestCenter}
+                onDragEnd={handleOrderDragEnd}
+              >
+                <SortableContext items={orders.map(o => o.id)} strategy={verticalListSortingStrategy}>
+                  {orders.map((o, idx) => {
+                    // Determine buttons configuration based on card properties
+                    let buttonsConfig: 'call-tick-decline' | 'attachment-tick-decline' | 'none' | 'dynamic' = 'attachment-tick-decline';
+                    if ('hasEmail' in o || 'hasAttachment' in o || 'phoneNumber' in o || 'hasConfirm' in o || 'hasDecline' in o) {
+                      buttonsConfig = 'dynamic';
+                    } else if (idx === 0) {
+                      buttonsConfig = 'call-tick-decline';
+                    } else if (idx === 2) {
+                      buttonsConfig = 'none';
+                    }
 
-                return (
-                  <CommunicationCard
-                    key={o.id}
-                    order={o}
-                    buttonsConfig={buttonsConfig}
-                    showRedButton={o.priority === 'nujno' || idx === 0}
-                    onResolve={() => handleApprove(o.id)}
-                    onDismiss={() => handleDismissOrder(o.id)}
-                    onArchive={() => handleDecline(o.id)}
-                    onCall={(phone) => alert(`Klicanje: ${phone || o.workerName}`)}
-                    onAttachmentClick={(att) => alert(`Odpiranje priponke: ${att || o.title}`)}
-                  />
-                );
-              })}
+                    return (
+                      <SortableItem key={o.id} id={o.id}>
+                        <CommunicationCard
+                          order={o}
+                          buttonsConfig={buttonsConfig}
+                          showRedButton={o.priority === 'nujno' || idx === 0}
+                          onResolve={() => handleApprove(o.id)}
+                          onDismiss={() => handleDismissOrder(o.id)}
+                          onArchive={() => handleDecline(o.id)}
+                          onCall={(phone) => alert(`Klicanje: ${phone || o.workerName}`)}
+                          onAttachmentClick={(att) => alert(`Odpiranje priponke: ${att || o.title}`)}
+                        />
+                      </SortableItem>
+                    );
+                  })}
+                </SortableContext>
+              </DndContext>
             </div>
           </div>
 
@@ -382,24 +464,34 @@ export default function OfficeDashboard() {
               }}
               className="group hover:-translate-y-1 transition-all duration-300"
             >
-              {messages.slice(0, 3).map((m, idx) => {
-                return (
-                  <OfficeCard
-                    key={m.id}
-                    message={m}
-                    iconType={idx === 2 ? "document" : "mic"}
-                    showRedButton={idx === 1}
-                    onResolve={() => handleResolveMessage(m.id)}
-                    onDismiss={() => handleDismissMessage(m.id)}
-                    onArchive={() => handleArchiveMessage(m.id)}
-                  />
-                );
-              })}
+              <DndContext
+                sensors={sensors}
+                collisionDetection={closestCenter}
+                onDragEnd={handleMessageDragEnd}
+              >
+                <SortableContext items={messages.slice(0, 3).map(m => m.id)} strategy={verticalListSortingStrategy}>
+                  {messages.slice(0, 3).map((m, idx) => {
+                    return (
+                      <SortableItem key={m.id} id={m.id}>
+                        <OfficeCard
+                          message={m}
+                          iconType={idx === 2 ? "document" : "mic"}
+                          showRedButton={idx === 1}
+                          onResolve={() => handleResolveMessage(m.id)}
+                          onDismiss={() => handleDismissMessage(m.id)}
+                          onArchive={() => handleArchiveMessage(m.id)}
+                        />
+                      </SortableItem>
+                    );
+                  })}
+                </SortableContext>
+              </DndContext>
             </div>
           </div>
         </div>
       </div>
       <WorkerDetailModal
+        key={detailKey}
         isOpen={isWorkerDetailOpen}
         onOpenChange={setIsWorkerDetailOpen}
         worker={selectedWorker}
@@ -408,7 +500,6 @@ export default function OfficeDashboard() {
       <AddTaskModal
         isOpen={isAddTaskOpen}
         onOpenChange={setIsAddTaskOpen}
-        workers={workers}
         onAddTask={handleAddTask}
       />
       <AddReminderModal

@@ -353,7 +353,7 @@ export default function OfficeDashboard() {
                     key={o.id}
                     order={o}
                     buttonsConfig={buttonsConfig}
-                    showRedButton={o.priority === 'nujno' || idx === 0 || idx === 1}
+                    showRedButton={o.priority === 'nujno' || idx === 0}
                     onResolve={() => handleApprove(o.id)}
                     onDismiss={() => handleDismissOrder(o.id)}
                     onArchive={() => handleDecline(o.id)}
@@ -388,7 +388,7 @@ export default function OfficeDashboard() {
                     key={m.id}
                     message={m}
                     iconType={idx === 2 ? "document" : "mic"}
-                    showRedButton={idx === 0 || idx === 1}
+                    showRedButton={idx === 1}
                     onResolve={() => handleResolveMessage(m.id)}
                     onDismiss={() => handleDismissMessage(m.id)}
                     onArchive={() => handleArchiveMessage(m.id)}

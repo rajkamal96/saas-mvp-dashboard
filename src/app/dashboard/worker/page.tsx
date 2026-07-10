@@ -4,6 +4,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useLanguage } from "@/lib/useLanguage";
 import { Button } from "@/components/ui/button";
+import { WorkerDetailModal } from "@/components/dashboard/WorkerDetailModal";
+import { initialWorkers } from "@/lib/mockData";
 
 interface TaskItem {
   id: string;
@@ -35,6 +37,7 @@ export default function WorkerDashboard() {
   // Modal / bottom sheet controls inside the device
   const [chatOpen, setChatOpen] = useState(false);
   const [detailOpen, setDetailOpen] = useState(false);
+  const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
   const [addStepOpen, setAddStepOpen] = useState(false);
   const [newStepText, setNewStepText] = useState("");
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -463,7 +466,7 @@ export default function WorkerDashboard() {
             <div className="flex justify-between items-center w-full">
               {/* PODROBNO */}
               <button 
-                onClick={() => {}}
+                onClick={() => setIsDetailModalOpen(true)}
                 className="flex items-center gap-3 w-1/2 text-left hover:opacity-80 transition-opacity bg-transparent border-none p-0 outline-none"
                 style={{ background: "transparent", border: "none", padding: 0 }}
               >
@@ -839,6 +842,12 @@ export default function WorkerDashboard() {
           </div>
         )}
 
+        <WorkerDetailModal
+          isOpen={isDetailModalOpen}
+          onOpenChange={setIsDetailModalOpen}
+          worker={initialWorkers[0]}
+          inlineDrawer={true}
+        />
       </div>
     </div>
   );

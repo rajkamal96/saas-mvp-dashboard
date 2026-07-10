@@ -18,6 +18,8 @@ import { WorkerCard } from "@/components/dashboard/WorkerCard";
 import { OfficeCard } from "@/components/dashboard/OfficeCard";
 import { CommunicationCard } from "@/components/dashboard/CommunicationCard";
 import { WorkerDetailModal } from "@/components/dashboard/WorkerDetailModal";
+import { AddTaskModal } from "@/components/dashboard/AddTaskModal";
+import { AddReminderModal } from "@/components/dashboard/AddReminderModal";
 
 interface ColumnHeaderProps {
   title: string;
@@ -77,6 +79,65 @@ export default function OfficeDashboard() {
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [selectedWorker, setSelectedWorker] = useState<Worker | null>(null);
   const [isWorkerDetailOpen, setIsWorkerDetailOpen] = useState(false);
+  const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
+  const [isAddReminderOpen, setIsAddReminderOpen] = useState(false);
+
+  const handleAddReminder = (reminderData: {
+    title: string;
+    description: string;
+    time: string;
+    date: string;
+    isUrgent: boolean;
+    hasAttachment: boolean;
+    attachmentName: string;
+    hasEmail: boolean;
+    phoneNumber: string;
+    hasConfirm: boolean;
+    hasDecline: boolean;
+  }) => {
+    const newOrder: Order & {
+      hasEmail?: boolean;
+      hasAttachment?: boolean;
+      attachmentName?: string;
+      phoneNumber?: string;
+      hasConfirm?: boolean;
+      hasDecline?: boolean;
+    } = {
+      id: `o_${Date.now()}`,
+      title: reminderData.title,
+      description: reminderData.description,
+      time: reminderData.time,
+      priority: reminderData.isUrgent ? 'nujno' : 'normalna',
+      status: 'caka_potrditev',
+      workerId: '',
+      workerName: 'Pisarna',
+      hasEmail: reminderData.hasEmail,
+      hasAttachment: reminderData.hasAttachment,
+      attachmentName: reminderData.attachmentName,
+      phoneNumber: reminderData.phoneNumber,
+      hasConfirm: reminderData.hasConfirm,
+      hasDecline: reminderData.hasDecline,
+    };
+    setOrders(prev => [newOrder, ...prev]);
+  };
+
+  const handleAddTask = (taskData: {
+    workerId: string;
+    opravilo: string;
+    kraj: string;
+    narocnik: string;
+    datum: string;
+  }) => {
+    setWorkers(prev => prev.map(w => {
+      if (w.id !== taskData.workerId) return w;
+      return {
+        ...w,
+        currentTask: taskData.opravilo,
+        location: taskData.kraj,
+        role: taskData.narocnik,
+      };
+    }));
+  };
 
   const handleToggleTask = (workerId: string, taskId: string) => {
     setWorkers(prev => prev.map(w => {
@@ -192,7 +253,7 @@ export default function OfficeDashboard() {
           {/* COLUMN 1 — DANES TEREN */}
           <div className="flex flex-col gap-3">
             {/* Column Header Row */}
-            <ColumnHeader title="DANES — TEREN" />
+            <ColumnHeader title="DANES — TEREN" onAddClick={() => setIsAddTaskOpen(true)} />
             <div
               style={{
                 background: "linear-gradient(180deg, rgba(96, 165, 250, 0.08) 0%, rgba(37, 99, 235, 0.08) 100%)",
@@ -225,7 +286,7 @@ export default function OfficeDashboard() {
           {/* COLUMN 2 — DANES PISARNA */}
           <div className="flex flex-col gap-3">
             {/* Column Header Row */}
-            <ColumnHeader title="DANES — PISARNA" />
+            <ColumnHeader title="DANES — PISARNA" onAddClick={() => setIsAddReminderOpen(true)} />
             <div
               style={{
                 background: "linear-gradient(180deg, #60A5FA 0%, #2563EB 100%)",
@@ -239,10 +300,12 @@ export default function OfficeDashboard() {
               }}
               className="group hover:-translate-y-1 transition-all duration-300"
             >
-              {orders.slice(0, 3).map((o, idx) => {
-                // Determine buttons configuration based on card index
-                let buttonsConfig: 'call-tick-decline' | 'attachment-tick-decline' | 'none' = 'attachment-tick-decline';
-                if (idx === 0) {
+              {orders.map((o, idx) => {
+                // Determine buttons configuration based on card properties
+                let buttonsConfig: 'call-tick-decline' | 'attachment-tick-decline' | 'none' | 'dynamic' = 'attachment-tick-decline';
+                if ('hasEmail' in o || 'hasAttachment' in o || 'phoneNumber' in o || 'hasConfirm' in o || 'hasDecline' in o) {
+                  buttonsConfig = 'dynamic';
+                } else if (idx === 0) {
                   buttonsConfig = 'call-tick-decline';
                 } else if (idx === 2) {
                   buttonsConfig = 'none';
@@ -253,12 +316,12 @@ export default function OfficeDashboard() {
                     key={o.id}
                     order={o}
                     buttonsConfig={buttonsConfig}
-                    showRedButton={idx === 0 || idx === 1}
+                    showRedButton={o.priority === 'nujno' || idx === 0 || idx === 1}
                     onResolve={() => handleApprove(o.id)}
                     onDismiss={() => handleDismissOrder(o.id)}
                     onArchive={() => handleDecline(o.id)}
-                    onCall={() => alert(`Klicanje: ${o.workerName}`)}
-                    onAttachmentClick={() => alert(`Showing attachments for ${o.title}`)}
+                    onCall={(phone) => alert(`Klicanje: ${phone || o.workerName}`)}
+                    onAttachmentClick={(att) => alert(`Odpiranje priponke: ${att || o.title}`)}
                   />
                 );
               })}
@@ -303,6 +366,17 @@ export default function OfficeDashboard() {
         isOpen={isWorkerDetailOpen}
         onOpenChange={setIsWorkerDetailOpen}
         worker={selectedWorker}
+      />
+      <AddTaskModal
+        isOpen={isAddTaskOpen}
+        onOpenChange={setIsAddTaskOpen}
+        workers={workers}
+        onAddTask={handleAddTask}
+      />
+      <AddReminderModal
+        isOpen={isAddReminderOpen}
+        onOpenChange={setIsAddReminderOpen}
+        onAddReminder={handleAddReminder}
       />
     </div>
   );

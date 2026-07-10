@@ -4,13 +4,20 @@ import React from "react";
 import { Order } from "@/lib/mockData";
 
 interface CommunicationCardProps {
-  order: Order;
+  order: Order & {
+    hasEmail?: boolean;
+    hasAttachment?: boolean;
+    attachmentName?: string;
+    phoneNumber?: string;
+    hasConfirm?: boolean;
+    hasDecline?: boolean;
+  };
   onResolve: () => void;
   onDismiss: () => void;
-  onAttachmentClick?: () => void;
+  onAttachmentClick?: (attachmentName?: string) => void;
   onArchive?: () => void;
-  onCall?: () => void;
-  buttonsConfig?: "call-tick-decline" | "attachment-tick-decline" | "none";
+  onCall?: (phoneNumber?: string) => void;
+  buttonsConfig?: "call-tick-decline" | "attachment-tick-decline" | "none" | "dynamic";
   showRedButton?: boolean;
 }
 
@@ -238,7 +245,7 @@ export function CommunicationCard({
             {/* Button 1: Call (only if call-tick-decline) */}
             {buttonsConfig === "call-tick-decline" && (
               <button
-                onClick={onCall}
+                onClick={() => onCall()}
                 style={{
                   boxSizing: "border-box",
                   display: "flex",
@@ -274,7 +281,7 @@ export function CommunicationCard({
             {/* Button 2: Paperclip (only if attachment-tick-decline) */}
             {buttonsConfig === "attachment-tick-decline" && (
               <button
-                onClick={onAttachmentClick}
+                onClick={() => onAttachmentClick()}
                 style={{
                   boxSizing: "border-box",
                   display: "flex",
@@ -307,79 +314,257 @@ export function CommunicationCard({
               </button>
             )}
 
-            {/* Button 3: Checkmark (Resolve) */}
-            <button
-              onClick={onResolve}
-              style={{
-                boxSizing: "border-box",
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "center",
-                padding: "0px",
-                width: "32px",
-                height: "32px",
-                background: "rgba(255, 255, 255, 0.9)",
-                border: "1px solid #FFFFFF",
-                boxShadow: "inset 0px 1px 0px 1px #FFFFFF",
-                borderRadius: "12px",
-                cursor: "pointer",
-              }}
-              title="Approve / Resolve"
-            >
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 16 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M13.3333 4L6 11.3333L2.66667 8"
-                  stroke="#6D778E"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </button>
+            {/* Dynamic Buttons */}
+            {buttonsConfig === "dynamic" && (
+              <>
+                {order.hasEmail && (
+                  <button
+                    onClick={() => alert(`E-pošta: ${order.title}`)}
+                    style={{
+                      boxSizing: "border-box",
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      padding: "0px",
+                      width: "32px",
+                      height: "32px",
+                      background: "rgba(255, 255, 255, 0.9)",
+                      border: "1px solid #FFFFFF",
+                      boxShadow: "inset 0px 1px 0px 1px #FFFFFF",
+                      borderRadius: "12px",
+                      cursor: "pointer",
+                    }}
+                    title="Sent via Email"
+                  >
+                    <span className="text-xs font-bold text-slate-500">@</span>
+                  </button>
+                )}
 
-            {/* Button 4: Archive / Decline */}
-            <button
-              onClick={onArchive}
-              style={{
-                boxSizing: "border-box",
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "center",
-                padding: "0px",
-                width: "32px",
-                height: "32px",
-                background: "rgba(255, 255, 255, 0.9)",
-                border: "1px solid #FFFFFF",
-                boxShadow: "inset 0px 1px 0px 1px #FFFFFF",
-                borderRadius: "12px",
-                cursor: "pointer",
-              }}
-              title="Archive"
-            >
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 16 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M14.6066 14.6066L7.80336 7.80336M7.80336 7.80336L1 1M7.80336 7.80336L14.6067 1M7.80336 7.80336L1 14.6067"
-                  stroke="#6D778E"
-                  strokeWidth="2.2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </button>
+                {order.phoneNumber && (
+                  <button
+                    onClick={() => onCall(order.phoneNumber)}
+                    style={{
+                      boxSizing: "border-box",
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      padding: "0px",
+                      width: "32px",
+                      height: "32px",
+                      background: "rgba(255, 255, 255, 0.9)",
+                      border: "1px solid #FFFFFF",
+                      boxShadow: "inset 0px 1px 0px 1px #FFFFFF",
+                      borderRadius: "12px",
+                      cursor: "pointer",
+                    }}
+                    title={`Call Phone: ${order.phoneNumber}`}
+                  >
+                    <svg
+                      width="18"
+                      height="16"
+                      viewBox="0 0 20 18"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M7.22477 1.25722C6.8873 0.497902 6.0702 0 5.16154 0H2.10521C0.942534 0 0 0.848098 0 1.89453C0 10.7892 8.01177 18 17.8945 18C19.0572 18 19.9995 17.1516 19.9995 16.1052L20 13.354C20 12.5362 19.4469 11.8009 18.6033 11.4971L15.674 10.4429C14.9161 10.1701 14.0533 10.2929 13.4263 10.7632L12.6702 11.3307C11.7873 11.9929 10.4882 11.9402 9.67552 11.2088L7.54672 9.29106C6.73403 8.55963 6.67398 7.39134 7.40975 6.59669L8.04016 5.9163C8.56268 5.35196 8.70032 4.57516 8.39719 3.89309L7.22477 1.25722Z"
+                        fill="#6D778E"
+                      />
+                    </svg>
+                  </button>
+                )}
+
+                {order.hasAttachment && (
+                  <button
+                    onClick={() => onAttachmentClick(order.attachmentName)}
+                    style={{
+                      boxSizing: "border-box",
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      padding: "0px",
+                      width: "32px",
+                      height: "32px",
+                      background: "rgba(255, 255, 255, 0.9)",
+                      border: "1px solid #FFFFFF",
+                      boxShadow: "inset 0px 1px 0px 1px #FFFFFF",
+                      borderRadius: "12px",
+                      cursor: "pointer",
+                    }}
+                    title={`Attachment: ${order.attachmentName}`}
+                  >
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#6D778E"
+                      strokeWidth="2.2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48" />
+                    </svg>
+                  </button>
+                )}
+
+                {order.hasConfirm && (
+                  <button
+                    onClick={onResolve}
+                    style={{
+                      boxSizing: "border-box",
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      padding: "0px",
+                      width: "32px",
+                      height: "32px",
+                      background: "rgba(255, 255, 255, 0.9)",
+                      border: "1px solid #FFFFFF",
+                      boxShadow: "inset 0px 1px 0px 1px #FFFFFF",
+                      borderRadius: "12px",
+                      cursor: "pointer",
+                    }}
+                    title="Confirm"
+                  >
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M13.3333 4L6 11.3333L2.66667 8"
+                        stroke="#6D778E"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </button>
+                )}
+
+                {order.hasDecline && (
+                  <button
+                    onClick={onArchive}
+                    style={{
+                      boxSizing: "border-box",
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      padding: "0px",
+                      width: "32px",
+                      height: "32px",
+                      background: "rgba(255, 255, 255, 0.9)",
+                      border: "1px solid #FFFFFF",
+                      boxShadow: "inset 0px 1px 0px 1px #FFFFFF",
+                      borderRadius: "12px",
+                      cursor: "pointer",
+                    }}
+                    title="Decline"
+                  >
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M14.6066 14.6066L7.80336 7.80336M7.80336 7.80336L1 1M7.80336 7.80336L14.6067 1M7.80336 7.80336L1 14.6067"
+                        stroke="#6D778E"
+                        strokeWidth="2.2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </button>
+                )}
+              </>
+            )}
+
+            {/* Standard Confirm / Decline Buttons if not dynamic */}
+            {buttonsConfig !== "dynamic" && (
+              <>
+                <button
+                  onClick={onResolve}
+                  style={{
+                    boxSizing: "border-box",
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    padding: "0px",
+                    width: "32px",
+                    height: "32px",
+                    background: "rgba(255, 255, 255, 0.9)",
+                    border: "1px solid #FFFFFF",
+                    boxShadow: "inset 0px 1px 0px 1px #FFFFFF",
+                    borderRadius: "12px",
+                    cursor: "pointer",
+                  }}
+                  title="Approve / Resolve"
+                >
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M13.3333 4L6 11.3333L2.66667 8"
+                      stroke="#6D778E"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
+
+                <button
+                  onClick={onArchive}
+                  style={{
+                    boxSizing: "border-box",
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    padding: "0px",
+                    width: "32px",
+                    height: "32px",
+                    background: "rgba(255, 255, 255, 0.9)",
+                    border: "1px solid #FFFFFF",
+                    boxShadow: "inset 0px 1px 0px 1px #FFFFFF",
+                    borderRadius: "12px",
+                    cursor: "pointer",
+                  }}
+                  title="Archive"
+                >
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M14.6066 14.6066L7.80336 7.80336M7.80336 7.80336L1 1M7.80336 7.80336L14.6067 1M7.80336 7.80336L1 14.6067"
+                      stroke="#6D778E"
+                      strokeWidth="2.2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
+              </>
+            )}
           </div>
         )}
       </div>

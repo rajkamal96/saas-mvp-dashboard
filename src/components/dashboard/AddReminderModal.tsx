@@ -71,7 +71,7 @@ export function AddReminderModal({ isOpen, onOpenChange, onAddReminder }: AddRem
     onAddReminder({
       title,
       description,
-      time,
+      time: time || new Date().toLocaleTimeString("sl-SI", { hour: "2-digit", minute: "2-digit" }),
       date: date || new Date().toLocaleDateString("sl-SI"),
       isUrgent,
       hasAttachment,
@@ -168,7 +168,7 @@ export function AddReminderModal({ isOpen, onOpenChange, onAddReminder }: AddRem
                   placeholder="Lahko dodate kratek opomnik, lahko naslov, datume..."
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  maxLength={50}
+                  maxLength={100}
                   rows={2}
                 />
               </div>

@@ -180,29 +180,25 @@ export default function OfficeDashboard() {
   };
 
   const handleAddTask = (taskData: {
-    delavec: string;
+    workerId: string;
     opravilo: string;
     kraj: string;
     narocnik: string;
     datum: string;
   }) => {
-    const newWorker: Worker = {
-      id: `w_${Date.now()}`,
-      name: taskData.delavec,
-      avatar: taskData.delavec.split(" ").map(n => n[0]).join("").slice(0, 2).toUpperCase(),
-      role: taskData.narocnik || "Brez podjetja",
-      currentTask: taskData.opravilo,
-      status: "v_teku",
-      phone: "",
-      email: "",
-      unreadCount: 0,
-      location: taskData.kraj || "Ljubljana",
-      tasks: [
-        { id: `t_${Date.now()}_1`, text: "Začetek del", completed: false },
-        { id: `t_${Date.now()}_2`, text: "Dnevno poročilo", completed: false },
-      ],
-    };
-    setWorkers(prev => [...prev, newWorker]);
+    setWorkers(prev => prev.map(w => {
+      if (w.id !== taskData.workerId) return w;
+      return {
+        ...w,
+        currentTask: taskData.opravilo,
+        location: taskData.kraj || w.location || "Ljubljana",
+        role: taskData.narocnik || w.role || "Brez podjetja",
+        tasks: [
+          ...w.tasks,
+          { id: `t_${Date.now()}`, text: taskData.opravilo, completed: false },
+        ],
+      };
+    }));
   };
 
   const handleAddWorker = (workerData: {
@@ -334,7 +330,7 @@ export default function OfficeDashboard() {
           {/* NUJNE ZADEVE */}
           <SummaryCard title="NUJNE ZADEVE" dark>
             <div className="flex flex-col gap-[6px]">
-              {orders.map(o => (
+              {orders.filter(o => o.priority === 'nujno').map(o => (
                 <UrgentRow
                   key={o.id}
                   time={o.time}
@@ -432,7 +428,7 @@ export default function OfficeDashboard() {
                         <CommunicationCard
                           order={o}
                           buttonsConfig={buttonsConfig}
-                          showRedButton={o.priority === 'nujno' || idx === 0}
+                          showRedButton={o.priority === 'nujno'}
                           onResolve={() => handleApprove(o.id)}
                           onDismiss={() => handleDismissOrder(o.id)}
                           onArchive={() => handleDecline(o.id)}
@@ -500,6 +496,7 @@ export default function OfficeDashboard() {
       <AddTaskModal
         isOpen={isAddTaskOpen}
         onOpenChange={setIsAddTaskOpen}
+        workers={workers}
         onAddTask={handleAddTask}
       />
       <AddReminderModal

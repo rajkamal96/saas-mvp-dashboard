@@ -124,7 +124,7 @@ export function UrgentRow({ time, title, subtitle }: UrgentRowProps) {
       <div>
         <p style={textStyle}>{title}</p>
         {subtitle && (
-          <p style={{ ...textStyle, marginTop: "6px" }}>{subtitle}</p>
+          <p style={{ ...textStyle, marginTop: "6px", wordBreak: "break-word" }}>{subtitle}</p>
         )}
       </div>
     </div>

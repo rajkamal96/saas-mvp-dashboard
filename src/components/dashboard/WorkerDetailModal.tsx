@@ -52,6 +52,7 @@ interface AttachmentItem {
   id: string;
   name: string;
   time: string;
+  date: string;
   url?: string;
 }
 
@@ -64,6 +65,10 @@ interface TimelineItem {
 
 function nowTime() {
   return new Date().toLocaleTimeString("sl-SI", { hour: "2-digit", minute: "2-digit" });
+}
+
+function nowDate() {
+  return new Date().toLocaleDateString("sl-SI");
 }
 
 interface SortableTaskItemProps {
@@ -224,12 +229,12 @@ export function WorkerDetailModal({ isOpen, onOpenChange, worker, inlineDrawer =
   const [stepPosition, setStepPosition] = React.useState(tasks.length + 1);
 
   const [attachments, setAttachments] = React.useState<AttachmentItem[]>([
-    { id: "a1", name: "Contract", time: "9:11" },
-    { id: "a2", name: "Photo - start", time: "9:18" },
-    { id: "a3", name: "Furniture Payment", time: "9:33" },
-    { id: "a4", name: "Import document", time: "9:42" },
-    { id: "a5", name: "Photo - damage", time: "12:18" },
-    { id: "a6", name: "Photo - finished", time: "14:54" },
+    { id: "a1", name: "Contract", time: "9:11", date: "21.05.2026" },
+    { id: "a2", name: "Photo - start", time: "9:18", date: "21.05.2026" },
+    { id: "a3", name: "Furniture Payment", time: "9:33", date: "21.05.2026" },
+    { id: "a4", name: "Import document", time: "9:42", date: "21.05.2026" },
+    { id: "a5", name: "Photo - damage", time: "12:18", date: "21.05.2026" },
+    { id: "a6", name: "Photo - finished", time: "14:54", date: "21.05.2026" },
   ]);
 
   const [timeline, setTimeline] = React.useState<TimelineItem[]>([
@@ -649,6 +654,7 @@ export function WorkerDetailModal({ isOpen, onOpenChange, worker, inlineDrawer =
                   id: `a_${Date.now()}`,
                   name: stepAttachmentName,
                   time: nowTime(),
+                  date: nowDate(),
                 };
                 setAttachments(prev => [newAttachment, ...prev]);
                 addTimeline(`Priponka: ${stepAttachmentName}`, "attachment");
@@ -763,6 +769,7 @@ export function WorkerDetailModal({ isOpen, onOpenChange, worker, inlineDrawer =
                 id: `a_${Date.now()}`,
                 name: attachOnlyName,
                 time: nowTime(),
+                date: nowDate(),
               };
               setAttachments(prev => [newAttachment, ...prev]);
               addTimeline(`Priponka: ${attachOnlyName}`, "attachment");
@@ -859,7 +866,7 @@ export function WorkerDetailModal({ isOpen, onOpenChange, worker, inlineDrawer =
                         onFileSelect={(name) => {
                           if (!name.trim()) return;
                           const attId = `a_${Date.now()}`;
-                          setAttachments(prev => [{ id: attId, name, time: nowTime() }, ...prev]);
+                          setAttachments(prev => [{ id: attId, name, time: nowTime(), date: nowDate() }, ...prev]);
                           const nextTasks = tasks.map(t => t.id === task.id ? { ...t, attachment: true } : t);
                           setTasks(nextTasks);
                           updateTasks(nextTasks);
@@ -928,7 +935,7 @@ export function WorkerDetailModal({ isOpen, onOpenChange, worker, inlineDrawer =
                     <Paperclip className="w-10 h-10 text-slate-300" />
                   </div>
                   <p className="text-sm font-medium text-slate-800">{previewAttachment.name}</p>
-                  <p className="text-xs text-slate-500">Dodano ob {previewAttachment.time}</p>
+                  <p className="text-xs text-slate-500">Dodano ob {previewAttachment.time} · {previewAttachment.date}</p>
                 </div>
 
                 <button

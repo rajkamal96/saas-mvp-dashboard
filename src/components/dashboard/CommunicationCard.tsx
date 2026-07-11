@@ -165,7 +165,7 @@ export function CommunicationCard({
           alignItems: "flex-start",
           padding: "16px",
           width: "100%",
-          height: "77px",
+          height: "auto",
           background: "rgba(255, 255, 255, 0.95)",
           border: "1px solid #FFFFFF",
           borderRadius: "21.6px",
@@ -185,8 +185,9 @@ export function CommunicationCard({
             width: "100%",
           }}
           title={order.title}
+          className="line-clamp-2"
         >
-          {order.title.slice(0, 35) + (order.title.length > 35 ? "..." : "")}
+          {order.title}
         </p>
         <p
           style={{
@@ -197,11 +198,9 @@ export function CommunicationCard({
             color: "#64748B",
             marginTop: "2px",
             width: "100%",
-            display: "-webkit-box",
-            WebkitLineClamp: 2,
-            WebkitBoxOrient: "vertical",
-            overflow: "hidden",
+            wordBreak: "break-word",
           }}
+          className="line-clamp-2"
         >
           {order.description}
         </p>

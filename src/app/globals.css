@@ -246,6 +246,6 @@ body, button, input, select, textarea, span, p, h1, h2, h3, h4, h5, h6, a, div, 
 }
 
 /* Ensure code/mono elements still use mono */
-code, pre, .font-mono, [class*="font-mono"], [style*="JetBrains Mono"] {
-  font-family: var(--font-mono), monospace !important;
+code, pre, .font-mono, [class*="font-mono"] {
+  font-family: monospace !important;
 }

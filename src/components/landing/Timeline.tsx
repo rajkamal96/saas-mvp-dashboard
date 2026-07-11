@@ -19,7 +19,7 @@ export function Timeline() {
 
       {/* Section Intro */}
       <div className="text-center max-w-5xl mx-auto mb-16">
-        <p className="font-['JetBrains_Mono',monospace] text-[10px] md:text-xs font-semibold tracking-[-0.04em] text-blue-500 mb-4 uppercase">
+        <p className="font-['Inter',sans-serif] text-[10px] md:text-xs font-semibold tracking-[-0.04em] text-blue-500 mb-4 uppercase">
           {t("timelineTitle")}
         </p>
         <h2 className="text-3xl md:text-5xl font-normal tracking-tight text-slate-950 max-w-2xl mx-auto">
@@ -55,7 +55,7 @@ export function Timeline() {
               <div className="h-24 w-full relative flex items-center justify-center">
                 <span className="relative inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-b from-white to-slate-100 border border-white shadow-[0_16px_34px_-20px_rgba(15,23,42,0.55),inset_0_1px_0_white]">
                   <span className="absolute inset-1 rounded-full bg-gradient-to-b from-blue-400 to-blue-600 border border-blue-700 shadow-[inset_0_1px_0_rgba(255,255,255,0.35),0_10px_22px_rgba(59,130,246,0.28)]" />
-                  <span className="relative font-['JetBrains_Mono',monospace] text-sm font-semibold text-white">01</span>
+                  <span className="relative font-['Inter',sans-serif] text-sm font-semibold text-white">01</span>
                 </span>
               </div>
               <div className="mt-4 rounded-[2rem] bg-white/70 border border-white p-6 min-h-[15rem] shadow-[0_16px_36px_-26px_rgba(15,23,42,0.32),inset_0_1px_0_white] group-hover:-translate-y-1 group-hover:bg-white/85 transition-all duration-300 flex flex-col justify-between">
@@ -82,7 +82,7 @@ export function Timeline() {
               <div className="h-24 w-full relative flex items-center justify-center">
                 <span className="relative inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-b from-white to-slate-100 border border-white shadow-[0_16px_34px_-20px_rgba(15,23,42,0.55),inset_0_1px_0_white]">
                   <span className="absolute inset-1 rounded-full bg-gradient-to-b from-blue-400 to-blue-600 border border-blue-700 shadow-[inset_0_1px_0_rgba(255,255,255,0.35),0_10px_22px_rgba(59,130,246,0.28)]" />
-                  <span className="relative font-['JetBrains_Mono',monospace] text-sm font-semibold text-white">02</span>
+                  <span className="relative font-['Inter',sans-serif] text-sm font-semibold text-white">02</span>
                 </span>
               </div>
               <div className="mt-4 rounded-[2rem] bg-white/70 border border-white p-6 min-h-[15rem] shadow-[0_16px_36px_-26px_rgba(15,23,42,0.32),inset_0_1px_0_white] group-hover:-translate-y-1 group-hover:bg-white/85 transition-all duration-300 flex flex-col justify-between">
@@ -109,7 +109,7 @@ export function Timeline() {
               <div className="h-24 w-full relative flex items-center justify-center">
                 <span className="relative inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-b from-white to-slate-100 border border-white shadow-[0_16px_34px_-20px_rgba(15,23,42,0.55),inset_0_1px_0_white]">
                   <span className="absolute inset-1 rounded-full bg-gradient-to-b from-blue-400 to-blue-600 border border-blue-700 shadow-[inset_0_1px_0_rgba(255,255,255,0.35),0_10px_22px_rgba(59,130,246,0.28)]" />
-                  <span className="relative font-['JetBrains_Mono',monospace] text-sm font-semibold text-white">03</span>
+                  <span className="relative font-['Inter',sans-serif] text-sm font-semibold text-white">03</span>
                 </span>
               </div>
               <div className="mt-4 rounded-[2rem] bg-white/70 border border-white p-6 min-h-[15rem] shadow-[0_16px_36px_-26px_rgba(15,23,42,0.32),inset_0_1px_0_white] group-hover:-translate-y-1 group-hover:bg-white/85 transition-all duration-300 flex flex-col justify-between">
@@ -136,7 +136,7 @@ export function Timeline() {
               <div className="h-24 w-full relative flex items-center justify-center">
                 <span className="relative inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-b from-white to-slate-100 border border-white shadow-[0_16px_34px_-20px_rgba(15,23,42,0.55),inset_0_1px_0_white]">
                   <span className="absolute inset-1 rounded-full bg-gradient-to-b from-blue-400 to-blue-600 border border-blue-700 shadow-[inset_0_1px_0_rgba(255,255,255,0.35),0_10px_22px_rgba(59,130,246,0.28)]" />
-                  <span className="relative font-['JetBrains_Mono',monospace] text-sm font-semibold text-white">04</span>
+                  <span className="relative font-['Inter',sans-serif] text-sm font-semibold text-white">04</span>
                 </span>
               </div>
               <div className="mt-4 rounded-[2rem] bg-white/70 border border-white p-6 min-h-[15rem] shadow-[0_16px_36px_-26px_rgba(15,23,42,0.32),inset_0_1px_0_white] group-hover:-translate-y-1 group-hover:bg-white/85 transition-all duration-300 flex flex-col justify-between">

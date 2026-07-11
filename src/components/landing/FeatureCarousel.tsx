@@ -18,7 +18,7 @@ export function FeatureCarousel() {
         <div className="rounded-[1.75rem] bg-white text-slate-900 border border-slate-200 p-6 shadow-[0_18px_50px_-30px_rgba(0,0,0,0.4),inset_0_1px_0_white]">
           <div className="flex justify-between items-center pb-4 mb-4 border-b border-slate-100">
             <div>
-              <p className="text-[10px] text-slate-400 font-semibold tracking-wider font-['JetBrains_Mono',monospace]">
+              <p className="text-[10px] text-slate-400 font-semibold tracking-wider font-['Inter',sans-serif]">
                 {t("showcaseSlide1CardTitle")}
               </p>
               <p className="text-xs text-slate-500 font-light mt-0.5">Luka Dončič</p>
@@ -54,7 +54,7 @@ export function FeatureCarousel() {
         <div className="rounded-[1.75rem] bg-white text-slate-900 border border-slate-200 p-6 shadow-[0_18px_50px_-30px_rgba(0,0,0,0.4),inset_0_1px_0_white]">
           <div className="flex justify-between items-center pb-4 mb-4 border-b border-slate-100">
             <div>
-              <p className="text-[10px] text-blue-600 bg-blue-50 border border-blue-100 rounded-full px-2 py-0.5 font-bold font-['JetBrains_Mono',monospace]">
+              <p className="text-[10px] text-blue-600 bg-blue-50 border border-blue-100 rounded-full px-2 py-0.5 font-bold font-['Inter',sans-serif]">
                 {t("showcaseSlide2CardLabel")}
               </p>
               <p className="text-[10px] text-slate-400 font-light mt-1">{t("showcaseSlide2CardTime")}</p>
@@ -112,7 +112,7 @@ export function FeatureCarousel() {
   return (
     <section id="funkcionalnosti" className="max-w-7xl mx-auto px-6 py-20">
       <div className="text-center max-w-3xl mx-auto mb-16">
-        <p className="font-['JetBrains_Mono',monospace] text-[10px] md:text-xs font-semibold tracking-[-0.04em] text-blue-500 mb-4 uppercase">
+        <p className="font-['Inter',sans-serif] text-[10px] md:text-xs font-semibold tracking-[-0.04em] text-blue-500 mb-4 uppercase">
           {t("showcaseTitle")}
         </p>
         <h2 className="text-3xl md:text-5xl font-normal tracking-tight text-slate-950">

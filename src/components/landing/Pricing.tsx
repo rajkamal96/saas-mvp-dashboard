@@ -53,7 +53,7 @@ export function Pricing() {
   return (
     <section id="cenik" className="max-w-7xl mx-auto px-6 py-20">
       <div className="text-center max-w-3xl mx-auto mb-12">
-        <p className="font-['JetBrains_Mono',monospace] text-[10px] md:text-xs font-semibold tracking-[-0.04em] text-blue-500 mb-4 uppercase">
+        <p className="font-['Inter',sans-serif] text-[10px] md:text-xs font-semibold tracking-[-0.04em] text-blue-500 mb-4 uppercase">
           {t("priceTitle")}
         </p>
         <h2 className="text-3xl md:text-5xl font-normal tracking-tight text-slate-950">

@@ -43,9 +43,9 @@ export default function RegisterPage() {
         <div className="flex flex-col items-center mb-6">
           <Link href="/" className="flex items-center gap-3 group mb-6">
             <span className="w-10 h-10 rounded-full bg-gradient-to-b from-white to-slate-50 border border-slate-200 shadow-[0_2px_6px_rgba(15,23,42,0.05)] flex items-center justify-center">
-              <span className="font-['JetBrains_Mono',monospace] text-xs font-semibold text-[#1B3A6B]">DN</span>
+              <span className="font-['Inter',sans-serif] text-xs font-semibold text-[#1B3A6B]">DN</span>
             </span>
-            <span className="font-['JetBrains_Mono',monospace] text-base font-semibold tracking-[-0.08em] text-slate-950">
+            <span className="font-['Inter',sans-serif] text-base font-semibold tracking-[-0.08em] text-slate-950">
               Dnevnik.app
             </span>
           </Link>
@@ -60,7 +60,7 @@ export default function RegisterPage() {
         {/* Form */}
         <form onSubmit={handleRegister} className="space-y-4">
           <div>
-            <label className="block font-['JetBrains_Mono',monospace] text-[10px] font-semibold text-slate-400 uppercase tracking-widest mb-1.5">
+            <label className="block font-['Inter',sans-serif] text-[10px] font-semibold text-slate-400 uppercase tracking-widest mb-1.5">
               {t("authCompanyName")}
             </label>
             <input
@@ -74,7 +74,7 @@ export default function RegisterPage() {
           </div>
 
           <div>
-            <label className="block font-['JetBrains_Mono',monospace] text-[10px] font-semibold text-slate-400 uppercase tracking-widest mb-1.5">
+            <label className="block font-['Inter',sans-serif] text-[10px] font-semibold text-slate-400 uppercase tracking-widest mb-1.5">
               {t("authFullName")}
             </label>
             <input
@@ -88,7 +88,7 @@ export default function RegisterPage() {
           </div>
 
           <div>
-            <label className="block font-['JetBrains_Mono',monospace] text-[10px] font-semibold text-slate-400 uppercase tracking-widest mb-1.5">
+            <label className="block font-['Inter',sans-serif] text-[10px] font-semibold text-slate-400 uppercase tracking-widest mb-1.5">
               {t("authEmailLabel")}
             </label>
             <input
@@ -102,7 +102,7 @@ export default function RegisterPage() {
           </div>
 
           <div>
-            <label className="block font-['JetBrains_Mono',monospace] text-[10px] font-semibold text-slate-400 uppercase tracking-widest mb-1.5">
+            <label className="block font-['Inter',sans-serif] text-[10px] font-semibold text-slate-400 uppercase tracking-widest mb-1.5">
               {t("authPasswordLabel")}
             </label>
             <input

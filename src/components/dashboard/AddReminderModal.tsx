@@ -155,7 +155,7 @@ export function AddReminderModal({ isOpen, onOpenChange, onAddReminder }: AddRem
                   placeholder="Napišite opomnik..."
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  maxLength={20}
+                  maxLength={28}
                   required
                   strong
                 />
@@ -168,7 +168,7 @@ export function AddReminderModal({ isOpen, onOpenChange, onAddReminder }: AddRem
                   placeholder="Lahko dodate kratek opomnik, lahko naslov, datume..."
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  maxLength={100}
+                  maxLength={60}
                   rows={2}
                 />
               </div>

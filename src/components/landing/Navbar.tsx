@@ -18,12 +18,12 @@ export function Navbar() {
             {/* Brand Logo */}
             <a href="#" className="flex items-center gap-3 group">
               <span className="w-9 h-9 rounded-full bg-gradient-to-b from-white to-slate-100 border border-slate-200 shadow-[0_2px_8px_rgba(15,23,42,0.06),inset_0_1px_0_white] flex items-center justify-center">
-                <span className="font-['JetBrains_Mono',monospace] text-xs font-semibold tracking-[-0.08em] text-blue-600">
+                <span className="font-['Inter',sans-serif] text-xs font-semibold tracking-[-0.08em] text-blue-600">
                   DN
                 </span>
               </span>
               <span className="flex flex-col justify-center leading-none">
-                <span className="font-['JetBrains_Mono',monospace] text-sm font-semibold tracking-[-0.08em] text-slate-950 group-hover:text-blue-600 transition-colors">
+                <span className="font-['Inter',sans-serif] text-sm font-semibold tracking-[-0.08em] text-slate-950 group-hover:text-blue-600 transition-colors">
                   Dnevnik.app
                 </span>
                 <span className="mt-0.5 text-[10px] font-light tracking-[-0.03em] text-slate-400">

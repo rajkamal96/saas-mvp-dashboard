@@ -10,7 +10,7 @@ export function BenefitCards() {
     <section id="prednosti" className="max-w-7xl mx-auto px-6 py-20">
       {/* Header aligned Left */}
       <div className="max-w-3xl mb-16 text-left">
-        <p className="font-['JetBrains_Mono',monospace] text-[10px] md:text-xs font-semibold tracking-wide text-blue-600 mb-3 uppercase">
+        <p className="font-['Inter',sans-serif] text-[10px] md:text-xs font-semibold tracking-wide text-blue-600 mb-3 uppercase">
           {t("benefitsLabel")}
         </p>
         <h2 className="text-4xl md:text-5xl font-light tracking-tight text-slate-900 leading-tight">
@@ -25,7 +25,7 @@ export function BenefitCards() {
         {/* MOBI Card - Left Column */}
         <div className="rounded-[2rem] bg-white/62 backdrop-blur-xl border border-white p-8 md:p-10 shadow-[0_10px_28px_-20px_rgba(15,23,42,0.24),inset_0_1px_0_white] hover:bg-white/82 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between relative overflow-hidden group">
           <div className="relative z-10">
-            <span className="font-['JetBrains_Mono',monospace] text-[10px] md:text-xs font-semibold tracking-wider text-blue-600 uppercase">
+            <span className="font-['Inter',sans-serif] text-[10px] md:text-xs font-semibold tracking-wider text-blue-600 uppercase">
               {t("benefitsMobiLabel")}
             </span>
             <h3 className="text-xl md:text-2xl font-semibold text-slate-900 mt-3 mb-8">
@@ -64,7 +64,7 @@ export function BenefitCards() {
         {/* DESKTOP Card - Right Column */}
         <div className="rounded-[2rem] bg-white/62 backdrop-blur-xl border border-white p-8 md:p-10 shadow-[0_10px_28px_-20px_rgba(15,23,42,0.24),inset_0_1px_0_white] hover:bg-white/82 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between relative overflow-hidden group">
           <div className="relative z-10">
-            <span className="font-['JetBrains_Mono',monospace] text-[10px] md:text-xs font-semibold tracking-wider text-blue-600 uppercase">
+            <span className="font-['Inter',sans-serif] text-[10px] md:text-xs font-semibold tracking-wider text-blue-600 uppercase">
               {t("benefitsOfficeLabel")}
             </span>
             <h3 className="text-xl md:text-2xl font-semibold text-slate-900 mt-3 mb-8">

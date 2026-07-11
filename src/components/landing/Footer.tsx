@@ -12,7 +12,7 @@ export function Footer() {
         {/* Brand/Credits */}
         <div className="flex items-center gap-3">
           <span className="w-8 h-8 rounded-full bg-gradient-to-b from-white to-slate-50 border border-slate-200 flex items-center justify-center shadow-[0_2px_4px_rgba(15,23,42,0.03)]">
-            <span className="font-['JetBrains_Mono',monospace] text-[10px] font-semibold text-[#1B3A6B]">DN</span>
+            <span className="font-['Inter',sans-serif] text-[10px] font-semibold text-[#1B3A6B]">DN</span>
           </span>
           <p className="text-xs text-slate-400 font-light">
             {t("footerRights")}

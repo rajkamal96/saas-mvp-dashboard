@@ -1,15 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { useLanguage } from "@/lib/useLanguage";
-import {
-  initialWorkers,
-  initialOrders,
-  initialMessages,
-  Worker,
-  Order,
-  Message
-} from "@/lib/mockData";
+import type { Worker, Order, Message } from "@/lib/mockData";
 import { SummaryCard, OverviewRow, UrgentRow } from "@/components/dashboard/SummaryCard";
 import { WorkerCard } from "@/components/dashboard/WorkerCard";
 import { OfficeCard } from "@/components/dashboard/OfficeCard";
@@ -67,66 +60,170 @@ function ColumnHeader({ title, onAddClick }: ColumnHeaderProps) {
 export function DashboardPreview() {
   const { t } = useLanguage();
 
-  // Local state displaying all items in the summary cards, and exactly one item in the 3 columns
-  const [workers, setWorkers] = useState<Worker[]>(initialWorkers);
-  const [orders, setOrders] = useState<Order[]>(initialOrders);
-  const [messages, setMessages] = useState<Message[]>(initialMessages);
+  // Hardcoded preview data — completely independent from /dashboard/office state
+  const workers: Worker[] = [
+    {
+      id: "pw1",
+      name: "Anthony H",
+      avatar: "AH",
+      role: "Novak d.o.o.",
+      currentTask: "Kopalnica prenova",
+      status: "v_teku",
+      phone: "+386 40 123 456",
+      email: "anthony.hopkins@dnevnik.app",
+      unreadCount: 1,
+      location: "Ljubljana",
+      tasks: [
+        { id: "pt1_1", text: "Odvoz materiala - Stane", completed: true, completedAt: "10:34", hasAttachment: true },
+        { id: "pt1_2", text: "Začetek del", completed: true, completedAt: "08:20" },
+        { id: "pt1_3", text: "Odstranjevanje elementov", completed: true, completedAt: "09:10" },
+        { id: "pt1_4", text: "Odvoz odpadkov", completed: true, completedAt: "09:55" },
+        { id: "pt1_5", text: "Dostava ploščic - Adam", completed: false, requiresAttachment: true },
+        { id: "pt1_6", text: "Polaganje ploščic", completed: false },
+        { id: "pt1_7", text: "Menjava umivalnika, kadi", completed: false },
+        { id: "pt1_8", text: "Dnevno poročilo", completed: false, requiresAttachment: true }
+      ]
+    },
+    {
+      id: "pw2",
+      name: "ANA NOVAK",
+      avatar: "AN",
+      role: "JGD d.o.o.",
+      currentTask: "Čiščenje prostorov",
+      status: "zakasnitev",
+      phone: "+386 31 987 654",
+      email: "alec.navarro@dnevnik.app",
+      unreadCount: 0,
+      location: "Ljubljana",
+      tasks: [
+        { id: "pt2_1", text: "Čiščenje tal", completed: true, completedAt: "10:51", hasAttachment: true },
+        { id: "pt2_2", text: "Čiščenje oken", completed: true, completedAt: "09:00" },
+        { id: "pt2_3", text: "Čiščenje kopalnic", completed: true, completedAt: "09:45" },
+        { id: "pt2_4", text: "Čiščenje kuhinje", completed: true, completedAt: "10:20" },
+        { id: "pt2_5", text: "Dnevno poročilo", completed: false }
+      ]
+    },
+    {
+      id: "pw3",
+      name: "PAVLE",
+      avatar: "BD",
+      role: "FxG d.o.o.",
+      currentTask: "Dostava cvetja",
+      status: "v_teku",
+      phone: "+386 41 555 666",
+      email: "bo.derek@dnevnik.app",
+      unreadCount: 0,
+      location: "Celje",
+      tasks: [
+        { id: "pt3_1", text: "Prevzem cvetja", completed: true, completedAt: "08:00" },
+        { id: "pt3_2", text: "Dostava", completed: false },
+        { id: "pt3_3", text: "Potrdilo o dostavi", completed: false, hasAttachment: true },
+        { id: "pt3_4", text: "Dnevno poročilo", completed: false }
+      ]
+    }
+  ];
 
-  const handleToggleTask = (workerId: string, taskId: string) => {
-    setWorkers(prev => prev.map(w => {
-      if (w.id !== workerId) return w;
-      return {
-        ...w,
-        tasks: w.tasks.map(t =>
-          t.id === taskId
-            ? { ...t, completed: !t.completed, completedAt: !t.completed ? new Date().toLocaleTimeString("sl-SI", { hour: "2-digit", minute: "2-digit" }) : undefined }
-            : t
-        ),
-      };
-    }));
-  };
+  const orders: Order[] = [
+    {
+      id: "po1",
+      title: "Pokliči Maksa za rezervacijo",
+      description: "Danes je zadnji dan.",
+      time: "10:30",
+      createdAt: "09:02",
+      priority: "nujno",
+      status: "caka_potrditev",
+      workerId: "pw1",
+      workerName: "LIAM"
+    },
+    {
+      id: "po2",
+      title: "Podpiši izvozne dokumente",
+      description: "",
+      time: "12:00",
+      createdAt: "11:34",
+      priority: "visoka",
+      status: "caka_potrditev",
+      workerId: "pw2",
+      workerName: "SIMON"
+    },
+    {
+      id: "po3",
+      title: "Meeting at USC",
+      description: "",
+      time: "13:00",
+      createdAt: "11:38",
+      priority: "danes",
+      status: "caka_potrditev",
+      workerId: "pw3",
+      workerName: "ADAM"
+    }
+  ];
 
-  const handleApprove = (orderId: string) => {
-    setOrders(prev => prev.map(o => o.id === orderId ? { ...o, status: "potrjeno" } : o));
-  };
+  const messages: Message[] = [
+    {
+      id: "pm1",
+      workerId: "pw1",
+      workerName: "ANA NOVAK",
+      text: "Stranke ni bilo na naslovu. Začenjam pol ure kasneje.",
+      time: "09:18",
+      type: "glasovno",
+      targetTask: "Čiščenje prostorov"
+    },
+    {
+      id: "pm2",
+      workerId: "pw2",
+      workerName: "ANTHONY H",
+      text: "Prometna nesreča pri Celju. Zaprta cesta do 13:30.",
+      time: "10:53",
+      type: "glasovno",
+      targetTask: "Kopalnica prenova"
+    },
+    {
+      id: "pm3",
+      workerId: "pw3",
+      workerName: "ALEKS",
+      text: "Preveri dokumente za Graz. Pokliči Ano.",
+      time: "11:02",
+      type: "glasovno",
+      targetTask: "Popravilo dvigala"
+    }
+  ];
 
-  const handleDecline = (orderId: string) => {
-    setOrders(prev => prev.map(o => o.id === orderId ? { ...o, status: "zavrnjeno" } : o));
-  };
-
-  const handleDismissOrder = (orderId: string) => {
-    setOrders(prev => prev.filter(o => o.id !== orderId));
-  };
-
-  const handleResolveMessage = (messageId: string) => {
-    setMessages(prev => prev.filter(m => m.id !== messageId));
-  };
-
-  const handleDismissMessage = (messageId: string) => {
-    setMessages(prev => prev.filter(m => m.id !== messageId));
-  };
-
-  const handleArchiveMessage = (messageId: string) => {
-    setMessages(prev => prev.filter(m => m.id !== messageId));
-  };
+  const noop = () => {};
 
   return (
     <section id="dashboard-preview" className="max-w-7xl mx-auto px-6 py-20 relative">
+      <style>{`
+        .dashboard-preview-scale {
+          zoom: 1;
+        }
+        @media (min-width: 768px) {
+          .dashboard-preview-scale {
+            zoom: 0.85;
+          }
+        }
+        @media (min-width: 1024px) {
+          .dashboard-preview-scale {
+            zoom: 0.75;
+          }
+        }
+      `}</style>
+
       {/* Section Header */}
       <div className="text-center max-w-5xl mx-auto mb-16">
-        <p className="font-['JetBrains_Mono',monospace] text-[10px] md:text-xs font-semibold tracking-[-0.04em] text-blue-500 mb-4 uppercase">
-          {t("previewBadge") || "KOMANDNI CENTER V ŽIVO"}
+        <p className="font-['Inter',sans-serif] text-[10px] md:text-xs font-semibold tracking-[-0.04em] text-blue-500 mb-4 uppercase">
+          {"ZA PISARNO"}
         </p>
         <h2 className="text-3xl md:text-5xl font-normal tracking-tight text-slate-950 max-w-3xl mx-auto">
-          {t("previewTitle") || "Upravljajte celotno ekipo iz enotnega komandnega centra"}
+          {"Komandni center"}
         </h2>
         <p className="mt-4 text-sm md:text-base text-slate-500 max-w-xl mx-auto font-light leading-relaxed">
-          {t("previewSubtitle") || "Preizkusite interaktivni predogled delovanja nadzorne plošče neposredno spodaj."}
+          {"Vsak delovni dan je bolje organiziran. Ekipa dela samostojneje, komunikacije je manj, a je hitrejša, pregled nad deli je boljši in vodenje lažje."}
         </p>
       </div>
 
       {/* Main Glassmorphic Wrapper */}
-      <div className="relative overflow-hidden rounded-[2.75rem] bg-white/55 backdrop-blur-xl border border-white shadow-[0_30px_80px_-45px_rgba(15,23,42,0.35),inset_0_1px_0_rgba(255,255,255,1)] p-6 md:p-10">
+      <div className="dashboard-preview-scale relative overflow-hidden rounded-[2.75rem] bg-white/55 backdrop-blur-xl border border-white shadow-[0_30px_80px_-45px_rgba(15,23,42,0.35),inset_0_1px_0_rgba(255,255,255,1)] p-6 md:p-10">
         
         {/* Soft background glows */}
         <div className="absolute top-[-35%] left-[10%] w-[32rem] h-[32rem] rounded-full bg-blue-200/30 blur-[6rem] pointer-events-none" />
@@ -207,7 +304,7 @@ export function DashboardPreview() {
                   <WorkerCard
                     key={w.id}
                     worker={w}
-                    onToggleTask={handleToggleTask}
+                    onToggleTask={noop}
                     date="23/05/26"
                     orderId={idx === 2 ? "#486" : "#484"}
                     onClick={undefined}
@@ -246,12 +343,12 @@ export function DashboardPreview() {
                       key={o.id}
                       order={o}
                       buttonsConfig={buttonsConfig}
-                      showRedButton={idx === 0 || idx === 1}
-                      onResolve={() => handleApprove(o.id)}
-                      onDismiss={() => handleDismissOrder(o.id)}
-                      onArchive={() => handleDecline(o.id)}
-                      onCall={() => alert(`Klicanje: ${o.workerName}`)}
-                      onAttachmentClick={() => alert(`Showing attachments for ${o.title}`)}
+                      showRedButton={idx === 0}
+                      onResolve={noop}
+                      onDismiss={noop}
+                      onArchive={noop}
+                      onCall={noop}
+                      onAttachmentClick={noop}
                     />
                   );
                 })}
@@ -279,10 +376,10 @@ export function DashboardPreview() {
                     key={m.id}
                     message={m}
                     iconType={idx === 2 ? "document" : "mic"}
-                    showRedButton={idx === 0 || idx === 1}
-                    onResolve={() => handleResolveMessage(m.id)}
-                    onDismiss={() => handleDismissMessage(m.id)}
-                    onArchive={() => handleArchiveMessage(m.id)}
+                    showRedButton={idx === 1}
+                    onResolve={noop}
+                    onDismiss={noop}
+                    onArchive={noop}
                   />
                 ))}
               </div>

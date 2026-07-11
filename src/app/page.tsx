@@ -97,7 +97,7 @@ export default function LandingPage() {
         <Navbar />
         <Hero />
         <PainSolutions />
-        <Timeline />
+        {/* <Timeline /> */}
         <DashboardPreview />
         <TransformationSlider />
         {/* <FeatureCarousel /> */}

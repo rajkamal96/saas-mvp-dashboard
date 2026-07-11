@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useLanguage } from "@/lib/useLanguage";
+import { FloatingBubble } from "./FloatingBubble";
 
 export function PainSolutions() {
   const { t } = useLanguage();
@@ -72,7 +73,7 @@ export function PainSolutions() {
             <h2 className="font-['Inter',sans-serif] text-3xl md:text-5xl font-normal tracking-tight text-white mt-2">
               {t("tabsTitle")}
             </h2>
-            <p className="font-['Inter',sans-serif] text-base md:text-xl font-normal text-white mt-4 leading-relaxed">
+            <p className="font-['Inter',sans-serif] text-base md:text-xl font-normal text-white mt-4 leading-relaxed" style={{fontSize: "24px"}}>
               {tabs[activeTab].subtitle}
             </p>
           </div>
@@ -368,6 +369,23 @@ export function PainSolutions() {
           </div>
 
         </div>
+
+        {activeTab === 0 && (
+          <FloatingBubble
+            title="Ne gradimo novega načina dela."
+            subtitle="Gradimo most med terenom in pisarno."
+            rotation={0}
+            className="right-8 bottom-8 hidden md:block"
+          />
+        )}
+        {activeTab === 2 && (
+          <FloatingBubble
+            title="Uspešno podjetje ne temelji na več komunikacije."
+            subtitle="Temelji na tem, da je potrebne čim manj."
+            rotation={0}
+            className="right-8 bottom-8 hidden md:block"
+          />
+        )}
       </div>
     </section>
   );

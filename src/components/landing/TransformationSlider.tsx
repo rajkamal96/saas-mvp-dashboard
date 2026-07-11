@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useLanguage } from "@/lib/useLanguage";
+import { FloatingBubble } from "./FloatingBubble";
 
 // ── Shared text styles ────────────────────────────────────────────────────────
 const LABEL_STYLE: React.CSSProperties = {
@@ -107,8 +108,61 @@ export function TransformationSlider() {
         zIndex: 20,
       }}
     >
+      <style>{`
+        @media (max-width: 1024px) {
+          .ts-outer-card {
+            padding: 40px !important;
+          }
+          .ts-slide {
+            gap: 32px !important;
+          }
+        }
+        @media (max-width: 768px) {
+          .ts-outer-card {
+            padding: 24px !important;
+            border-radius: 28px !important;
+          }
+          .ts-slide {
+            flex-direction: column !important;
+            align-items: stretch !important;
+            gap: 24px !important;
+          }
+          .ts-slide-image {
+            width: 100% !important;
+            display: flex;
+            justify-content: center;
+          }
+          .ts-slide-image img {
+            width: 260px !important;
+            height: auto !important;
+            max-width: 100%;
+          }
+          .ts-slide-content {
+            height: auto !important;
+            padding-top: 0 !important;
+            align-items: stretch !important;
+          }
+          .ts-title {
+            font-size: 24px !important;
+            line-height: 32px !important;
+            letter-spacing: -0.5px !important;
+          }
+          .ts-body {
+            font-size: 15px !important;
+            line-height: 22px !important;
+          }
+          .ts-button-row {
+            padding-left: 0 !important;
+            padding-bottom: 0 !important;
+            margin-top: 24px;
+            justify-content: center !important;
+          }
+        }
+      `}</style>
+
       {/* ── Outer card ──────────────────────────────────────────────────────── */}
       <div
+        className="ts-outer-card"
         style={{
           background: "linear-gradient(180deg, #172033 0%, #101827 100%)",
           border: "1px solid rgba(255, 255, 255, 0.1)",
@@ -156,6 +210,7 @@ export function TransformationSlider() {
           {/* ─────────────────── SLIDE 1 ─────────────────── */}
           {activeSlide === 0 && (
             <div
+              className="ts-slide"
               style={{
                 display: "flex",
                 flexDirection: "row",
@@ -164,7 +219,7 @@ export function TransformationSlider() {
               }}
             >
               {/* Left: phone image */}
-              <div style={{ flexShrink: 0, width: "318px" }}>
+              <div className="ts-slide-image" style={{ flexShrink: 0, width: "318px" }}>
                 <img
                   src="/mobile.png"
                   alt="Zaslon za terence"
@@ -180,6 +235,7 @@ export function TransformationSlider() {
 
               {/* Right: text + buttons */}
               <div
+                className="ts-slide-content"
                 style={{
                   flex: 1,
                   display: "flex",
@@ -190,9 +246,9 @@ export function TransformationSlider() {
                 }}
               >
                 <div style={LABEL_STYLE}>PLATFORMA ZA TERENCE</div>
-                <h3 style={TITLE_STYLE}>En zaslon - vse je dosegljivo z enim dotikom</h3>
+                <h3 className="ts-title" style={TITLE_STYLE}>En zaslon - vse je dosegljivo z enim dotikom</h3>
 
-                <div style={{ ...BODY_STYLE, flex: 1, lineHeight: "28px" }}>
+                <div className="ts-body" style={{ ...BODY_STYLE, flex: 1, lineHeight: "28px" }}>
                   <p style={{ margin: "0 0 4px 0" }}>Prilagojen zaslon, ki bo v pomoč terencem.</p>
                   <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
                     {[
@@ -222,21 +278,22 @@ export function TransformationSlider() {
                   </p>
                 </div>
 
-                {/* Buttons — right-aligned at the bottom */}
+                {/* Buttons — left-aligned at the bottom */}
                 <div
+                  className="ts-button-row"
                   style={{
                     display: "flex",
                     flexDirection: "row",
                     alignItems: "center",
-                    justifyContent: "flex-end",
+                    justifyContent: "flex-start",
                     gap: "16px",
                     paddingBottom: "40px",
-                    paddingRight: "50px",
+                    paddingLeft: "50px",
                     width: "100%",
                   }}
                 >
-                  <button onClick={(e) => e.preventDefault()} style={BTN_WHITE}>
-                    Kako deluje
+                  <button onClick={() => setActiveSlide(1)} style={{ ...BTN_WHITE, cursor: "pointer" }}>
+                    Glasovna sporočila
                     <svg width="14" height="11" viewBox="0 0 14 11" fill="none">
                       <path
                         d="M0.5625 5.0625H12.5625M12.5625 5.0625L8.0625 0.5625M12.5625 5.0625L8.0625 9.5625"
@@ -247,9 +304,6 @@ export function TransformationSlider() {
                       />
                     </svg>
                   </button>
-                  <button onClick={handleScrollToPricing} style={BTN_GLASS}>
-                    Naroči pomočnika
-                  </button>
                 </div>
               </div>
             </div>
@@ -258,6 +312,7 @@ export function TransformationSlider() {
           {/* ─────────────────── SLIDE 2 ─────────────────── */}
           {activeSlide === 1 && (
             <div
+              className="ts-slide"
               style={{
                 display: "flex",
                 flexDirection: "row",
@@ -267,6 +322,7 @@ export function TransformationSlider() {
             >
               {/* Left: all text content */}
               <div
+                className="ts-slide-content"
                 style={{
                   flex: 1,
                   display: "flex",
@@ -275,10 +331,10 @@ export function TransformationSlider() {
                 }}
               >
                 <div style={LABEL_STYLE_SLIDE_2}>GLASOVNA SPOROČILA</div>
-                <h3 style={TITLE_STYLE}>Teren govori. Pisarna ukrepa. Delo teče hitreje.</h3>
+                <h3 className="ts-title" style={TITLE_STYLE}>Teren govori. Pisarna ukrepa. Delo teče hitreje.</h3>
 
                 {/* Intro paragraph */}
-                <p style={{ ...BODY_STYLE, margin: "0 0 36px 0" }}>
+                <p className="ts-body" style={{ ...BODY_STYLE, margin: "0 0 36px 0" }}>
                   Namesto telefonskega klica terenec govori v mikrofon. AI iz govora pripravi
                   kratek, jasen zapis, ki je takoj prikazan na delovni tabli pisarne. Informacije
                   postanejo uporabne takoj in pisarna lahko ukrepa.
@@ -288,51 +344,51 @@ export function TransformationSlider() {
                 <div style={{ marginBottom: "16px" }}>
                   {/* Label + quoted speech: weight 400 */}
                   <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 400, fontSize: "14px", lineHeight: "20px", color: "#CBD5E1", margin: "0 0 4px 0" }}>
-                    Primer. Terenec govori:
+                    <span style={{color: "#EEF4FB"}}>Primer.</span> Terenec govori:
                   </p>
                   <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 300, fontSize: "14px", lineHeight: "20px", color: "#CBD5E1", margin: "0 0 16px 0" }}>
                     &ldquo;Poslušaj, prišlo je do prometne nesreče na obvoznici, premikamo se s polžjo hitrostjo in zabijam čas tukaj, ko se mudi. Zgleda, da bom lahko prevzel šele okrog enajstih namesto ob desetih.&rdquo;
                   </p>
                   {/* AI label + AI output: weight 400 for label, 300 for quote */}
                   <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 400, fontSize: "14px", lineHeight: "20px", color: "#CBD5E1", margin: "0 0 4px 0" }}>
-                    AI sporočilo pretvori v tekst, ki se prikaže na delovni tabli pisarne.
+                    <span style={{color: "#EEF4FB"}}>AI sporočilo</span> pretvori v tekst, ki se prikaže na delovni tabli pisarne.
                   </p>
                   <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 300, fontSize: "14px", lineHeight: "20px", color: "#CBD5E1", margin: "0 0 16px 0" }}>
                     &ldquo;Prometna nesreča na obvoznici. Prevzem okrog 11:00.&rdquo;
                   </p>
                   {/* Outcome: weight 400 */}
                   <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 400, fontSize: "14px", lineHeight: "20px", color: "#CBD5E1", margin: "0 0 24px 0" }}>
-                    Pisarna je obveščena, naročnika lahko obvesti o zamudi ali organizira prevzem tovora preko drugega.
+                    <span style={{color: "#EEF4FB"}}>Pisarna</span> je obveščena, naročnika lahko obvesti o zamudi ali organizira prevzem tovora preko drugega.
                   </p>
                 </div>
 
                 {/* Example 2 */}
                 <div style={{ marginBottom: "16px" }}>
                   <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 400, fontSize: "14px", lineHeight: "20px", color: "#CBD5E1", margin: "0 0 4px 0" }}>
-                    Drug primer: Terenec govori:
+                    <span style={{color: "#EEF4FB"}}>Drug primer:</span> Terenec govori:
                   </p>
                   <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 300, fontSize: "14px", lineHeight: "20px", color: "#CBD5E1", margin: "0 0 16px 0" }}>
                     &ldquo;Evo, vse smo zaključil. Aja, porabil smo še dve kartuši silikona pa eno PU peno. Ne vem, če je še kaj ostalo v kakem kombiju al če mamo v skladišču.&rdquo;
                   </p>
                   <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 400, fontSize: "14px", lineHeight: "20px", color: "#CBD5E1", margin: "0 0 4px 0" }}>
-                    AI prepozna porabljen material in pripravi zapis, ki se prikaže na delovni tabli pisarne.
+                    <span style={{color: "#EEF4FB"}}>AI prepozna</span> porabljen material in pripravi zapis, ki se prikaže na delovni tabli pisarne.
                   </p>
                   <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 300, fontSize: "14px", lineHeight: "20px", color: "#CBD5E1", margin: "0 0 16px 0" }}>
                     &ldquo;Porabljeno: 2× kartuša silikona, 1× PU pena. Preveri zalogo.&rdquo;
                   </p>
                   <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 400, fontSize: "14px", lineHeight: "20px", color: "#CBD5E1", margin: "0 0 24px 0" }}>
-                    Pisarna posodobi zalogo in doda artikle na seznam za naročilo.
+                    <span style={{color: "#EEF4FB"}}>Pisarna posodobi</span> zalogo in doda artikle na seznam za naročilo.
                   </p>
                 </div>
 
                 {/* Example 3 */}
                 <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 400, fontSize: "14px", lineHeight: "20px", color: "#CBD5E1", margin: 0 }}>
-                  Tretji primer: Terenci konec dneva v 15 sekundah povzamejo opravljena dela v dnevnem poročilu.
+                  <span style={{color: "#EEF4FB"}}>Tretji primer:</span> Terenci konec dneva v 15 sekundah povzamejo opravljena dela v dnevnem poročilu.
                 </p>
               </div>
 
               {/* Right: voiceToText.jpg image — vertically centered (alignItems:center on parent handles this) */}
-              <div style={{ flexShrink: 0, width: "304px" }}>
+              <div className="ts-slide-image" style={{ flexShrink: 0, width: "304px" }}>
                 <img
                   src="/voiceToText.jpg"
                   alt="Voice to text demo"
@@ -383,6 +439,13 @@ export function TransformationSlider() {
             />
           ))}
         </div>
+
+        <FloatingBubble
+          title="Platforma ne doda dela."
+          subtitle="Samo šum odstrani."
+          rotation={0}
+          className="right-8 bottom-8 hidden md:block"
+        />
       </div>
     </section>
   );

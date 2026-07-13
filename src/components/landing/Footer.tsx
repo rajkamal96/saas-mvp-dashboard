@@ -1,37 +1,59 @@
 "use client";
 
 import React from "react";
-import { useLanguage } from "@/lib/useLanguage";
 
 export function Footer() {
-  const { t } = useLanguage();
+  const linkClass =
+    "underline hover:no-underline transition-all";
 
   return (
-    <footer className="max-w-7xl mx-auto px-6 pb-12 pt-20 mt-auto border-t border-slate-100">
-      <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-        {/* Brand/Credits */}
-        <div className="flex items-center gap-3">
-          <span className="w-8 h-8 rounded-full bg-gradient-to-b from-white to-slate-50 border border-slate-200 flex items-center justify-center shadow-[0_2px_4px_rgba(15,23,42,0.03)]">
-            <span className="font-['Inter',sans-serif] text-[10px] font-semibold text-[#1B3A6B]">DN</span>
-          </span>
-          <p className="text-xs text-slate-400 font-light">
-            {t("footerRights")}
-          </p>
+    <footer
+      className="pb-5"
+      style={{ background: "#E9F2FE" }}
+    >
+      {/* Horizontal divider */}
+      <div
+        className="h-px w-full mb-5"
+        style={{
+          background:
+            "linear-gradient(90deg, rgba(191, 219, 254, 0) 0%, #BFDBFE 50%, rgba(191, 219, 254, 0) 100%)",
+        }}
+      />
+
+      <div className="max-w-7xl mx-auto px-6 flex flex-col items-center gap-1">
+        {/* Links row */}
+        <div
+          className="flex flex-wrap items-center justify-center gap-1.5"
+          style={{
+            fontFamily: "'Inter', sans-serif",
+            fontWeight: 400,
+            fontSize: "13px",
+            lineHeight: "24px",
+            color: "#1D2A3D",
+          }}
+        >
+          <a href="#" className={linkClass}>Prijava</a>
+          <span>•</span>
+          <a href="#" className={linkClass}>Podpora</a>
+          <span>•</span>
+          <a href="#" className={linkClass}>Pogoji uporabe</a>
+          <span>•</span>
+          <a href="#" className={linkClass}>Politika zasebnosti</a>
         </div>
 
-        {/* Links */}
-        <div className="flex items-center gap-4 text-xs text-slate-400 font-light">
-          <a href="#" className="hover:text-[#1B3A6B] transition-colors">
-            {t("footerTerms")}
-          </a>
-          <span className="w-1 h-1 rounded-full bg-slate-300" />
-          <a href="#" className="hover:text-[#1B3A6B] transition-colors">
-            {t("footerPrivacy")}
-          </a>
-          <span className="w-1 h-1 rounded-full bg-slate-300" />
-          <a href="#" className="hover:text-[#1B3A6B] transition-colors">
-            {t("footerContact")}
-          </a>
+        {/* Copyright row */}
+        <div
+          className="flex flex-wrap items-center justify-center gap-1"
+          style={{
+            fontFamily: "'Inter', sans-serif",
+            fontWeight: 400,
+            fontSize: "12px",
+            lineHeight: "24px",
+            color: "#1D2A3D",
+          }}
+        >
+          <span>pomocnik.net</span>
+          <span>© 2026 Vse pravice zadržane.</span>
         </div>
       </div>
     </footer>

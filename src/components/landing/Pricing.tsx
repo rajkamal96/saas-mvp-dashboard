@@ -59,6 +59,17 @@ export function Pricing() {
         <h2 className="text-3xl md:text-5xl font-normal tracking-tight text-slate-950">
           {t("priceSubtitle")}
         </h2>
+        <p
+          className="mt-4 text-slate-500 px-2 md:px-0"
+          style={{
+            fontFamily: "'Inter', sans-serif",
+            fontWeight: 300,
+            fontSize: "clamp(1rem, 2.5vw, 1.125rem)",
+            lineHeight: "28px",
+          }}
+        >
+          Vključene vse funkcije — brez skritih stroškov
+        </p>
       </div>
 
       {/* Skeuomorphic Toggle */}
@@ -156,6 +167,24 @@ export function Pricing() {
           </div>
         </div>
       </div>
+
+      <p
+        className="text-center max-w-4xl mx-auto mt-12 text-slate-500 px-4 md:px-0"
+        style={{
+          fontFamily: "'Inter', sans-serif",
+          fontWeight: 300,
+          fontSize: "clamp(1rem, 2.5vw, 1.125rem)",
+          lineHeight: "28px",
+        }}
+      >
+        Če vsak dan porabite nekaj minut za telefonske klice, iskanje informacij,
+        <br />
+        <span className="md:whitespace-nowrap">
+          usklajevanje ekip ali reševanje stvari, ki bi jih lahko odkrili prej, potem naša rešitev verjetno ni strošek.
+        </span>
+        <br />
+        Je prihranek časa. Veliko ur na mesec.
+      </p>
     </section>
   );
 }

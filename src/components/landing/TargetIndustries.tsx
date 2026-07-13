@@ -181,10 +181,10 @@ export function TargetIndustries() {
           alignItems: "center",
           textAlign: "center",
           color: "#475569",
-          marginTop: "12px"
+          // marginTop: "12px"
         }}
       >
-        ...in mnoge druge...
+        in druga.
       </div>
     </section>
   );

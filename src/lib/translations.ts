@@ -132,9 +132,9 @@ export const translations = {
     showcaseSlide3CardItem3: "3. Nujno posredovanje (Dodano)",
 
     // Pricing
-    priceTitle: "Ena preprosta cena",
-    priceSubtitle: "Brez zapletenih paketov in skritih stroškov.",
-    priceCardBadge: "CELOTEN DOSTOP",
+    priceTitle: "CENIK",
+    priceSubtitle: "Enotna cena",
+    priceCardBadge: "Enotna cena",
     priceCardUnit: "/ mesec",
     priceCardUnitYearly: "/ mesec, plačano letno",
     billingMonthly: "Mesečno",

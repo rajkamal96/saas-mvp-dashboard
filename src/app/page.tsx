@@ -10,7 +10,9 @@ import { Timeline } from "@/components/landing/Timeline";
 import { DashboardPreview } from "@/components/landing/DashboardPreview";
 import { TransformationSlider } from "@/components/landing/TransformationSlider";
 import { FeatureCarousel } from "@/components/landing/FeatureCarousel";
+import { ImpactSection } from "@/components/landing/ImpactSection";
 import { Pricing } from "@/components/landing/Pricing";
+import { DeadlineOffer } from "@/components/landing/DeadlineOffer";
 import { Footer } from "@/components/landing/Footer";
 
 export default function LandingPage() {
@@ -101,7 +103,9 @@ export default function LandingPage() {
         <DashboardPreview />
         <TransformationSlider />
         {/* <FeatureCarousel /> */}
+        <ImpactSection />
         <Pricing />
+        <DeadlineOffer />
         <TargetIndustries />
         <Footer />
       </div>

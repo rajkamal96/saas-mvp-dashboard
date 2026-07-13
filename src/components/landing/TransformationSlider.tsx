@@ -141,7 +141,10 @@ export function TransformationSlider() {
             max-width: 100%;
           }
           .ts-slide-image img.ts-mobile-mockup {
-            width: 100% !important;
+            width: calc(100% + 48px) !important;
+            max-width: none !important;
+            margin-left: -24px;
+            margin-right: -24px;
           }
           .ts-slide-content {
             height: auto !important;

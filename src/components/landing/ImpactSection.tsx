@@ -48,7 +48,7 @@ export function ImpactSection() {
           }}
         >
           Namesto iskanja informacij po klicih in sporočilih ima vodja vedno pred sabo jasen pregled;
-          <br className="hidden md:block" />
+          <br className="hidden md:block" />{" "}
           kaj je treba narediti, kaj je bilo dogovorjeno in kaj se trenutno dogaja – tudi ko ni v pisarni.
         </p>
       </div>

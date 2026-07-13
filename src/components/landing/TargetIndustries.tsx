@@ -77,7 +77,6 @@ export function TargetIndustries() {
           style={{
             fontFamily: "'Inter', sans-serif",
             fontStyle: "normal",
-            fontWeight: 400,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -86,7 +85,7 @@ export function TargetIndustries() {
             color: "#020617",
             margin: 0
           }}
-          className="text-[24px] md:text-[32px] leading-8 md:leading-10"
+          className="text-[24px] md:text-[32px] leading-8 md:leading-10 font-light md:font-normal"
         >
           Podjetja, ki želijo več pregleda in lažje vodenje
         </h2>

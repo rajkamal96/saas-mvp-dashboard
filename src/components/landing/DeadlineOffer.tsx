@@ -68,11 +68,9 @@ export function DeadlineOffer() {
             </p>
           </div>
           <h2
-            className="font-normal"
+            className="text-2xl md:text-[2.25rem] font-light md:font-normal leading-[2rem] md:leading-[2.5rem]"
             style={{
               fontFamily: "'Inter', sans-serif",
-              fontSize: "clamp(1.75rem, 5vw, 2.25rem)",
-              lineHeight: "clamp(2rem, 5.5vw, 2.5rem)",
               letterSpacing: "-0.9px",
               color: "#FFFFFF",
             }}
@@ -93,8 +91,8 @@ export function DeadlineOffer() {
             }}
           >
             {[
-              "enako ceno do leta 2030 in",
-              "vse izboljšave osnovnega produkta brezplačno!",
+              "zamrznjena cena do leta 2030 in",
+              "vse nadgradnje osnovnega produkta brezplačno!",
             ].map((txt, i) => (
               <li key={i} className="flex items-start gap-[10px]">
                 <span className="text-[#60A5FA] shrink-0">•</span>
@@ -112,7 +110,7 @@ export function DeadlineOffer() {
               color: "#CBD5E1",
             }}
           >
-            Po tem datumu bo produkt prešel na redni cenik in izboljšave ne bodo več vključene brez dodatnih stroškov.
+            Po tem datumu bo produkt prešel na redni cenik in nadgradnje ne bodo več vključene brez dodatnih stroškov.
           </p>
         </div>
 
@@ -141,9 +139,9 @@ export function DeadlineOffer() {
                 TAKO IZGLEDA V PRAKSI
               </p>
               <p
+                className="font-light md:font-normal"
                 style={{
                   fontFamily: "'Inter', sans-serif",
-                  fontWeight: 400,
                   fontSize: "20px",
                   lineHeight: "28px",
                   letterSpacing: "-0.5px",
@@ -154,7 +152,7 @@ export function DeadlineOffer() {
               </p>
             </div>
             <div
-              className="w-10 h-10 rounded-2xl flex items-center justify-center shrink-0"
+              className="w-10 h-10 rounded-2xl hidden md:flex items-center justify-center shrink-0"
               style={{
                 background: "#EFF6FF",
                 border: "1px solid #DBEAFE",
@@ -209,7 +207,7 @@ export function DeadlineOffer() {
                   color: "#64748B",
                 }}
               >
-                Tajnica pripravi dan. Vnese kartice in zaznamke za vodjo. Za vsak vnos porabi manj kot pol minute.
+                Tajnica pripravi dan. Vnese kartice terencev in zaznamke za vodjo. Za vsak vnos porabi manj kot pol minute.
               </p>
             </div>
 
@@ -243,7 +241,7 @@ export function DeadlineOffer() {
                   color: "#64748B",
                 }}
               >
-                Terenci poročajo. Vzame jim 8 sekund za potrditev nalog. Vodja vidi potek del brez iskanja informacij.
+                Terenci poročajo. Potrditev naloge jim vzame le nekaj sekund. Vodja vidi potek del brez iskanja informacij.
               </p>
             </div>
 

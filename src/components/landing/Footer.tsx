@@ -23,12 +23,10 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-3 md:px-6 flex flex-col items-center gap-1">
         {/* Links row */}
         <div
-          className="flex flex-wrap items-center justify-center gap-1.5"
+          className="flex flex-nowrap md:flex-wrap items-center justify-center gap-0 md:gap-1.5 w-[354px] md:w-auto text-[13px] max-[340px]:text-[11px] leading-6"
           style={{
             fontFamily: "'Inter', sans-serif",
             fontWeight: 400,
-            fontSize: "13px",
-            lineHeight: "24px",
             color: "#1D2A3D",
           }}
         >
@@ -43,12 +41,10 @@ export function Footer() {
 
         {/* Copyright row */}
         <div
-          className="flex flex-wrap items-center justify-center gap-1"
+          className="flex flex-wrap items-center justify-center gap-1 text-xs max-[340px]:text-[11px] leading-6"
           style={{
             fontFamily: "'Inter', sans-serif",
             fontWeight: 400,
-            fontSize: "12px",
-            lineHeight: "24px",
             color: "#1D2A3D",
           }}
         >

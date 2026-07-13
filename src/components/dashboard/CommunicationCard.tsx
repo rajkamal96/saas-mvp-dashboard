@@ -163,9 +163,10 @@ export function CommunicationCard({
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-start",
-          padding: "16px",
+          padding: "16px 16px 24px 16px",
           width: "100%",
           height: "auto",
+          minHeight: "auto",
           background: "rgba(255, 255, 255, 0.95)",
           border: "1px solid #FFFFFF",
           borderRadius: "21.6px",
@@ -178,14 +179,13 @@ export function CommunicationCard({
         <p
           style={{
             fontFamily: "'PT Sans', sans-serif",
-            fontWeight: 700,
             fontSize: "15px",
             lineHeight: "20px",
             color: "#1C1A1A",
             width: "100%",
           }}
           title={order.title}
-          className="line-clamp-2"
+          className="line-clamp-2 font-semibold md:font-bold"
         >
           {order.title}
         </p>
@@ -200,7 +200,6 @@ export function CommunicationCard({
             width: "100%",
             wordBreak: "break-word",
           }}
-          className="line-clamp-2"
         >
           {order.description}
         </p>

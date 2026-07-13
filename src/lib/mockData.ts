@@ -41,6 +41,7 @@ export interface Message {
   time: string;
   type: 'glasovno' | 'tekst';
   targetTask?: string;
+  priority?: 'normalna' | 'nujno';
 }
 
 export const initialWorkers: Worker[] = [
@@ -159,7 +160,8 @@ export const initialMessages: Message[] = [
     text: "Prometna nesreča pri Celju. Zaprta cesta do 13:30.",
     time: "10:53",
     type: "glasovno",
-    targetTask: "Kopalnica prenova"
+    targetTask: "Kopalnica prenova",
+    priority: "nujno"
   },
   {
     id: "m3",

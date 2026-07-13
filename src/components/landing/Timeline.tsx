@@ -7,7 +7,7 @@ export function Timeline() {
   const { t } = useLanguage();
 
   return (
-    <section id="workflow" className="max-w-7xl mx-auto px-6 py-20 relative">
+    <section id="workflow" className="max-w-7xl mx-auto px-3 md:px-6 pb-20 relative">
       <style dangerouslySetInnerHTML={{ __html: `
         @keyframes auraConnectionFlow {
           0% { left: 0%; opacity: 0; }

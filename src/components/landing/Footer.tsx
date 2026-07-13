@@ -20,7 +20,7 @@ export function Footer() {
         }}
       />
 
-      <div className="max-w-7xl mx-auto px-6 flex flex-col items-center gap-1">
+      <div className="max-w-7xl mx-auto px-3 md:px-6 flex flex-col items-center gap-1">
         {/* Links row */}
         <div
           className="flex flex-wrap items-center justify-center gap-1.5"

@@ -51,7 +51,7 @@ export function PainSolutions() {
   ];
 
   return (
-    <section id="kako-deluje" className="max-w-7xl mx-auto px-6 py-20">
+    <section id="kako-deluje" className="max-w-7xl mx-auto px-3 md:px-6 pb-20">
       {/* Outer dark card — exact Figma gradient + border + shadow */}
       <div
         className="relative overflow-hidden rounded-[44px] border border-white/10"
@@ -85,7 +85,7 @@ export function PainSolutions() {
                 key={idx}
                 id={`pain-tab-${idx}`}
                 onClick={() => setActiveTab(idx)}
-                className="flex items-center gap-3 rounded-full transition-all duration-300"
+                className="flex items-center gap-3 rounded-full transition-all duration-300 text-[14px]"
                 style={{
                   padding: "10px 20px",
                   height: "42px",

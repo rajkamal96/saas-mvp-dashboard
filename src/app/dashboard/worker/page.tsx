@@ -237,7 +237,7 @@ export default function WorkerDashboard() {
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
-            padding: "8px 20px 16px",
+            padding: "8px 8px 16px",
             width: "100%",
             height: "56px"
           }}
@@ -246,14 +246,14 @@ export default function WorkerDashboard() {
           <h2
             style={{
               fontFamily: "'Source Sans 3', sans-serif",
-              fontWeight: 600,
-              fontSize: "30px",
-              lineHeight: "36px",
-              letterSpacing: "-0.75px",
+              fontWeight: 300,
+              fontSize: "24px",
+              lineHeight: "32px",
+              letterSpacing: "-0.5px",
               color: "#0F172A"
             }}
           >
-            Zaslon za terence
+            pomocnik.net
           </h2>
 
           {/* Settings / Signout confirm Button */}

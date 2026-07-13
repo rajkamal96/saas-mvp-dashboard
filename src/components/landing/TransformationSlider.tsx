@@ -103,7 +103,9 @@ export function TransformationSlider() {
       style={{
         maxWidth: "1280px",
         margin: "0 auto",
-        padding: "48px 24px",
+        paddingBottom: "80px",
+        paddingRight: "24px",
+        paddingLeft: "24px",
         position: "relative",
         zIndex: 20,
       }}
@@ -121,6 +123,7 @@ export function TransformationSlider() {
           .ts-outer-card {
             padding: 24px !important;
             border-radius: 28px !important;
+            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%) !important;
           }
           .ts-slide {
             flex-direction: column !important;
@@ -136,6 +139,9 @@ export function TransformationSlider() {
             width: 260px !important;
             height: auto !important;
             max-width: 100%;
+          }
+          .ts-slide-image img.ts-mobile-mockup {
+            width: 100% !important;
           }
           .ts-slide-content {
             height: auto !important;
@@ -223,6 +229,7 @@ export function TransformationSlider() {
                 <img
                   src="/mobile.png"
                   alt="Zaslon za terence"
+                  className="ts-mobile-mockup"
                   style={{
                     width: "318px",
                     height: "600px",
@@ -343,47 +350,47 @@ export function TransformationSlider() {
                 {/* Example 1 */}
                 <div style={{ marginBottom: "16px" }}>
                   {/* Label + quoted speech: weight 400 */}
-                  <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 400, fontSize: "14px", lineHeight: "20px", color: "#CBD5E1", margin: "0 0 4px 0" }}>
-                    <span style={{color: "#EEF4FB"}}>Primer.</span> Terenec govori:
+                  <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 400, fontSize: "14px", lineHeight: "20px", color: "#EEF4FB", margin: "0 0 4px 0" }}>
+                    Primer. Terenec govori:
                   </p>
                   <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 300, fontSize: "14px", lineHeight: "20px", color: "#CBD5E1", margin: "0 0 16px 0" }}>
                     &ldquo;Poslušaj, prišlo je do prometne nesreče na obvoznici, premikamo se s polžjo hitrostjo in zabijam čas tukaj, ko se mudi. Zgleda, da bom lahko prevzel šele okrog enajstih namesto ob desetih.&rdquo;
                   </p>
                   {/* AI label + AI output: weight 400 for label, 300 for quote */}
-                  <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 400, fontSize: "14px", lineHeight: "20px", color: "#CBD5E1", margin: "0 0 4px 0" }}>
-                    <span style={{color: "#EEF4FB"}}>AI sporočilo</span> pretvori v tekst, ki se prikaže na delovni tabli pisarne.
+                  <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 400, fontSize: "14px", lineHeight: "20px", color: "#EEF4FB", margin: "0 0 4px 0" }}>
+                    AI sporočilo pretvori v tekst, ki se prikaže na delovni tabli pisarne.
                   </p>
                   <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 300, fontSize: "14px", lineHeight: "20px", color: "#CBD5E1", margin: "0 0 16px 0" }}>
                     &ldquo;Prometna nesreča na obvoznici. Prevzem okrog 11:00.&rdquo;
                   </p>
                   {/* Outcome: weight 400 */}
-                  <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 400, fontSize: "14px", lineHeight: "20px", color: "#CBD5E1", margin: "0 0 24px 0" }}>
-                    <span style={{color: "#EEF4FB"}}>Pisarna</span> je obveščena, naročnika lahko obvesti o zamudi ali organizira prevzem tovora preko drugega.
+                  <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 400, fontSize: "14px", lineHeight: "20px", color: "#EEF4FB", margin: "0 0 24px 0" }}>
+                    Pisarna je obveščena, naročnika lahko obvesti o zamudi ali organizira prevzem tovora preko drugega.
                   </p>
                 </div>
 
                 {/* Example 2 */}
                 <div style={{ marginBottom: "16px" }}>
-                  <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 400, fontSize: "14px", lineHeight: "20px", color: "#CBD5E1", margin: "0 0 4px 0" }}>
-                    <span style={{color: "#EEF4FB"}}>Drug primer:</span> Terenec govori:
+                  <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 400, fontSize: "14px", lineHeight: "20px", color: "#EEF4FB", margin: "0 0 4px 0" }}>
+                    Drug primer: Terenec govori:
                   </p>
                   <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 300, fontSize: "14px", lineHeight: "20px", color: "#CBD5E1", margin: "0 0 16px 0" }}>
                     &ldquo;Evo, vse smo zaključil. Aja, porabil smo še dve kartuši silikona pa eno PU peno. Ne vem, če je še kaj ostalo v kakem kombiju al če mamo v skladišču.&rdquo;
                   </p>
-                  <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 400, fontSize: "14px", lineHeight: "20px", color: "#CBD5E1", margin: "0 0 4px 0" }}>
-                    <span style={{color: "#EEF4FB"}}>AI prepozna</span> porabljen material in pripravi zapis, ki se prikaže na delovni tabli pisarne.
+                  <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 400, fontSize: "14px", lineHeight: "20px", color: "#EEF4FB", margin: "0 0 4px 0" }}>
+                    AI prepozna porabljen material in pripravi zapis, ki se prikaže na delovni tabli pisarne.
                   </p>
                   <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 300, fontSize: "14px", lineHeight: "20px", color: "#CBD5E1", margin: "0 0 16px 0" }}>
                     &ldquo;Porabljeno: 2× kartuša silikona, 1× PU pena. Preveri zalogo.&rdquo;
                   </p>
-                  <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 400, fontSize: "14px", lineHeight: "20px", color: "#CBD5E1", margin: "0 0 24px 0" }}>
-                    <span style={{color: "#EEF4FB"}}>Pisarna posodobi</span> zalogo in doda artikle na seznam za naročilo.
+                  <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 400, fontSize: "14px", lineHeight: "20px", color: "#EEF4FB", margin: "0 0 24px 0" }}>
+                    Pisarna posodobi zalogo in doda artikle na seznam za naročilo.
                   </p>
                 </div>
 
                 {/* Example 3 */}
-                <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 400, fontSize: "14px", lineHeight: "20px", color: "#CBD5E1", margin: 0 }}>
-                  <span style={{color: "#EEF4FB"}}>Tretji primer:</span> Terenci konec dneva v 15 sekundah povzamejo opravljena dela v dnevnem poročilu.
+                <p style={{ fontFamily: "Inter, sans-serif", fontWeight: 400, fontSize: "14px", lineHeight: "20px", color: "#EEF4FB", margin: 0 }}>
+                  Tretji primer: Terenci konec dneva v 15 sekundah povzamejo opravljena dela v dnevnem poročilu.
                 </p>
               </div>
 

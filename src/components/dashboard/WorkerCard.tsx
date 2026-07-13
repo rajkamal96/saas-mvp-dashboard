@@ -224,9 +224,10 @@ interface WorkerCardProps {
   orderId?: string; // e.g. "#484"
   onClick?: () => void;
   disableActions?: boolean;
+  onDismiss?: () => void;
 }
 
-export function WorkerCard({ worker, onToggleTask, date = "23/05/26", orderId = "#484", onClick, disableActions }: WorkerCardProps) {
+export function WorkerCard({ worker, onToggleTask, date = "23/05/26", orderId = "#484", onClick, disableActions, onDismiss }: WorkerCardProps) {
   const done = worker.tasks.filter(t => t.completed).length;
   const total = worker.tasks.length;
 
@@ -234,7 +235,6 @@ export function WorkerCard({ worker, onToggleTask, date = "23/05/26", orderId = 
     <div
       onClick={onClick}
       style={{
-        background: "rgba(255, 255, 255, 0.3)",
         border: "1px solid #1D4ED8",
         boxShadow:
           "0px 18px 42px -24px rgba(59, 130, 246, 0.55), inset 0px 1px 0px 1px rgba(255, 255, 255, 0.35)",
@@ -245,6 +245,7 @@ export function WorkerCard({ worker, onToggleTask, date = "23/05/26", orderId = 
         gap: "20px",
         cursor: onClick ? "pointer" : "default",
       }}
+      className="bg-white/15 md:bg-white/30"
     >
       {/* ── Row 1: Meta + progress badge ── */}
       <div className="flex items-center justify-between">
@@ -260,7 +261,41 @@ export function WorkerCard({ worker, onToggleTask, date = "23/05/26", orderId = 
           {worker.name.toUpperCase()} • {date} • {orderId}
         </span>
 
-        {/* Progress badge */}
+        {/* Dismiss button (placeholder/deletable cards) */}
+        {onDismiss ? (
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onDismiss();
+            }}
+            style={{
+              boxSizing: "border-box",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              padding: "0px",
+              width: "36px",
+              height: "36px",
+              background: "rgba(255, 255, 255, 0.9)",
+              border: "1px solid #FFFFFF",
+              borderRadius: "12px",
+              boxShadow:
+                "0px 8px 18px -12px rgba(15, 23, 42, 0.35), inset 0px 1px 0px 1px #FFFFFF",
+              cursor: "pointer",
+            }}
+            title="Dismiss"
+          >
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M14.6066 14.6066L7.80336 7.80336M7.80336 7.80336L1 1M7.80336 7.80336L14.6067 1M7.80336 7.80336L1 14.6067"
+                stroke="#6D778E"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+        ) : (
         <div
           style={{
             width: "36px",
@@ -278,11 +313,10 @@ export function WorkerCard({ worker, onToggleTask, date = "23/05/26", orderId = 
           <span
             style={{
               fontFamily: "'PT Sans', sans-serif",
-              fontWeight: 700,
-              fontSize: "20px",
               color: "#EB1D1D",
               lineHeight: "27.25px"
             }}
+            className="text-sm font-normal md:text-xl md:font-bold"
           >
             {done}
           </span>
@@ -298,6 +332,7 @@ export function WorkerCard({ worker, onToggleTask, date = "23/05/26", orderId = 
             /{total}
           </span>
         </div>
+        )}
       </div>
 
       {/* ── Row 2: Task title card + task list ── */}
@@ -316,11 +351,11 @@ export function WorkerCard({ worker, onToggleTask, date = "23/05/26", orderId = 
           <p
             style={{
               fontFamily: "'PT Sans', sans-serif",
-              fontWeight: 700,
               fontSize: "16px",
               lineHeight: "20px",
               color: "#0F172A",
             }}
+            className="font-semibold md:font-bold"
           >
             {worker.currentTask.slice(0, 35) + (worker.currentTask.length > 35 ? "..." : "")}
           </p>

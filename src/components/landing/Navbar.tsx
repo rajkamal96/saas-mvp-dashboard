@@ -9,7 +9,7 @@ export function Navbar() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
-      <nav className="max-w-7xl mx-auto px-6 pt-5">
+      <nav className="max-w-7xl mx-auto px-3 md:px-6 pt-5">
         <div className="relative overflow-hidden rounded-full bg-white/84 backdrop-blur-2xl border border-white/90 shadow-[0_14px_38px_-22px_rgba(15,23,42,0.42),inset_0_1px_0_rgba(255,255,255,1)] px-4 py-3">
           {/* Extra white layer so dark sections do not bleed through too much */}
           <div className="absolute inset-0 rounded-full bg-white/36 pointer-events-none" />

@@ -32,8 +32,8 @@ export function OfficeCard({
         padding: "20px",
         gap: "20px",
         width: "100%",
-        height: "224px",
-        minHeight: "208px",
+        height: "auto",
+        minHeight: "224px",
         background: "linear-gradient(180deg, #F8F2E9 0%, #F8F2E9 100%)",
         border: "1px solid #1D4ED8",
         boxShadow:
@@ -152,9 +152,10 @@ export function OfficeCard({
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-start",
-          padding: "16px",
+          padding: "16px 16px 24px 16px",
           width: "100%",
-          height: "126px",
+          height: "auto",
+          minHeight: "126px",
           background: "rgba(255, 255, 255, 0.95)",
           border: "0.7px solid rgba(29, 78, 216, 0.3)",
           borderRadius: "21.6px",
@@ -167,17 +168,17 @@ export function OfficeCard({
         <p
           style={{
             fontFamily: "'PT Sans', sans-serif",
-            fontWeight: 700,
             fontSize: "16px",
             lineHeight: "22px",
             color: "#1C1A1A",
             marginBottom: "12px",
           }}
+          className="font-semibold md:font-bold"
         >
           {message.targetTask || "Brez opravila"}
         </p>
 
-        {/* Mic / text row */}
+        {/* Icon + label row */}
         <div className="flex items-start gap-[12px] w-full">
           {/* Microphone Icon container */}
           <div
@@ -229,38 +230,38 @@ export function OfficeCard({
             )}
           </div>
 
-          {/* Description text */}
-          <div className="flex flex-col flex-1 min-w-0">
-            <span
-              style={{
-                fontFamily: "'Inter', sans-serif",
-                fontWeight: 300,
-                fontSize: "12px",
-                lineHeight: "18px",
-                color: "#465467",
-              }}
-            >
-              {iconType === "document"
-                ? "Sporočilo"
-                : message.type === "glasovno"
-                ? "Glasovno sporočilo"
-                : "Tekstovno sporočilo"}
-            </span>
-            <span
-              style={{
-                fontFamily: "'Inter', sans-serif",
-                fontWeight: 300,
-                fontSize: "12px",
-                lineHeight: "18px",
-                color: "#465467",
-                marginTop: "2px",
-              }}
-              className="line-clamp-2"
-            >
-              {message.text}
-            </span>
-          </div>
+          {/* Label */}
+          <span
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              fontWeight: 300,
+              fontSize: "12px",
+              lineHeight: "18px",
+              color: "#465467",
+            }}
+          >
+            {iconType === "document"
+              ? "Sporočilo"
+              : message.type === "glasovno"
+              ? "Glasovno sporočilo"
+              : "Tekstovno sporočilo"}
+          </span>
         </div>
+
+        {/* Content text — full width under the icon row, never clamped */}
+        <p
+          style={{
+            fontFamily: "'Inter', sans-serif",
+            fontWeight: 300,
+            fontSize: "12px",
+            lineHeight: "18px",
+            color: "#465467",
+            marginTop: "8px",
+            width: "100%",
+          }}
+        >
+          {message.text}
+        </p>
       </div>
     </div>
   );

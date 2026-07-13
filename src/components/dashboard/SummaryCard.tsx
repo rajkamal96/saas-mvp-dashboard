@@ -36,10 +36,25 @@ interface SummaryCardProps {
   children: React.ReactNode;
 }
 
+export function UrgentIcon() {
+  return (
+    <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g clipPath="url(#clip0_197_4935)">
+        <path d="M17 0C7.61175 0 0 7.61175 0 17C0 26.3883 7.61175 34 17 34C26.3883 34 34 26.3883 34 17C34 7.61175 26.3883 0 17 0ZM15.0861 9.19842C14.9727 8.06367 15.8653 7.08333 17 7.08333C18.1348 7.08333 19.0273 8.06367 18.9139 9.19842C18.4708 13.6299 18.2223 16.1144 17.7792 20.5459C17.7381 20.9454 17.4023 21.25 17 21.25C16.5977 21.25 16.2619 20.9454 16.2208 20.5445L15.0861 9.19842ZM17 27.2708C16.0225 27.2708 15.2292 26.4775 15.2292 25.5C15.2292 24.5225 16.0225 23.7292 17 23.7292C17.9775 23.7292 18.7708 24.5225 18.7708 25.5C18.7708 26.4775 17.9775 27.2708 17 27.2708Z" fill="#FF0000"/>
+      </g>
+      <defs>
+        <clipPath id="clip0_197_4935">
+          <rect width="34" height="34" fill="white"/>
+        </clipPath>
+      </defs>
+    </svg>
+  );
+}
+
 export function SummaryCard({ title, dark = false, children }: SummaryCardProps) {
   return (
     <article
-      className="rounded-[2rem] p-10 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-start"
+      className="rounded-[2rem] p-2 md:p-10 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-start"
       style={{
         background: dark ? "#1D2A3D" : "rgba(255, 255, 255, 0.002)",
         boxShadow: "0px 12px 30px rgba(15, 23, 42, 0.3), inset 0px 1px 0px #FFFFFF",
@@ -48,23 +63,30 @@ export function SummaryCard({ title, dark = false, children }: SummaryCardProps)
       }}
     >
       {/* Header */}
-      <div className="flex items-center gap-[15px] mb-6">
-        <CardIconBox icon={<DashboardIcon />} />
+      <div className="flex items-center gap-[15px] mb-3 md:mb-6">
+        {dark ? (
+          <div className="w-10 h-10 flex items-center justify-center shrink-0">
+            <UrgentIcon />
+          </div>
+        ) : (
+          <CardIconBox icon={<DashboardIcon />} />
+        )}
         <h2
           style={{
             fontFamily: "'PT Sans', sans-serif !important",
-            fontWeight: 700,
-            fontSize: "24px",
             lineHeight: "24px",
             color: dark ? "#FFFFFF" : "#1C1A1A",
           }}
+          className="text-lg font-medium md:text-2xl md:font-bold"
         >
           {title}
         </h2>
       </div>
 
       {/* Rows */}
-      {children}
+      <div className="flex flex-col gap-3 p-3 md:gap-0 md:p-0">
+        {children}
+      </div>
     </article>
   );
 }
@@ -82,7 +104,7 @@ export function OverviewRow({ progress, task, location, name }: OverviewRowProps
     fontFamily: "'PT Sans', sans-serif",
     fontWeight: 400,
     fontSize: "14px",
-    lineHeight: "14px",
+    lineHeight: "18px",
     color: "#64748B",
   };
   const dotStyle: React.CSSProperties = { color: "#64748B", fontSize: "14px" };
@@ -90,11 +112,11 @@ export function OverviewRow({ progress, task, location, name }: OverviewRowProps
   return (
     <div className="flex items-center gap-2 min-w-0 w-full overflow-hidden">
       <span className="shrink-0" style={{ ...textStyle, minWidth: "28px" }}>{progress}</span>
-      <span className="shrink-0" style={dotStyle}>•</span>
+      <span className="shrink-0 hidden md:inline" style={dotStyle}>•</span>
       <span className="truncate" style={textStyle}>{task}</span>
       <span className="shrink-0" style={dotStyle}>•</span>
-      <span className="truncate" style={textStyle}>{location}</span>
-      <span className="shrink-0" style={dotStyle}>•</span>
+      <span className="truncate hidden md:inline" style={textStyle}>{location}</span>
+      <span className="shrink-0 hidden md:inline" style={dotStyle}>•</span>
       <span className="truncate" style={textStyle}>{name}</span>
     </div>
   );

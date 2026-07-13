@@ -5,9 +5,6 @@ import { useRouter } from "next/navigation";
 import { Logo } from "@/components/Logo";
 import { useLanguage } from "@/lib/useLanguage";
 import {
-  initialWorkers,
-  initialOrders,
-  initialMessages,
   Worker,
   Order,
   Message
@@ -38,6 +35,55 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 
+const isPlaceholder = (id: string) => id.startsWith("placeholder");
+
+const currentTimeShort = () =>
+  new Date().toLocaleTimeString("sl-SI", { hour: "2-digit", minute: "2-digit" });
+
+const placeholderWorkers: Worker[] = [
+  {
+    id: "placeholder_worker",
+    name: "IME",
+    avatar: "IM",
+    role: "Naročnik",
+    currentTask: "Dodajte kartico za terence",
+    status: "v_teku",
+    phone: "",
+    email: "",
+    unreadCount: 0,
+    location: "Mesto",
+    tasks: [],
+  },
+];
+
+const placeholderOrders: (Order & { hasConfirm?: boolean; hasDecline?: boolean })[] = [
+  {
+    id: "placeholder_order",
+    title: "Dodajte zaznamke za vodjo",
+    description: "",
+    time: "10:30",
+    createdAt: "ČAS",
+    priority: "normalna",
+    status: "caka_potrditev",
+    workerId: "",
+    workerName: "IME",
+    hasConfirm: true,
+    hasDecline: true,
+  },
+];
+
+const placeholderMessages: Message[] = [
+  {
+    id: "placeholder_message",
+    workerId: "",
+    workerName: "IME",
+    text: "Kartica tukaj je ustvarjena avtomatsko, ko pride do komunikacije med terenom in pisarno",
+    time: "ČAS",
+    type: "glasovno",
+    targetTask: "Ni komunikacije",
+  },
+];
+
 interface ColumnHeaderProps {
   title: string;
   onAddClick?: () => void;
@@ -49,11 +95,9 @@ function ColumnHeader({ title, onAddClick }: ColumnHeaderProps) {
       <span
         style={{
           fontFamily: "'PT Sans', sans-serif",
-          fontWeight: 700,
-          fontSize: "24px",
           lineHeight: "24px",
         }}
-        className="text-slate-900"
+        className="text-slate-900 text-lg font-medium md:text-2xl md:font-normal"
       >
         {title}
       </span>
@@ -91,9 +135,9 @@ export default function OfficeDashboard() {
   const { t } = useLanguage();
   const router = useRouter();
 
-  const [workers, setWorkers] = useState<Worker[]>(initialWorkers);
-  const [orders, setOrders] = useState<Order[]>(initialOrders);
-  const [messages, setMessages] = useState<Message[]>(initialMessages);
+  const [workers, setWorkers] = useState<Worker[]>(placeholderWorkers);
+  const [orders, setOrders] = useState<Order[]>(placeholderOrders);
+  const [messages, setMessages] = useState<Message[]>(placeholderMessages);
   const [selectedWorker, setSelectedWorker] = useState<Worker | null>(null);
   const [detailKey, setDetailKey] = useState(0);
   const [isWorkerDetailOpen, setIsWorkerDetailOpen] = useState(false);
@@ -247,6 +291,9 @@ export default function OfficeDashboard() {
   const handleDismissOrder = (orderId: string) =>
     setOrders(prev => prev.filter(o => o.id !== orderId));
 
+  const handleDismissWorker = (workerId: string) =>
+    setWorkers(prev => prev.filter(w => w.id !== workerId));
+
   const handleResolveMessage = (messageId: string) =>
     setMessages(prev => prev.filter(m => m.id !== messageId));
 
@@ -293,14 +340,11 @@ export default function OfficeDashboard() {
         <h1
           style={{
             fontFamily: "Inter, sans-serif",
-            fontWeight: 400,
-            fontSize: "60px",
-            lineHeight: "36px",
-            letterSpacing: "-0.75px",
             color: "#0F172A",
             marginBottom: "42px",
             textAlign: "center",
           }}
+          className="text-[24px] leading-8 font-light tracking-[-0.5px] md:text-[60px] md:leading-9 md:font-normal md:tracking-[-0.75px]"
         >
           Dnevni pregled
         </h1>
@@ -311,33 +355,61 @@ export default function OfficeDashboard() {
           {/* HITRI PREGLED */}
           <SummaryCard title="HITRI PREGLED">
             <div className="flex flex-col gap-[4px]">
-              {workers.map(w => {
-                const done = w.tasks.filter(t => t.completed).length;
-                const total = w.tasks.length;
-                return (
-                  <OverviewRow
-                    key={w.id}
-                    progress={`${done}/${total}`}
-                    task={w.currentTask}
-                    location={w.location ?? "Ljubljana"}
-                    name={w.name}
-                  />
-                );
-              })}
+              {workers.filter(w => !isPlaceholder(w.id)).length === 0 ? (
+                <p
+                  style={{
+                    fontFamily: "'PT Sans', sans-serif",
+                    fontWeight: 400,
+                    fontSize: "14px",
+                    lineHeight: "18px",
+                    color: "#64748B",
+                  }}
+                >
+                  Zaenkrat ni vnešenih nalog. Dodajte kartico.
+                </p>
+              ) : (
+                workers.filter(w => !isPlaceholder(w.id)).map(w => {
+                  const done = w.tasks.filter(t => t.completed).length;
+                  const total = w.tasks.length;
+                  return (
+                    <OverviewRow
+                      key={w.id}
+                      progress={`${done}/${total}`}
+                      task={w.currentTask}
+                      location={w.location ?? "Ljubljana"}
+                      name={w.name}
+                    />
+                  );
+                })
+              )}
             </div>
           </SummaryCard>
 
           {/* NUJNE ZADEVE */}
           <SummaryCard title="NUJNE ZADEVE" dark>
             <div className="flex flex-col gap-[6px]">
-              {orders.filter(o => o.priority === 'nujno').map(o => (
-                <UrgentRow
-                  key={o.id}
-                  time={o.time}
-                  title={o.title}
-                  subtitle={o.description || undefined}
-                />
-              ))}
+              {orders.filter(o => !isPlaceholder(o.id) && o.priority === 'nujno').length === 0 ? (
+                <p
+                  style={{
+                    fontFamily: "'PT Sans', sans-serif",
+                    fontWeight: 400,
+                    fontSize: "14px",
+                    lineHeight: "18px",
+                    color: "#94A3B8",
+                  }}
+                >
+                  Zaenkrat ni vnešenih nujnih zadev.
+                </p>
+              ) : (
+                orders.filter(o => !isPlaceholder(o.id) && o.priority === 'nujno').map(o => (
+                  <UrgentRow
+                    key={o.id}
+                    time={o.time}
+                    title={o.title}
+                    subtitle={o.description || undefined}
+                  />
+                ))
+              )}
             </div>
           </SummaryCard>
 
@@ -349,7 +421,7 @@ export default function OfficeDashboard() {
           {/* COLUMN 1 — DANES TEREN */}
           <div className="flex flex-col gap-3">
             {/* Column Header Row */}
-            <ColumnHeader title="DANES — TEREN" onAddClick={() => setIsAddTaskOpen(true)} />
+            <ColumnHeader title="DANES — TEREN" onAddClick={() => setIsAddWorkerOpen(true)} />
             <div
               style={{
                 background: "linear-gradient(180deg, rgba(96, 165, 250, 0.08) 0%, rgba(37, 99, 235, 0.08) 100%)",
@@ -374,9 +446,10 @@ export default function OfficeDashboard() {
                       <WorkerCard
                         worker={w}
                         onToggleTask={handleToggleTask}
-                        date="23/05/26"
-                        orderId={`#${480 + idx + 1}`}
-                        onClick={() => {
+                        date={isPlaceholder(w.id) ? "DATUM" : "23/05/26"}
+                        orderId={isPlaceholder(w.id) ? currentTimeShort() : `#${480 + idx + 1}`}
+                        onDismiss={isPlaceholder(w.id) ? () => handleDismissWorker(w.id) : undefined}
+                        onClick={isPlaceholder(w.id) ? undefined : () => {
                           setSelectedWorker(w);
                           setIsWorkerDetailOpen(true);
                           setDetailKey(k => k + 1);
@@ -472,7 +545,7 @@ export default function OfficeDashboard() {
                         <OfficeCard
                           message={m}
                           iconType={idx === 2 ? "document" : "mic"}
-                          showRedButton={idx === 1}
+                          showRedButton={m.priority === "nujno"}
                           onResolve={() => handleResolveMessage(m.id)}
                           onDismiss={() => handleDismissMessage(m.id)}
                           onArchive={() => handleArchiveMessage(m.id)}

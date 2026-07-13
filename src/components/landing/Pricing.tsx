@@ -51,7 +51,7 @@ export function Pricing() {
   ];
 
   return (
-    <section id="cenik" className="max-w-7xl mx-auto px-6 py-20">
+    <section id="cenik" className="max-w-7xl mx-auto px-3 md:px-6 pb-20">
       <div className="text-center max-w-3xl mx-auto mb-12">
         <p className="font-['Inter',sans-serif] text-[10px] md:text-xs font-semibold tracking-[-0.04em] text-blue-500 mb-4 uppercase">
           {t("priceTitle")}
@@ -60,7 +60,7 @@ export function Pricing() {
           {t("priceSubtitle")}
         </h2>
         <p
-          className="mt-4 text-slate-500 px-2 md:px-0"
+          className="mt-4 text-slate-500"
           style={{
             fontFamily: "'Inter', sans-serif",
             fontWeight: 300,
@@ -169,7 +169,7 @@ export function Pricing() {
       </div>
 
       <p
-        className="text-center max-w-4xl mx-auto mt-12 text-slate-500 px-4 md:px-0"
+        className="text-center max-w-4xl mx-auto mt-12 text-slate-500"
         style={{
           fontFamily: "'Inter', sans-serif",
           fontWeight: 300,

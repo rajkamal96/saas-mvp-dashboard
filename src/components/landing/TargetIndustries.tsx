@@ -3,90 +3,32 @@
 import React from "react";
 
 export function TargetIndustries() {
-  const row1 = [
+  const industries = [
     "Gradbena podjetja",
     "Slikopleskarstvo",
     "Keramika in zaključna dela",
     "Fasaderstvo",
     "Montaže",
     "Akviziterstvo",
-    "Varnostne službe"
-  ];
-
-  const row2 = [
+    "Varnostne službe",
     "Servisi",
     "Vodovodne inštalacije",
     "Elektro inštalacije",
     "Avtovleka in avtoservis",
     "Čistilni servisi",
     "Energetika",
-    "Dostava in logistika"
-  ];
-
-  const row3 = [
+    "Dostava in logistika",
     "Vzdrževalna dela",
     "Urejanje okolice",
     "Upravniki stavb",
     "Inženiringi in projektiranje",
     "Organizatorji prireditev, porok",
-    "Zavarovalništvo"
-  ];
-
-  const row4 = [
+    "Zavarovalništvo",
     "Inšpekcije in pregledi",
     "Selitve",
     "Komunalna podjetja",
     "Kurirske službe"
   ];
-
-  const renderRow = (items: string[]) => (
-    <div 
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        flexWrap: "wrap",
-        justifyContent: "center",
-        alignItems: "center",
-        gap: "12px",
-        width: "100%"
-      }}
-    >
-      {items.map((item, idx) => (
-        <div
-          key={idx}
-          style={{
-            boxSizing: "border-box",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-start",
-            padding: "6px 12px",
-            background: "rgba(255, 255, 255, 0.04)",
-            border: "0.7px solid #1D4ED8",
-            borderRadius: "9999px",
-            transition: "all 0.3s ease"
-          }}
-          className="hover:scale-[1.03] hover:bg-blue-500/5 hover:border-blue-600 transition-all cursor-default"
-        >
-          <span
-            style={{
-              fontFamily: "'Inter', sans-serif",
-              fontStyle: "normal",
-              fontWeight: 400,
-              fontSize: "12px",
-              lineHeight: "16px",
-              display: "flex",
-              alignItems: "center",
-              color: "rgba(29, 78, 216, 0.6)",
-              transition: "color 0.3s ease"
-            }}
-            className="hover:text-blue-600"
-          >
-            {item}
-          </span>
-        </div>
-      ))}
-    </div>
-  );
 
   return (
     <section 
@@ -95,11 +37,11 @@ export function TargetIndustries() {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        padding: "80px 24px",
+        paddingBottom: "80px",
         gap: "40px",
         background: "transparent"
       }}
-      className="relative z-10"
+      className="relative z-10 px-2 md:px-6"
     >
       {/* Intro Title & Subtitle */}
       <div 
@@ -136,8 +78,6 @@ export function TargetIndustries() {
             fontFamily: "'Inter', sans-serif",
             fontStyle: "normal",
             fontWeight: 400,
-            fontSize: "32px",
-            lineHeight: "40px",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -146,6 +86,7 @@ export function TargetIndustries() {
             color: "#020617",
             margin: 0
           }}
+          className="text-[24px] md:text-[32px] leading-8 md:leading-10"
         >
           Podjetja, ki želijo več pregleda in lažje vodenje
         </h2>
@@ -155,18 +96,48 @@ export function TargetIndustries() {
       <div 
         style={{
           display: "flex",
-          flexDirection: "column",
+          flexDirection: "row",
+          flexWrap: "wrap",
+          justifyContent: "center",
           alignItems: "center",
           padding: "0px",
-          gap: "20px",
+          gap: "8px",
           width: "100%",
           maxWidth: "1100px"
         }}
       >
-        {renderRow(row1)}
-        {renderRow(row2)}
-        {renderRow(row3)}
-        {renderRow(row4)}
+        {industries.map((item, idx) => (
+          <div
+            key={idx}
+            style={{
+              boxSizing: "border-box",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-start",
+              background: "rgba(255, 255, 255, 0.04)",
+              border: "0.7px solid #1D4ED8",
+              borderRadius: "9999px",
+              transition: "all 0.3s ease"
+            }}
+            className="hover:scale-[1.03] hover:bg-blue-500/5 hover:border-blue-600 transition-all cursor-default px-2 md:px-3 py-1 md:py-1.5"
+          >
+            <span
+              style={{
+                fontFamily: "'Inter', sans-serif",
+                fontStyle: "normal",
+                fontWeight: 400,
+                lineHeight: "16px",
+                display: "flex",
+                alignItems: "center",
+                color: "rgba(29, 78, 216, 0.6)",
+                transition: "color 0.3s ease"
+              }}
+              className="hover:text-blue-600 text-[11px] md:text-xs"
+            >
+              {item}
+            </span>
+          </div>
+        ))}
       </div>
 
       {/* Footer Text */}

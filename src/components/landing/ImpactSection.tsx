@@ -14,7 +14,7 @@ const items = [
 
 export function ImpactSection() {
   return (
-    <section id="spremembe" className="max-w-7xl mx-auto px-6 py-20 relative">
+    <section id="spremembe" className="max-w-7xl mx-auto px-3 md:px-6 pb-20 relative">
       {/* Header */}
       <div className="text-center mx-auto mb-12">
         <p
@@ -40,7 +40,7 @@ export function ImpactSection() {
           Kaj se spremeni po nekaj tednih uporabe
         </h2>
         <p
-          className="mt-4 text-slate-500 max-w-3xl mx-auto px-0 md:px-0"
+          className="mt-4 text-slate-500 max-w-3xl mx-auto"
           style={{
             fontFamily: "'Inter', sans-serif",
             fontWeight: 300,

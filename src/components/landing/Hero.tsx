@@ -9,7 +9,7 @@ export function Hero() {
   const { t } = useLanguage();
 
   return (
-    <section className="max-w-7xl mx-auto px-6 pt-32 md:pt-40 pb-20 relative">
+    <section className="max-w-7xl mx-auto px-3 md:px-6 pt-32 md:pt-40 pb-20 relative">
       <style dangerouslySetInnerHTML={{ __html: `
         @keyframes aura-float-soft {
           0%, 100% { transform: translateY(0); }
@@ -59,7 +59,7 @@ export function Hero() {
               {t("heroTitle").split(".")[0]}.
             </span>
             <span className="inline-flex whitespace-nowrap mt-4 rounded-[1.35rem] bg-gradient-to-b from-blue-400 to-blue-600 border border-blue-700 px-4 md:px-5 pb-2.5 pt-1.5 text-white font-normal shadow-[0_18px_38px_-20px_rgba(59,130,246,0.55),inset_0_1px_0_rgba(255,255,255,0.38)] drop-shadow-[0_1px_1px_rgba(15,23,42,0.18)]">
-              {(t("heroTitle").split(".")[1] || "").trim()}
+              {(t("heroTitle").split(".")[1] || "").trim()}.
             </span>
           </h1>
 

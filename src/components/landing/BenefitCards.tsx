@@ -7,16 +7,16 @@ export function BenefitCards() {
   const { t } = useLanguage();
 
   return (
-    <section id="prednosti" className="max-w-7xl mx-auto px-6 py-20">
+    <section id="prednosti" className="max-w-7xl mx-auto px-3 md:px-6 pb-20">
       {/* Header aligned Left */}
       <div className="max-w-3xl mb-16 text-left">
-        <p className="font-['Inter',sans-serif] text-[10px] md:text-xs font-semibold tracking-wide text-blue-600 mb-3 uppercase">
+        <p className="font-['Inter',sans-serif] text-[14px] md:text-xs font-semibold tracking-tight text-blue-600 mb-3 uppercase">
           {t("benefitsLabel")}
         </p>
-        <h2 className="text-4xl md:text-5xl font-light tracking-tight text-slate-900 leading-tight">
+        <h2 className="text-[3rem] md:text-5xl font-light tracking-[-0.075em] text-slate-900 leading-[0.95]">
           {t("benefitsTitle")}
         </h2>
-        <h3 className="text-xl md:text-2xl font-bold tracking-tight text-slate-900 mt-2">
+        <h3 className="text-lg md:text-2xl font-bold tracking-tight text-slate-900 mt-2">
           {t("benefitsSubtitle")}
         </h3>
       </div>
@@ -28,7 +28,7 @@ export function BenefitCards() {
             <span className="font-['Inter',sans-serif] text-[10px] md:text-xs font-semibold tracking-wider text-blue-600 uppercase">
               {t("benefitsMobiLabel")}
             </span>
-            <h3 className="text-xl md:text-2xl font-semibold text-slate-900 mt-3 mb-8">
+            <h3 className="text-base md:text-2xl font-semibold text-slate-900 mt-3 mb-8">
               {t("benefitsMobiTitle")}
             </h3>
 
@@ -67,7 +67,7 @@ export function BenefitCards() {
             <span className="font-['Inter',sans-serif] text-[10px] md:text-xs font-semibold tracking-wider text-blue-600 uppercase">
               {t("benefitsOfficeLabel")}
             </span>
-            <h3 className="text-xl md:text-2xl font-semibold text-slate-900 mt-3 mb-8">
+            <h3 className="text-base md:text-2xl font-semibold text-slate-900 mt-3 mb-8">
               {t("benefitsOfficeTitle")}
             </h3>
 

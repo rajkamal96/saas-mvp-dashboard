@@ -88,23 +88,6 @@ export function Hero() {
             </a>
           </div>
 
-          {/* Trust Row */}
-          <div className="mt-8 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 text-[10px] md:text-xs text-slate-500 font-light">
-            <span className="inline-flex items-center gap-2">
-              <iconify-icon icon="solar:shield-check-linear" style={{ strokeWidth: 1.5 }} className="text-base text-blue-500" />
-              {t("priceTrust1")}
-            </span>
-            <span className="hidden sm:block w-1 h-1 rounded-full bg-slate-300" />
-            <span className="inline-flex items-center gap-2">
-              <iconify-icon icon="solar:devices-linear" style={{ strokeWidth: 1.5 }} className="text-base text-blue-500" />
-              {t("priceTrust2")}
-            </span>
-            <span className="hidden sm:block w-1 h-1 rounded-full bg-slate-300" />
-            <span className="inline-flex items-center gap-2">
-              <iconify-icon icon="solar:bolt-circle-linear" style={{ strokeWidth: 1.5 }} className="text-base text-blue-500" />
-              {t("priceTrust3")}
-            </span>
-          </div>
         </div>
       </div>
 

@@ -67,13 +67,13 @@ export function PainSolutions() {
           
           {/* Heading — Figma style */}
           <div className="flex flex-col items-start gap-1 mb-8">
-            <span className="font-['Roboto',sans-serif] text-base font-medium tracking-[0.1em] text-[#60A5FA] uppercase">
+            <span className="font-['Roboto',sans-serif] text-sm font-medium tracking-[0.02em] text-[#60A5FA] uppercase">
               {t("tabsLabel")}
             </span>
-            <h2 className="font-['Inter',sans-serif] text-3xl md:text-5xl font-normal tracking-tight text-white mt-2">
+            <h2 className="font-['Inter',sans-serif] text-3xl md:text-5xl font-light tracking-tight text-white mt-2">
               {t("tabsTitle")}
             </h2>
-            <p className="font-['Inter',sans-serif] text-base md:text-xl font-normal text-white mt-4 leading-relaxed" style={{fontSize: "24px"}}>
+            <p className="font-['Inter',sans-serif] text-base md:text-lg font-light text-white mt-4 leading-relaxed">
               {tabs[activeTab].subtitle}
             </p>
           </div>
@@ -127,7 +127,7 @@ export function PainSolutions() {
                   <p className="font-['Roboto',sans-serif] text-xs font-normal tracking-[0.1em] text-[#60A5FA] uppercase mb-1">
                     {t("benefitsMobiLabel")}
                   </p>
-                  <h4 className="font-['Roboto',sans-serif] text-[20px] font-medium text-[#60A5FA] uppercase mb-4">
+                  <h4 className="font-['Roboto',sans-serif] text-[16px] font-medium text-[#60A5FA] uppercase mb-4">
                     {t("benefitsMobiTitle")}
                   </h4>
                 </div>
@@ -171,7 +171,7 @@ export function PainSolutions() {
                   <p className="font-['Roboto',sans-serif] text-xs font-normal tracking-[0.1em] text-[#60A5FA] uppercase mb-1">
                     {t("benefitsOfficeLabel")}
                   </p>
-                  <h4 className="font-['Roboto',sans-serif] text-[20px] font-medium text-[#60A5FA] uppercase mb-4">
+                  <h4 className="font-['Roboto',sans-serif] text-[16px] font-medium text-[#60A5FA] uppercase mb-4">
                     {t("benefitsOfficeTitle")}
                   </h4>
                 </div>

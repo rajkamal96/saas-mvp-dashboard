@@ -21,7 +21,7 @@ export function DeadlineOffer() {
           ENOSTAVNO JE
         </p>
         <p
-          className="text-slate-500"
+          className="text-slate-500 text-center"
           style={{
             fontFamily: "'Inter', sans-serif",
             fontWeight: 300,
@@ -91,7 +91,7 @@ export function DeadlineOffer() {
             }}
           >
             {[
-              "zamrznjena cena do leta 2030 in",
+              "zamrznjena cena do leta 2030",
               "vse nadgradnje osnovnega produkta brezplačno!",
             ].map((txt, i) => (
               <li key={i} className="flex items-start gap-[10px]">
@@ -139,10 +139,10 @@ export function DeadlineOffer() {
                 TAKO IZGLEDA V PRAKSI
               </p>
               <p
-                className="font-light md:font-normal"
                 style={{
                   fontFamily: "'Inter', sans-serif",
-                  fontSize: "20px",
+                  fontWeight: 300,
+                  fontSize: "24px",
                   lineHeight: "28px",
                   letterSpacing: "-0.5px",
                   color: "#020617",
@@ -179,7 +179,7 @@ export function DeadlineOffer() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             {/* 07:00 */}
             <div
-              className="rounded-2xl p-4 flex flex-col gap-1"
+              className="rounded-[16px] p-4 flex flex-col gap-1"
               style={{
                 background: "#F8FAFC",
                 border: "1px solid #E2E8F0",
@@ -213,7 +213,7 @@ export function DeadlineOffer() {
 
             {/* Tekom dneva */}
             <div
-              className="rounded-2xl p-4 flex flex-col gap-1"
+              className="rounded-[16px] p-4 flex flex-col gap-1"
               style={{
                 background: "#E9F2FE",
                 border: "1px solid #D0E1F8",
@@ -247,7 +247,7 @@ export function DeadlineOffer() {
 
             {/* 17:00 */}
             <div
-              className="rounded-2xl p-4 flex flex-col gap-1 relative overflow-hidden"
+              className="rounded-[16px] p-4 flex flex-col gap-1 relative overflow-hidden"
               style={{
                 background: "linear-gradient(180deg, #60A5FA 0%, #2563EB 100%)",
                 border: "1px solid #1D4ED8",

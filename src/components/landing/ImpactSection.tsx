@@ -14,7 +14,7 @@ const items = [
 
 export function ImpactSection() {
   return (
-    <section id="spremembe" className="max-w-7xl mx-auto px-3 md:px-6 pb-20 relative">
+    <section id="spremembe" className="max-w-7xl mx-auto px-3 md:px-6 md:pt-20 pb-20 relative">
       {/* Header */}
       <div className="text-center mx-auto mb-12">
         <p
@@ -92,10 +92,9 @@ export function ImpactSection() {
                 </svg>
               </div>
               <p
-                className="text-slate-500 md:text-slate-950 text-sm md:text-lg"
+                className="text-slate-500 md:text-slate-950 text-sm md:text-lg font-normal md:font-light"
                 style={{
                   fontFamily: "'Inter', sans-serif",
-                  fontWeight: 400,
                   lineHeight: "28px",
                   letterSpacing: "-0.45px",
                 }}

@@ -1,11 +1,12 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { useLanguage } from "@/lib/useLanguage";
 
 export function Pricing() {
   const { t } = useLanguage();
+  const [isYearly, setIsYearly] = useState(false);
   const displayPrice = 59;
 
   const sections = [
@@ -29,7 +30,7 @@ export function Pricing() {
   ];
 
   return (
-    <section id="cenik" className="max-w-7xl mx-auto px-3 md:px-6 pb-20">
+    <section id="cenik" className="max-w-7xl mx-auto px-3 md:px-6 md:pt-20 pb-20">
       <div className="text-center max-w-3xl mx-auto mb-12">
         <p className="font-['Inter',sans-serif] text-[10px] md:text-xs font-semibold tracking-[-0.04em] text-blue-500 mb-4 uppercase">
           {t("priceTitle")}
@@ -50,11 +51,37 @@ export function Pricing() {
         </p>
       </div>
 
-      {/* Monthly-only pill */}
+      {/* Skeuomorphic Toggle — yearly disabled for now */}
       <div className="mb-12 flex justify-center">
-        <span className="inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-gradient-to-b from-white to-slate-50 border border-slate-200 shadow-[0_2px_5px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,1)] text-sm font-normal text-slate-800">
-          {t("billingMonthly")}
-        </span>
+        <label className="relative flex items-center p-1 bg-[#e2e8f0] rounded-full cursor-not-allowed w-[16rem] shadow-[inset_0_2px_4px_rgba(0,0,0,0.06),0_1px_1px_rgba(255,255,255,1)] border border-slate-300">
+          <input
+            type="checkbox"
+            className="sr-only"
+            checked={isYearly}
+            disabled
+            onChange={() => setIsYearly(false)}
+          />
+          {/* Toggle Pill */}
+          <div
+            className={`absolute left-1 top-1 bottom-1 w-[calc(50%-0.25rem)] bg-gradient-to-b from-white to-slate-50 rounded-full shadow-[0_2px_5px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,1)] border border-slate-200 transition-transform duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+              isYearly ? "translate-x-full" : "translate-x-0"
+            }`}
+          />
+          <span
+            className={`relative w-1/2 text-center text-sm font-normal transition-colors duration-300 py-2.5 z-10 ${
+              isYearly ? "text-slate-400" : "text-slate-800"
+            }`}
+          >
+            {t("billingMonthly")}
+          </span>
+          <span
+            className={`relative w-1/2 flex items-center justify-center gap-1.5 text-center text-sm font-normal transition-colors duration-300 py-2.5 z-10 opacity-60 ${
+              isYearly ? "text-slate-800" : "text-slate-400"
+            }`}
+          >
+            {t("billingAnnually")}
+          </span>
+        </label>
       </div>
 
       <div className="flex justify-center items-center">

@@ -70,10 +70,10 @@ export function PainSolutions() {
             <span className="font-['Inter',sans-serif] text-[10px] md:text-sm font-medium tracking-[-0.04em] md:tracking-[0.02em] text-[#60A5FA] uppercase">
               {t("tabsLabel")}
             </span>
-            <h2 className="font-['Inter',sans-serif] text-[3rem] md:text-5xl font-light tracking-[-0.075em] md:tracking-tight leading-[0.95] md:leading-none text-white mt-2">
+            <h2 className="font-['Inter',sans-serif] text-[40px] md:text-5xl font-light tracking-[-0.075em] md:tracking-tight leading-[0.95] md:leading-none text-white mt-2">
               {t("tabsTitle")}
             </h2>
-            <p className="font-['Inter',sans-serif] text-lg font-bold md:font-light tracking-tight md:tracking-normal text-white mt-6 md:mt-4 md:leading-relaxed">
+            <p className="font-['Inter',sans-serif] text-lg md:text-2xl font-medium md:font-light tracking-tight md:tracking-normal text-white mt-6 md:mt-4 md:leading-relaxed">
               {tabs[activeTab].subtitle}
             </p>
           </div>
@@ -124,10 +124,10 @@ export function PainSolutions() {
               {/* Left Column: MOBI / TERENSKA EKIPA */}
               <div className="flex flex-col gap-4">
                 <div>
-                  <p className="font-['Roboto',sans-serif] text-xs font-normal tracking-[0.1em] text-[#60A5FA] uppercase mb-1">
+                  <p className="font-['Roboto',sans-serif] text-xs md:text-xs font-normal tracking-[0.1em] text-[#60A5FA] uppercase mb-1">
                     {t("benefitsMobiLabel")}
                   </p>
-                  <h4 className="font-['Roboto',sans-serif] text-[16px] font-medium text-[#60A5FA] uppercase mb-4">
+                  <h4 className="font-['Roboto',sans-serif] text-[16px] md:text-[20px] font-medium md:font-light text-[#60A5FA] uppercase mb-4">
                     {t("benefitsMobiTitle")}
                   </h4>
                 </div>
@@ -168,10 +168,10 @@ export function PainSolutions() {
               {/* Right Column: DESKTOP / PISARNA */}
               <div className="flex flex-col gap-4">
                 <div>
-                  <p className="font-['Roboto',sans-serif] text-xs font-normal tracking-[0.1em] text-[#60A5FA] uppercase mb-1">
+                  <p className="font-['Roboto',sans-serif] text-xs md:text-xs font-normal tracking-[0.1em] text-[#60A5FA] uppercase mb-1">
                     {t("benefitsOfficeLabel")}
                   </p>
-                  <h4 className="font-['Roboto',sans-serif] text-[16px] font-medium text-[#60A5FA] uppercase mb-4">
+                  <h4 className="font-['Roboto',sans-serif] text-[16px] md:text-[20px] font-medium md:font-light text-[#60A5FA] uppercase mb-4">
                     {t("benefitsOfficeTitle")}
                   </h4>
                 </div>
@@ -374,7 +374,7 @@ export function PainSolutions() {
           <FloatingBubble
             title="Ne gradimo novega načina dela."
             subtitle="Gradimo most med terenom in pisarno."
-            rotation={0}
+            rotation={-2}
             className="right-8 bottom-8 hidden md:block"
           />
         )}
@@ -382,7 +382,7 @@ export function PainSolutions() {
           <FloatingBubble
             title="Uspešno podjetje ne temelji na več komunikacije."
             subtitle="Temelji na tem, da je potrebne čim manj."
-            rotation={0}
+            rotation={-2}
             className="right-8 bottom-8 hidden md:block"
           />
         )}

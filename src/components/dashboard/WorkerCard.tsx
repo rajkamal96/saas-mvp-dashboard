@@ -355,7 +355,7 @@ export function WorkerCard({ worker, onToggleTask, date = "23/05/26", orderId = 
               lineHeight: "20px",
               color: "#0F172A",
             }}
-            className="font-semibold md:font-bold"
+            className="font-semibold"
           >
             {worker.currentTask.slice(0, 35) + (worker.currentTask.length > 35 ? "..." : "")}
           </p>

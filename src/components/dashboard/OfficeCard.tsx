@@ -66,11 +66,11 @@ export function OfficeCard({
           style={{
             fontFamily: "'PT Sans', sans-serif",
             fontWeight: 400,
-            fontSize: "12px",
             lineHeight: "15px",
             color: "rgba(70, 84, 103, 0.5)",
             textTransform: "uppercase",
           }}
+          className="text-xs md:text-sm"
         >
           {message.workerName} • {message.time}
         </span>
@@ -173,7 +173,7 @@ export function OfficeCard({
             color: "#1C1A1A",
             marginBottom: "12px",
           }}
-          className="font-semibold md:font-bold"
+          className="font-semibold"
         >
           {message.targetTask || "Brez opravila"}
         </p>
@@ -235,10 +235,10 @@ export function OfficeCard({
             style={{
               fontFamily: "'Inter', sans-serif",
               fontWeight: 300,
-              fontSize: "12px",
               lineHeight: "18px",
               color: "#465467",
             }}
+            className="text-xs md:text-sm"
           >
             {iconType === "document"
               ? "Sporočilo"
@@ -253,12 +253,12 @@ export function OfficeCard({
           style={{
             fontFamily: "'Inter', sans-serif",
             fontWeight: 300,
-            fontSize: "12px",
             lineHeight: "18px",
             color: "#465467",
             marginTop: "8px",
             width: "100%",
           }}
+          className="text-xs md:text-sm"
         >
           {message.text}
         </p>

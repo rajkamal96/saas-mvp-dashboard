@@ -19,11 +19,10 @@ function ColumnHeader({ title, onAddClick }: ColumnHeaderProps) {
       <span
         style={{
           fontFamily: "'PT Sans', sans-serif",
-          fontWeight: 700,
           fontSize: "24px",
           lineHeight: "24px",
         }}
-        className="text-slate-900"
+        className="text-slate-900 font-bold md:font-medium"
       >
         {title}
       </span>
@@ -192,7 +191,7 @@ export function DashboardPreview() {
   const noop = () => {};
 
   return (
-    <section id="dashboard-preview" className="max-w-7xl mx-auto px-6 pb-20 relative">
+    <section id="dashboard-preview" className="max-w-7xl mx-auto px-6 md:pt-10 pb-20 relative">
       <style>{`
         .dashboard-preview-scale {
           zoom: 1;
@@ -214,7 +213,7 @@ export function DashboardPreview() {
         <p className="font-['Inter',sans-serif] text-[10px] md:text-xs font-semibold tracking-[-0.04em] text-blue-500 mb-4 uppercase">
           {"ZA PISARNO"}
         </p>
-        <h2 className="text-3xl md:text-5xl font-normal tracking-tight text-slate-950 max-w-3xl mx-auto">
+        <h2 className="text-3xl md:text-5xl font-normal md:font-light tracking-tight text-slate-950 max-w-3xl mx-auto">
           {"Komandni center"}
         </h2>
         <p className="mt-4 text-sm md:text-base text-slate-500 max-w-xl mx-auto font-light leading-relaxed">
@@ -232,22 +231,6 @@ export function DashboardPreview() {
         {/* Outer Dashboard Shell */}
         <div className="relative">
           
-          {/* Dnevni pregled heading */}
-          <h2
-            style={{
-              fontFamily: "Inter, sans-serif",
-              fontWeight: 400,
-              fontSize: "60px",
-              lineHeight: "36px",
-              letterSpacing: "-0.75px",
-              color: "#0F172A",
-              marginBottom: "42px",
-              textAlign: "center",
-            }}
-          >
-            Dnevni pregled
-          </h2>
-
           {/* Summary Cards Row */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6" style={{ marginBottom: "32px" }}>
             <SummaryCard title="HITRI PREGLED">

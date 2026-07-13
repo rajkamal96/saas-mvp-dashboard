@@ -169,8 +169,10 @@ export function TransformationSlider() {
         }
       `}</style>
 
-      {/* ── Outer card ──────────────────────────────────────────────────────── */}
-      <div
+      {/* ── Outer card wrapper (allows bubble to hang outside) ─────────────── */}
+      <div style={{ position: "relative" }}>
+        {/* ── Outer card ──────────────────────────────────────────────────────── */}
+        <div
         className="ts-outer-card"
         style={{
           background: "linear-gradient(180deg, #172033 0%, #101827 100%)",
@@ -450,12 +452,15 @@ export function TransformationSlider() {
           ))}
         </div>
 
-        <FloatingBubble
-          title="Platforma ne doda dela."
-          subtitle="Samo šum odstrani."
-          rotation={0}
-          className="right-8 bottom-8 hidden md:block"
-        />
+        {activeSlide === 0 && (
+          <FloatingBubble
+            title="Platforma ne doda dela."
+            subtitle="Samo šum odstrani."
+            rotation={3}
+            className="right-8 bottom-8 hidden md:block"
+          />
+        )}
+      </div>
       </div>
     </section>
   );

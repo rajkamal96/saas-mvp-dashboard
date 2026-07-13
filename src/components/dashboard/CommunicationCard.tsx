@@ -179,13 +179,12 @@ export function CommunicationCard({
         <p
           style={{
             fontFamily: "'PT Sans', sans-serif",
-            fontSize: "15px",
             lineHeight: "20px",
             color: "#1C1A1A",
             width: "100%",
           }}
           title={order.title}
-          className="line-clamp-2 font-semibold md:font-bold"
+          className="line-clamp-2 text-[15px] md:text-base font-semibold"
         >
           {order.title}
         </p>
@@ -193,13 +192,13 @@ export function CommunicationCard({
           style={{
             fontFamily: "'Inter', sans-serif",
             fontWeight: 300,
-            fontSize: "12px",
             lineHeight: "16px",
             color: "#64748B",
             marginTop: "2px",
             width: "100%",
             wordBreak: "break-word",
           }}
+          className="text-xs md:text-sm"
         >
           {order.description}
         </p>
@@ -216,6 +215,8 @@ export function CommunicationCard({
           padding: "12px 16px",
           width: "100%",
           height: "66px",
+          minHeight: "66px",
+          flexShrink: 0,
           background: "rgba(255, 255, 255, 0.002)",
           border: "1px solid rgba(255, 255, 255, 0.2)",
           boxShadow: "inset 0px 1px 0px 1px rgba(255, 255, 255, 0.18)",

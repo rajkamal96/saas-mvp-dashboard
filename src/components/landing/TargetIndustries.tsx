@@ -41,7 +41,7 @@ export function TargetIndustries() {
         gap: "40px",
         background: "transparent"
       }}
-      className="relative z-10 px-2 md:px-6"
+      className="relative z-10 px-2 md:px-6 md:pt-10"
     >
       {/* Intro Title & Subtitle */}
       <div 

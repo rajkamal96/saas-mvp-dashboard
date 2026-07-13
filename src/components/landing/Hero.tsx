@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
 import { useLanguage } from "@/lib/useLanguage";
 import { FloatingBubble } from "./FloatingBubble";
 
@@ -63,7 +62,7 @@ export function Hero() {
             </span>
           </h1>
 
-          <h2 className="mt-6 text-lg md:text-xl font-bold text-slate-900 tracking-tight">
+          <h2 className="mt-6 text-lg md:text-xl font-bold md:font-medium text-slate-900 tracking-tight">
             {t("heroSubTitleMain")}
           </h2>
 
@@ -75,19 +74,6 @@ export function Hero() {
             {t("heroSubText")}
           </p>
 
-          {/* CTAs */}
-          {/* <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3">
-            <Link href="/register" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 bg-gradient-to-b from-blue-500 to-blue-600 border border-blue-700 text-white text-sm font-normal shadow-[0_10px_24px_rgba(59,130,246,0.26),inset_0_1px_0_rgba(255,255,255,0.35)] hover:from-blue-400 hover:to-blue-500 hover:-translate-y-0.5 active:shadow-[inset_0_2px_4px_rgba(0,0,0,0.18)] transition-all duration-300">
-              {t("heroCtaMain")}
-              <iconify-icon icon="solar:arrow-right-linear" style={{ strokeWidth: 1.5 }} className="text-lg" />
-            </Link>
-
-            <a href="#kako-deluje" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 bg-gradient-to-b from-white to-slate-50 border border-slate-200 text-slate-700 text-sm font-normal shadow-[0_4px_12px_rgba(15,23,42,0.05),inset_0_1px_0_white] hover:from-slate-50 hover:to-slate-100 hover:-translate-y-0.5 transition-all duration-300">
-              <iconify-icon icon="solar:play-circle-linear" style={{ strokeWidth: 1.5 }} className="text-lg text-blue-500" />
-              {t("heroCtaSub")}
-            </a>
-          </div> */}
-
         </div>
       </div>
 
@@ -95,7 +81,7 @@ export function Hero() {
         title="Največ težav ne nastane na terenu ali v pisarni."
         subtitle="Največ jih nastane na poti med njima."
         rotation={0}
-        className="right-8 bottom-8 hidden md:block"
+        className="right-8 bottom-16 hidden md:block"
       />
     </section>
   );

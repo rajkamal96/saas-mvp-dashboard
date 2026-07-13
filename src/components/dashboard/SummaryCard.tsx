@@ -77,7 +77,7 @@ export function SummaryCard({ title, dark = false, children }: SummaryCardProps)
             lineHeight: "24px",
             color: dark ? "#FFFFFF" : "#1C1A1A",
           }}
-          className="text-lg font-medium md:text-2xl md:font-bold"
+          className="text-lg font-medium md:text-2xl md:font-medium"
         >
           {title}
         </h2>

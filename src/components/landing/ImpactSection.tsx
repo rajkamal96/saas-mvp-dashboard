@@ -29,12 +29,11 @@ export function ImpactSection() {
           SPREMEMBE BODO OPAZNE
         </p>
         <h2
-          className="font-normal text-slate-950 md:whitespace-nowrap"
+          className="font-light text-slate-950 md:whitespace-nowrap text-2xl md:text-5xl"
           style={{
             fontFamily: "'Inter', sans-serif",
-            fontSize: "clamp(1.75rem, 5.5vw, 3rem)",
-            lineHeight: "clamp(2.25rem, 6.5vw, 3.75rem)",
-            letterSpacing: "-1.5px",
+            lineHeight: "1.2",
+            letterSpacing: "-0.04em",
           }}
         >
           Kaj se spremeni po nekaj tednih uporabe
@@ -48,7 +47,7 @@ export function ImpactSection() {
             lineHeight: "28px",
           }}
         >
-          Namesto iskanja informacij po klicih in sporočilih ima vodja vedno pred sabo jasen pregled:
+          Namesto iskanja informacij po klicih in sporočilih ima vodja vedno pred sabo jasen pregled;
           <br className="hidden md:block" />
           kaj je treba narediti, kaj je bilo dogovorjeno in kaj se trenutno dogaja – tudi ko ni v pisarni.
         </p>
@@ -66,7 +65,7 @@ export function ImpactSection() {
                 "0px 14px 34px -26px rgba(15, 23, 42, 0.32), inset 0px 1px 0px 1px #FFFFFF",
             }}
           >
-            <div className="flex items-center gap-4 px-6 py-5">
+            <div className="flex items-center gap-4 p-3 md:px-6 md:py-5">
               <div
                 className="w-10 h-10 rounded-2xl flex items-center justify-center shrink-0"
                 style={{
@@ -93,11 +92,10 @@ export function ImpactSection() {
                 </svg>
               </div>
               <p
-                className="text-slate-950"
+                className="text-slate-500 md:text-slate-950 text-sm md:text-lg"
                 style={{
                   fontFamily: "'Inter', sans-serif",
                   fontWeight: 400,
-                  fontSize: "clamp(1rem, 2.5vw, 1.125rem)",
                   lineHeight: "28px",
                   letterSpacing: "-0.45px",
                 }}

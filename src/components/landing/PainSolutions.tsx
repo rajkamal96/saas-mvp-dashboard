@@ -67,13 +67,13 @@ export function PainSolutions() {
           
           {/* Heading — Figma style */}
           <div className="flex flex-col items-start gap-1 mb-8">
-            <span className="font-['Roboto',sans-serif] text-sm font-medium tracking-[0.02em] text-[#60A5FA] uppercase">
+            <span className="font-['Inter',sans-serif] text-[10px] md:text-xs font-medium tracking-[-0.04em] text-[#60A5FA] uppercase">
               {t("tabsLabel")}
             </span>
-            <h2 className="font-['Inter',sans-serif] text-3xl md:text-5xl font-light tracking-tight text-white mt-2">
+            <h2 className="font-['Inter',sans-serif] text-[3rem] md:text-[4.5rem] lg:text-[5.4rem] font-light tracking-[-0.075em] leading-[0.95] text-white mt-2">
               {t("tabsTitle")}
             </h2>
-            <p className="font-['Inter',sans-serif] text-base md:text-lg font-light text-white mt-4 leading-relaxed">
+            <p className="font-['Inter',sans-serif] text-lg md:text-xl font-bold text-white tracking-tight mt-6">
               {tabs[activeTab].subtitle}
             </p>
           </div>

@@ -247,6 +247,22 @@ export function WorkerCard({ worker, onToggleTask, date = "23/05/26", orderId = 
       }}
       className="bg-white/15 md:bg-white/30"
     >
+      <style>{`
+        @media (max-width: 768px) {
+          .wc-inner-card {
+            background: #FFFFFF !important;
+            border-top: 1px solid rgba(29, 78, 216, 0.15) !important;
+            border-bottom: 1px solid rgba(29, 78, 216, 0.15) !important;
+            border-left: none !important;
+            border-right: none !important;
+            border-radius: 0px !important;
+            padding: 16px 20px !important;
+            box-shadow: none !important;
+            margin-left: -20px !important;
+            margin-right: -20px !important;
+          }
+        }
+      `}</style>
       {/* ── Row 1: Meta + progress badge ── */}
       <div className="flex items-center justify-between">
         <span
@@ -340,12 +356,16 @@ export function WorkerCard({ worker, onToggleTask, date = "23/05/26", orderId = 
 
         {/* Inner white card */}
         <div
+          className="wc-inner-card"
           style={{
             background: "rgba(255, 255, 255, 0.95)",
             border: "1px solid #FFFFFF",
             boxShadow: "0px 0px 6px rgba(59, 130, 246, 0.05)",
             borderRadius: "21.6px",
             padding: "16px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "2px",
           }}
         >
           <p

@@ -153,6 +153,14 @@ export default function OfficeDashboard() {
     }
   };
 
+  const goToColumn = (index: number) => {
+    if (!containerRef.current) return;
+    const clamped = Math.max(0, Math.min(2, index));
+    const colWidth = containerRef.current.clientWidth;
+    containerRef.current.scrollTo({ left: clamped * colWidth, behavior: "smooth" });
+    setActiveTab(clamped);
+  };
+
   const [workers, setWorkers] = useState<Worker[]>(placeholderWorkers);
   const [orders, setOrders] = useState<Order[]>(placeholderOrders);
   const [messages, setMessages] = useState<Message[]>(placeholderMessages);
@@ -343,8 +351,8 @@ export default function OfficeDashboard() {
             -webkit-overflow-scrolling: touch !important;
             gap: 16px !important;
             width: 100% !important;
-            padding-bottom: 24px !important;
-            scrollbar-width: none; /* Hide scrollbar for Chrome/Safari/Firefox */
+            padding-bottom: 16px !important;
+            scrollbar-width: none;
           }
           .office-grid::-webkit-scrollbar {
             display: none;
@@ -352,8 +360,17 @@ export default function OfficeDashboard() {
           .office-column-cell {
             flex: 0 0 100% !important;
             width: 100% !important;
+            max-width: 100% !important;
             scroll-snap-align: start !important;
             margin-bottom: 0 !important;
+          }
+        }
+        /* Tablet: limit column width to 450px */
+        @media (min-width: 640px) and (max-width: 1023px) {
+          .office-column-cell {
+            flex: 0 0 450px !important;
+            width: 450px !important;
+            max-width: 450px !important;
           }
         }
       `}</style>
@@ -431,28 +448,52 @@ export default function OfficeDashboard() {
           {/* NUJNE ZADEVE */}
           <SummaryCard title="NUJNE ZADEVE" dark>
             <div className="flex flex-col gap-[6px]">
-              {orders.filter(o => !isPlaceholder(o.id) && o.priority === 'nujno').length === 0 ? (
-                <p
-                  style={{
-                    fontFamily: "'PT Sans', sans-serif",
-                    fontWeight: 400,
-                    fontSize: "14px",
-                    lineHeight: "18px",
-                    color: "#94A3B8",
-                  }}
-                >
-                  Zaenkrat ni vnešenih nujnih zadev.
-                </p>
-              ) : (
-                orders.filter(o => !isPlaceholder(o.id) && o.priority === 'nujno').map(o => (
-                  <UrgentRow
-                    key={o.id}
-                    time={o.time}
-                    title={o.title}
-                    subtitle={o.description || undefined}
-                  />
-                ))
-              )}
+              {(() => {
+                const urgentOrders = orders.filter(o => !isPlaceholder(o.id) && o.priority === 'nujno');
+                const urgentMessages = messages.filter(m => m.priority === 'nujno');
+                
+                if (urgentOrders.length === 0 && urgentMessages.length === 0) {
+                  return (
+                    <p
+                      style={{
+                        fontFamily: "'PT Sans', sans-serif",
+                        fontWeight: 400,
+                        fontSize: "14px",
+                        lineHeight: "18px",
+                        color: "#94A3B8",
+                      }}
+                    >
+                      Zaenkrat ni vnešenih nujnih zadev.
+                    </p>
+                  );
+                }
+                
+                return (
+                  <>
+                    {urgentOrders.map(o => (
+                      <UrgentRow
+                        key={o.id}
+                        time={o.time}
+                        title={o.title}
+                        subtitle={o.description || undefined}
+                      />
+                    ))}
+                    {urgentMessages.map(m => {
+                      const dotIndex = m.text.indexOf('.');
+                      const title = dotIndex !== -1 ? m.text.substring(0, dotIndex).trim() : m.text;
+                      const subtitle = dotIndex !== -1 ? m.text.substring(dotIndex + 1).trim() : undefined;
+                      return (
+                        <UrgentRow
+                          key={m.id}
+                          time={m.time}
+                          title={title}
+                          subtitle={subtitle}
+                        />
+                      );
+                    })}
+                  </>
+                );
+              })()}
             </div>
           </SummaryCard>
 
@@ -480,6 +521,7 @@ export default function OfficeDashboard() {
                 display: "flex",
                 flexDirection: "column",
                 gap: "24px",
+                overflow: "hidden",
               }}
               className="group hover:-translate-y-1 transition-all duration-300"
             >
@@ -524,6 +566,7 @@ export default function OfficeDashboard() {
                 display: "flex",
                 flexDirection: "column",
                 gap: "24px",
+                overflow: "hidden",
               }}
               className="group hover:-translate-y-1 transition-all duration-300"
             >
@@ -578,6 +621,7 @@ export default function OfficeDashboard() {
                 display: "flex",
                 flexDirection: "column",
                 gap: "24px",
+                overflow: "hidden",
               }}
               className="group hover:-translate-y-1 transition-all duration-300"
             >
@@ -606,6 +650,58 @@ export default function OfficeDashboard() {
             </div>
           </div>
         </div>
+
+        {/* ── Column navigation arrows (mobile/tablet only) ── */}
+        <div className="flex items-center justify-center gap-8 mt-5 lg:hidden">
+          <button
+            onClick={() => goToColumn(activeTab - 1)}
+            disabled={activeTab === 0}
+            aria-label="Prejšnji stolpec"
+            style={{
+              width: "44px",
+              height: "44px",
+              borderRadius: "50%",
+              border: "1px solid rgb(29, 78, 216)",
+              background: "transparent",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              cursor: activeTab === 0 ? "not-allowed" : "pointer",
+              opacity: activeTab === 0 ? 0.35 : 1,
+              transition: "opacity 0.2s",
+              flexShrink: 0,
+            }}
+          >
+            <svg width="10" height="17" viewBox="0 0 10 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 15.5L1.5 8.5L9 1.5" stroke="rgb(29, 78, 216)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
+
+          <button
+            onClick={() => goToColumn(activeTab + 1)}
+            disabled={activeTab === 2}
+            aria-label="Naslednji stolpec"
+            style={{
+              width: "44px",
+              height: "44px",
+              borderRadius: "50%",
+              border: "1px solid rgb(29, 78, 216)",
+              background: "transparent",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              cursor: activeTab === 2 ? "not-allowed" : "pointer",
+              opacity: activeTab === 2 ? 0.35 : 1,
+              transition: "opacity 0.2s",
+              flexShrink: 0,
+            }}
+          >
+            <svg width="10" height="17" viewBox="0 0 10 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 1.5L8.5 8.5L1 15.5" stroke="rgb(29, 78, 216)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
+        </div>
+
       </div>
       <WorkerDetailModal
         key={detailKey}

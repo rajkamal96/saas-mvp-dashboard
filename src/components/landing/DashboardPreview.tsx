@@ -147,7 +147,7 @@ export function DashboardPreview() {
     },
     {
       id: "po3",
-      title: "Meeting at USC",
+      title: "Kosilo s Kristino",
       description: "",
       time: "13:00",
       createdAt: "11:38",
@@ -253,14 +253,16 @@ export function DashboardPreview() {
 
             <SummaryCard title="NUJNE ZADEVE" dark>
               <div className="flex flex-col gap-[6px]">
-                {orders.map(o => (
-                  <UrgentRow
-                    key={o.id}
-                    time={o.time}
-                    title={o.title}
-                    subtitle={o.description || undefined}
-                  />
-                ))}
+                <UrgentRow
+                  time="10:30"
+                  title="Pokliči Maksa za rezervacijo"
+                  subtitle="Danes je zadnji dan."
+                />
+                <UrgentRow
+                  time="10:53"
+                  title="Prometna nesreča pri Celju"
+                  subtitle="Zaprta cesta do 13:30."
+                />
               </div>
             </SummaryCard>
           </div>

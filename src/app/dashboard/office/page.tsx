@@ -140,11 +140,25 @@ export default function OfficeDashboard() {
 
   const handleScroll = () => {
     if (!containerRef.current) return;
-    const { scrollLeft, clientWidth } = containerRef.current;
-    if (clientWidth === 0) return;
-    const index = Math.round(scrollLeft / clientWidth);
-    if (index !== activeTab) {
-      setActiveTab(index);
+    const { scrollLeft } = containerRef.current;
+    const children = Array.from(containerRef.current.children) as HTMLElement[];
+    if (children.length === 0) return;
+    const firstElement = children[0];
+
+    let closestIndex = 0;
+    let minDistance = Infinity;
+
+    children.forEach((child, idx) => {
+      const targetLeft = child.offsetLeft - firstElement.offsetLeft;
+      const distance = Math.abs(targetLeft - scrollLeft);
+      if (distance < minDistance) {
+        minDistance = distance;
+        closestIndex = idx;
+      }
+    });
+
+    if (closestIndex !== activeTab) {
+      setActiveTab(closestIndex);
       // Reset vertical scroll to the top of the columns container instead of the page top
       const rect = containerRef.current.getBoundingClientRect();
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
@@ -156,9 +170,14 @@ export default function OfficeDashboard() {
   const goToColumn = (index: number) => {
     if (!containerRef.current) return;
     const clamped = Math.max(0, Math.min(2, index));
-    const colWidth = containerRef.current.clientWidth;
-    containerRef.current.scrollTo({ left: clamped * colWidth, behavior: "smooth" });
-    setActiveTab(clamped);
+    const children = containerRef.current.children;
+    if (children && children[clamped]) {
+      const targetElement = children[clamped] as HTMLElement;
+      const firstElement = children[0] as HTMLElement;
+      const targetLeft = targetElement.offsetLeft - firstElement.offsetLeft;
+      containerRef.current.scrollTo({ left: targetLeft, behavior: "smooth" });
+      setActiveTab(clamped);
+    }
   };
 
   const [workers, setWorkers] = useState<Worker[]>(placeholderWorkers);

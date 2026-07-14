@@ -375,7 +375,7 @@ export function PainSolutions() {
             title="Ne gradimo novega načina dela."
             subtitle="Gradimo most med terenom in pisarno."
             rotation={-2}
-            className="right-8 bottom-8 hidden md:block"
+            className="right-8 bottom-8 hidden lg:block"
           />
         )}
         {activeTab === 2 && (
@@ -383,7 +383,7 @@ export function PainSolutions() {
             title="Uspešno podjetje ne temelji na več komunikacije."
             subtitle="Temelji na tem, da je potrebne čim manj."
             rotation={-2}
-            className="right-8 bottom-8 hidden md:block"
+            className="right-8 bottom-8 hidden lg:block"
           />
         )}
       </div>

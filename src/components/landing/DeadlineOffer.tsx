@@ -33,7 +33,7 @@ export function DeadlineOffer() {
           <br className="hidden md:block" />
           Program ne zahteva spremembe načina dela. Samo uredi informacije, ki jih že imate.
           <br className="hidden md:block" />
-          <span className="md:whitespace-nowrap">Ne nadomešča vaših obstoječih programov. Le dopolni jih tam, kjer se danes izgublja največ časa.</span>
+          <span className="lg:whitespace-nowrap">Ne nadomešča vaših obstoječih programov. Le dopolni jih tam, kjer se danes izgublja največ časa.</span>
         </p>
       </div>
 

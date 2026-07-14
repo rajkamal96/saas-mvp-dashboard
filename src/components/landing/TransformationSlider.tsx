@@ -892,7 +892,7 @@ export function TransformationSlider() {
             title="Platforma ne doda dela."
             subtitle="Samo šum odstrani."
             rotation={3}
-            className="right-8 bottom-8 hidden md:block"
+            className="right-8 bottom-8 hidden lg:block"
           />
         )}
       </div>

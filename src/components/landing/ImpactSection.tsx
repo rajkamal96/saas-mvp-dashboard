@@ -29,7 +29,7 @@ export function ImpactSection() {
           SPREMEMBE BODO OPAZNE
         </p>
         <h2
-          className="font-light text-slate-950 md:whitespace-nowrap text-2xl md:text-5xl"
+          className="font-light text-slate-950 lg:whitespace-nowrap text-2xl md:text-5xl"
           style={{
             fontFamily: "'Inter', sans-serif",
             lineHeight: "1.2",
@@ -111,7 +111,7 @@ export function ImpactSection() {
         title="Največja sprememba po nekaj tednih ni nova tehnologija."
         subtitle="Je občutek, da imaš podjetje pod nadzorom in vodenje je lažje."
         rotation={0}
-        className="right-8 bottom-8 hidden md:block"
+        className="right-8 bottom-8 hidden lg:block"
       />
     </section>
   );

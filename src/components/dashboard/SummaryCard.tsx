@@ -112,11 +112,11 @@ export function OverviewRow({ progress, task, location, name }: OverviewRowProps
   return (
     <div className="flex items-center gap-2 min-w-0 w-full overflow-hidden">
       <span className="shrink-0" style={{ ...textStyle, minWidth: "28px" }}>{progress}</span>
-      <span className="shrink-0 hidden md:inline" style={dotStyle}>•</span>
+      <span className="shrink-0" style={dotStyle}>•</span>
       <span className="truncate" style={textStyle}>{task}</span>
       <span className="shrink-0" style={dotStyle}>•</span>
-      <span className="truncate hidden md:inline" style={textStyle}>{location}</span>
-      <span className="shrink-0 hidden md:inline" style={dotStyle}>•</span>
+      <span className="truncate" style={textStyle}>{location}</span>
+      <span className="shrink-0" style={dotStyle}>•</span>
       <span className="truncate" style={textStyle}>{name}</span>
     </div>
   );

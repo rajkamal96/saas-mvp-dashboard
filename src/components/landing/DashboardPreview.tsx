@@ -230,47 +230,55 @@ export function DashboardPreview() {
 
         {/* Outer Dashboard Shell */}
         <div className="relative">
-          
-          {/* Summary Cards Row */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6" style={{ marginBottom: "32px" }}>
-            <SummaryCard title="HITRI PREGLED">
-              <div className="flex flex-col gap-[4px]">
-                {workers.map(w => {
-                  const done = w.tasks.filter(t => t.completed).length;
-                  const total = w.tasks.length;
-                  return (
-                    <OverviewRow
-                      key={w.id}
-                      progress={`${done}/${total}`}
-                      task={w.currentTask}
-                      location={w.location ?? "Ljubljana"}
-                      name={w.name}
+          <div className="w-full overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-slate-200">
+            <div className="min-w-[1024px] lg:min-w-0 relative">
+              
+              {/* Summary Cards Row */}
+              {/* Original responsive grid:
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6" style={{ marginBottom: "32px" }}>
+              */}
+              <div className="grid grid-cols-2 gap-6" style={{ marginBottom: "32px" }}>
+                <SummaryCard title="HITRI PREGLED">
+                  <div className="flex flex-col gap-[4px]">
+                    {workers.map(w => {
+                      const done = w.tasks.filter(t => t.completed).length;
+                      const total = w.tasks.length;
+                      return (
+                        <OverviewRow
+                          key={w.id}
+                          progress={`${done}/${total}`}
+                          task={w.currentTask}
+                          location={w.location ?? "Ljubljana"}
+                          name={w.name}
+                        />
+                      );
+                    })}
+                  </div>
+                </SummaryCard>
+
+                <SummaryCard title="NUJNE ZADEVE" dark>
+                  <div className="flex flex-col gap-[6px]">
+                    <UrgentRow
+                      time="10:30"
+                      title="Pokliči Maksa za rezervacijo"
+                      subtitle="Danes je zadnji dan."
                     />
-                  );
-                })}
+                    <UrgentRow
+                      time="10:53"
+                      title="Prometna nesreča pri Celju"
+                      subtitle="Zaprta cesta do 13:30."
+                    />
+                  </div>
+                </SummaryCard>
               </div>
-            </SummaryCard>
 
-            <SummaryCard title="NUJNE ZADEVE" dark>
-              <div className="flex flex-col gap-[6px]">
-                <UrgentRow
-                  time="10:30"
-                  title="Pokliči Maksa za rezervacijo"
-                  subtitle="Danes je zadnji dan."
-                />
-                <UrgentRow
-                  time="10:53"
-                  title="Prometna nesreča pri Celju"
-                  subtitle="Zaprta cesta do 13:30."
-                />
-              </div>
-            </SummaryCard>
-          </div>
-
-          {/* 3 Columns Grid - with all 3 cards in each column exactly like the dashboard */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Column 1 - Teren */}
-            <div className="flex flex-col gap-3">
+              {/* 3 Columns Grid - with all 3 cards in each column exactly like the dashboard */}
+              {/* Original responsive grid:
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              */}
+              <div className="grid grid-cols-3 gap-6">
+              {/* Column 1 - Teren */}
+              <div className="flex flex-col gap-3">
               <ColumnHeader title="DANES-TEREN" onAddClick={() => {}} />
               <div
                 style={{
@@ -369,6 +377,8 @@ export function DashboardPreview() {
                 ))}
               </div>
             </div>
+          </div>
+          </div>
           </div>
 
         </div>

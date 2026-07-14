@@ -159,7 +159,7 @@ export function Pricing() {
       >
         Če vsak dan porabite nekaj minut za telefonske klice, iskanje informacij,
         <br />
-        <span className="md:whitespace-nowrap">
+        <span className="lg:whitespace-nowrap">
           usklajevanje ekip ali reševanje stvari, ki bi jih lahko odkrili prej, potem naša rešitev verjetno ni strošek.
         </span>
         <br />

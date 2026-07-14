@@ -19,6 +19,7 @@ export interface Worker {
   phone: string;
   email: string;
   unreadCount?: number;
+  date?: string;
 }
 
 export interface Order {

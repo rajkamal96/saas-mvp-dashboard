@@ -274,18 +274,31 @@ export default function OfficeDashboard() {
     kraj: string;
     narocnik: string;
     datum: string;
+    tasks: { text: string; requiresAttachment: boolean }[];
   }) => {
     setWorkers(prev => prev.map(w => {
       if (w.id !== taskData.workerId) return w;
+      const isTargetPlaceholder = isPlaceholder(w.id);
       return {
         ...w,
+        id: isTargetPlaceholder ? "w_1" : w.id,
+        name: isTargetPlaceholder ? "Anthony H" : w.name,
+        avatar: isTargetPlaceholder ? "AH" : w.avatar,
         currentTask: taskData.opravilo,
         location: taskData.kraj || w.location || "Ljubljana",
         role: taskData.narocnik || w.role || "Brez podjetja",
-        tasks: [
-          ...w.tasks,
-          { id: `t_${Date.now()}`, text: taskData.opravilo, completed: false },
-        ],
+        date: taskData.datum || "23/05/26",
+        tasks: taskData.tasks.length > 0 
+          ? taskData.tasks.map((t, idx) => ({
+              id: `t_${Date.now()}_${idx}`,
+              text: t.text,
+              completed: false,
+              requiresAttachment: t.requiresAttachment,
+              hasAttachment: false
+            }))
+          : [
+              { id: `t_${Date.now()}_0`, text: taskData.opravilo, completed: false }
+            ],
       };
     }));
   };
@@ -529,7 +542,7 @@ export default function OfficeDashboard() {
           {/* COLUMN 1 — DANES TEREN */}
           <div className="flex flex-col gap-3 office-column-cell">
             {/* Column Header Row */}
-            <ColumnHeader title="DANES — TEREN" onAddClick={() => setIsAddWorkerOpen(true)} />
+            <ColumnHeader title="DANES — TEREN" onAddClick={() => setIsAddTaskOpen(true)} />
             <div
               style={{
                 background: "linear-gradient(180deg, rgba(96, 165, 250, 0.08) 0%, rgba(37, 99, 235, 0.08) 100%)",
@@ -555,7 +568,7 @@ export default function OfficeDashboard() {
                       <WorkerCard
                         worker={w}
                         onToggleTask={handleToggleTask}
-                        date={isPlaceholder(w.id) ? "DATUM" : "23/05/26"}
+                        date={w.date || (isPlaceholder(w.id) ? "DATUM" : "23/05/26")}
                         orderId={isPlaceholder(w.id) ? currentTimeShort() : `#${480 + idx + 1}`}
                         onDismiss={isPlaceholder(w.id) ? () => handleDismissWorker(w.id) : undefined}
                         onClick={isPlaceholder(w.id) ? undefined : () => {

@@ -81,7 +81,7 @@ export function Hero() {
         title="Največ težav ne nastane na terenu ali v pisarni."
         subtitle="Največ jih nastane na poti med njima."
         rotation={0}
-        className="right-8 bottom-16 md:bottom-[124px] hidden md:block"
+        className="right-8 bottom-16 md:bottom-[124px] hidden lg:block"
       />
     </section>
   );

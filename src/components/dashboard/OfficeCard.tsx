@@ -61,7 +61,7 @@ export function OfficeCard({
       />
 
       {/* Top row: Meta + Close/Dismiss */}
-      <div className="flex items-center justify-between w-full z-10">
+      <div className="flex items-center justify-between w-full z-10 gap-2">
         <span
           style={{
             fontFamily: "'PT Sans', sans-serif",
@@ -69,14 +69,15 @@ export function OfficeCard({
             lineHeight: "15px",
             color: "rgba(70, 84, 103, 0.5)",
             textTransform: "uppercase",
+            whiteSpace: "nowrap",
           }}
-          className="text-xs md:text-sm"
+          className="text-xs md:text-sm flex-1 min-w-0"
         >
           {message.workerName} • {message.time}
         </span>
 
         {/* Top-Right Buttons */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 shrink-0">
           {showRedButton && (
             <div
               style={{

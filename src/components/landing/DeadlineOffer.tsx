@@ -207,7 +207,7 @@ export function DeadlineOffer() {
                   color: "#64748B",
                 }}
               >
-                Tajnica pripravi dan. Vnese kartice terencev in zaznamke za vodjo. Za vsak vnos porabi manj kot pol minute.
+                Tajnica pripravi dan. Vnese kartice terencev in zaznamke za vodjo. Za vsak vnos porabi pol minute.
               </p>
             </div>
 

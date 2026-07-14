@@ -264,7 +264,7 @@ export function WorkerCard({ worker, onToggleTask, date = "23/05/26", orderId = 
         }
       `}</style>
       {/* ── Row 1: Meta + progress badge ── */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-2">
         <span
           style={{
             fontFamily: "'PT Sans', sans-serif",
@@ -272,7 +272,9 @@ export function WorkerCard({ worker, onToggleTask, date = "23/05/26", orderId = 
             fontSize: "10px",
             lineHeight: "15px",
             color: "#94A3B8",
+            whiteSpace: "nowrap",
           }}
+          className="flex-1 min-w-0"
         >
           {worker.name.toUpperCase()} • {date} • {orderId}
         </span>
@@ -299,6 +301,7 @@ export function WorkerCard({ worker, onToggleTask, date = "23/05/26", orderId = 
                 "0px 8px 18px -12px rgba(15, 23, 42, 0.35), inset 0px 1px 0px 1px #FFFFFF",
               cursor: "pointer",
             }}
+            className="shrink-0"
             title="Dismiss"
           >
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -324,6 +327,7 @@ export function WorkerCard({ worker, onToggleTask, date = "23/05/26", orderId = 
             alignItems: "baseline",
             justifyContent: "center",
             paddingTop: "3px",
+            flexShrink: 0,
           }}
         >
           <span

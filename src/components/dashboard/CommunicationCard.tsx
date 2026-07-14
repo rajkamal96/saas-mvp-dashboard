@@ -41,8 +41,8 @@ export function CommunicationCard({
         padding: "20px",
         gap: "20px",
         width: "100%",
-        height: "253px",
-        minHeight: "208px",
+        height: "auto",
+        minHeight: "253px",
         background: "linear-gradient(180deg, #60A5FA 0%, #2563EB 100%)",
         border: "1px solid #1D4ED8",
         boxShadow:
@@ -70,7 +70,7 @@ export function CommunicationCard({
       />
 
       {/* Top row: Meta + Close/Dismiss */}
-      <div className="flex items-center justify-between w-full z-10">
+      <div className="flex items-center justify-between w-full z-10 gap-2">
         <span
           style={{
             fontFamily: "'PT Sans', sans-serif",
@@ -81,13 +81,15 @@ export function CommunicationCard({
             textTransform: "uppercase",
             display: "flex",
             alignItems: "center",
+            whiteSpace: "nowrap",
           }}
+          className="flex-1 min-w-0"
         >
           {order.workerName} • {order.createdAt}
         </span>
 
         {/* Top-Right Buttons */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 shrink-0">
           {showRedButton && (
             <div
               style={{

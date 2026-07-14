@@ -101,7 +101,7 @@ function MockPhoneScreen() {
         padding: "8px",
         isolation: "isolate",
         width: "100%",
-        maxWidth: "391px",
+        maxWidth: "450px",
         height: "828px",
         background: "#F1F5F9",
         border: "8px solid #FFFFFF",
@@ -224,7 +224,8 @@ function MockPhoneScreen() {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            padding: "24px 20px 12px 20px"
+            padding: "24px 20px 12px 20px",
+            gap: "8px"
           }}
         >
           <span
@@ -233,8 +234,10 @@ function MockPhoneScreen() {
               fontWeight: 400,
               fontSize: "10px",
               lineHeight: "15px",
-              color: "#94A3B8"
+              color: "#94A3B8",
+              whiteSpace: "nowrap"
             }}
+            className="flex-1 min-w-0"
           >
             ANTHONY H. • 23/05/26 • #484
           </span>
@@ -250,7 +253,8 @@ function MockPhoneScreen() {
               display: "flex",
               alignItems: "baseline",
               justifyContent: "center",
-              paddingTop: "3px"
+              paddingTop: "3px",
+              flexShrink: 0
             }}
           >
             <span
@@ -510,6 +514,7 @@ export function TransformationSlider() {
 
   return (
     <section
+      className="ts-section"
       style={{
         maxWidth: "1280px",
         margin: "0 auto",
@@ -536,6 +541,10 @@ export function TransformationSlider() {
           }
         }
         @media (max-width: 768px) {
+          .ts-section {
+            padding-left: 12px !important;
+            padding-right: 12px !important;
+          }
           .ts-desktop-only {
             display: none !important;
           }

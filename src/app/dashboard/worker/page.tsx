@@ -168,7 +168,8 @@ export default function WorkerDashboard() {
           alignItems: "flex-start",
           padding: "8px",
           isolation: "isolate",
-          width: "391px",
+          width: "100%",
+          maxWidth: "450px",
           height: "828px",
           background: "#F1F5F9",
           border: "8px solid #FFFFFF",
@@ -301,7 +302,8 @@ export default function WorkerDashboard() {
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
-                padding: "24px 20px 12px 20px"
+                padding: "24px 20px 12px 20px",
+                gap: "8px"
               }}
             >
               <span
@@ -310,8 +312,10 @@ export default function WorkerDashboard() {
                   fontWeight: 400,
                   fontSize: "10px",
                   lineHeight: "15px",
-                  color: "#94A3B8"
+                  color: "#94A3B8",
+                  whiteSpace: "nowrap"
                 }}
+                className="flex-1 min-w-0"
               >
                 ANTHONY H. • 23/05/26 • #484
               </span>
@@ -327,7 +331,8 @@ export default function WorkerDashboard() {
                   display: "flex",
                   alignItems: "baseline",
                   justifyContent: "center",
-                  paddingTop: "3px"
+                  paddingTop: "3px",
+                  flexShrink: 0
                 }}
               >
                 <span

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { Logo } from "@/components/Logo";
 import { useLanguage } from "@/lib/useLanguage";
@@ -134,6 +134,24 @@ function ColumnHeader({ title, onAddClick }: ColumnHeaderProps) {
 export default function OfficeDashboard() {
   const { t } = useLanguage();
   const router = useRouter();
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [activeTab, setActiveTab] = useState(0);
+
+  const handleScroll = () => {
+    if (!containerRef.current) return;
+    const { scrollLeft, clientWidth } = containerRef.current;
+    if (clientWidth === 0) return;
+    const index = Math.round(scrollLeft / clientWidth);
+    if (index !== activeTab) {
+      setActiveTab(index);
+      // Reset vertical scroll to the top of the columns container instead of the page top
+      const rect = containerRef.current.getBoundingClientRect();
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const targetTop = rect.top + scrollTop - 80; // 80px offset for sticky header
+      window.scrollTo({ top: targetTop, behavior: "instant" });
+    }
+  };
 
   const [workers, setWorkers] = useState<Worker[]>(placeholderWorkers);
   const [orders, setOrders] = useState<Order[]>(placeholderOrders);
@@ -314,6 +332,31 @@ export default function OfficeDashboard() {
 
   return (
     <div className="min-h-screen bg-[#f3f5f8] text-slate-800 dashboard-page">
+      <style>{`
+        @media (max-width: 1023px) {
+          .office-grid {
+            display: flex !important;
+            flex-direction: row !important;
+            overflow-x: auto !important;
+            scroll-snap-type: x mandatory !important;
+            scroll-behavior: smooth !important;
+            -webkit-overflow-scrolling: touch !important;
+            gap: 16px !important;
+            width: 100% !important;
+            padding-bottom: 24px !important;
+            scrollbar-width: none; /* Hide scrollbar for Chrome/Safari/Firefox */
+          }
+          .office-grid::-webkit-scrollbar {
+            display: none;
+          }
+          .office-column-cell {
+            flex: 0 0 100% !important;
+            width: 100% !important;
+            scroll-snap-align: start !important;
+            margin-bottom: 0 !important;
+          }
+        }
+      `}</style>
 
       {/* Header */}
       <header className="sticky top-0 z-40 bg-white/84 backdrop-blur-2xl border-b border-white/90 shadow-[0_14px_38px_-22px_rgba(15,23,42,0.12),inset_0_1px_0_rgba(255,255,255,1)] h-16 flex items-center justify-between px-8">
@@ -337,7 +380,7 @@ export default function OfficeDashboard() {
       <div className="max-w-7xl mx-auto px-6" style={{ paddingTop: "32px" }}>
 
         {/* ── Dnevni pregled heading ── */}
-        <h1
+        {/* <h1
           style={{
             fontFamily: "Inter, sans-serif",
             color: "#0F172A",
@@ -347,7 +390,7 @@ export default function OfficeDashboard() {
           className="text-[24px] leading-8 font-light tracking-[-0.5px] md:text-[60px] md:leading-9 md:font-normal md:tracking-[-0.75px]"
         >
           Dnevni pregled
-        </h1>
+        </h1> */}
 
         {/* ── Top summary cards ── */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6" style={{ marginBottom: "32px" }}>
@@ -415,11 +458,16 @@ export default function OfficeDashboard() {
 
         </div>
 
+
         {/* ── Three Aura-styled columns ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div
+          ref={containerRef}
+          onScroll={handleScroll}
+          className="office-grid grid grid-cols-1 lg:grid-cols-3 gap-6"
+        >
 
           {/* COLUMN 1 — DANES TEREN */}
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3 office-column-cell">
             {/* Column Header Row */}
             <ColumnHeader title="DANES — TEREN" onAddClick={() => setIsAddWorkerOpen(true)} />
             <div
@@ -463,7 +511,7 @@ export default function OfficeDashboard() {
           </div>
 
           {/* COLUMN 2 — DANES PISARNA */}
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3 office-column-cell">
             {/* Column Header Row */}
             <ColumnHeader title="DANES — PISARNA" onAddClick={() => setIsAddReminderOpen(true)} />
             <div
@@ -517,7 +565,7 @@ export default function OfficeDashboard() {
           </div>
 
           {/* COLUMN 3 — KOMUNIKACIJA */}
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3 office-column-cell">
             {/* Column Header Row */}
             <ColumnHeader title="KOMUNIKACIJA" />
             <div

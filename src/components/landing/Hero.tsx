@@ -8,7 +8,7 @@ export function Hero() {
   const { t } = useLanguage();
 
   return (
-    <section className="max-w-7xl mx-auto px-3 md:px-6 pt-32 md:pt-40 pb-20 relative">
+    <section className="max-w-7xl mx-auto px-3 md:px-6 pt-32 md:pt-40 pb-20 md:pb-[140px] relative">
       <style dangerouslySetInnerHTML={{ __html: `
         @keyframes aura-float-soft {
           0%, 100% { transform: translateY(0); }
@@ -81,7 +81,7 @@ export function Hero() {
         title="Največ težav ne nastane na terenu ali v pisarni."
         subtitle="Največ jih nastane na poti med njima."
         rotation={0}
-        className="right-8 bottom-16 hidden md:block"
+        className="right-8 bottom-16 md:bottom-[124px] hidden md:block"
       />
     </section>
   );

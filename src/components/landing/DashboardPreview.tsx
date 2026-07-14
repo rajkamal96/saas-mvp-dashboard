@@ -191,7 +191,7 @@ export function DashboardPreview() {
   const noop = () => {};
 
   return (
-    <section id="dashboard-preview" className="max-w-7xl mx-auto px-6 md:pt-10 pb-20 relative">
+    <section id="dashboard-preview" className="max-w-7xl mx-auto px-0 md:px-6 md:pt-10 pb-20 relative">
       <style>{`
         .dashboard-preview-scale {
           zoom: 1;
@@ -209,7 +209,7 @@ export function DashboardPreview() {
       `}</style>
 
       {/* Section Header */}
-      <div className="text-center max-w-5xl mx-auto mb-16">
+      <div className="text-center max-w-5xl mx-auto mb-16 px-3 md:px-0">
         <p className="font-['Inter',sans-serif] text-[10px] md:text-xs font-semibold tracking-[-0.04em] text-blue-500 mb-4 uppercase">
           {"ZA PISARNO"}
         </p>

@@ -54,11 +54,11 @@ export function UrgentIcon() {
 export function SummaryCard({ title, dark = false, children }: SummaryCardProps) {
   return (
     <article
-      className="rounded-[2rem] p-2 md:p-10 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-start"
+      className="rounded-[2rem] p-5 md:p-10 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-start"
       style={{
         background: dark ? "#1D2A3D" : "rgba(255, 255, 255, 0.002)",
         boxShadow: "0px 12px 30px rgba(15, 23, 42, 0.3), inset 0px 1px 0px #FFFFFF",
-        minHeight: "243px",
+        minHeight: "auto",
         width: "100%",
       }}
     >
@@ -84,7 +84,7 @@ export function SummaryCard({ title, dark = false, children }: SummaryCardProps)
       </div>
 
       {/* Rows */}
-      <div className="flex flex-col gap-3 p-3 md:gap-0 md:p-0">
+      <div className="flex flex-col gap-3 md:gap-0">
         {children}
       </div>
     </article>

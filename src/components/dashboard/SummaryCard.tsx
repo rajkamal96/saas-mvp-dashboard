@@ -62,6 +62,14 @@ export function SummaryCard({ title, dark = false, children }: SummaryCardProps)
         width: "100%",
       }}
     >
+      <style>{`
+        @media (min-width: 640px) and (max-width: 1023px) {
+          .summary-card-text {
+            font-size: 16px !important;
+            line-height: 20px !important;
+          }
+        }
+      `}</style>
       {/* Header */}
       <div className="flex items-center gap-[15px] mb-3 md:mb-6">
         {dark ? (
@@ -111,13 +119,13 @@ export function OverviewRow({ progress, task, location, name }: OverviewRowProps
 
   return (
     <div className="flex items-center gap-2 min-w-0 w-full overflow-hidden">
-      <span className="shrink-0" style={{ ...textStyle, minWidth: "28px" }}>{progress}</span>
-      <span className="shrink-0" style={dotStyle}>•</span>
-      <span className="truncate" style={textStyle}>{task}</span>
-      <span className="shrink-0" style={dotStyle}>•</span>
-      <span className="truncate" style={textStyle}>{location}</span>
-      <span className="shrink-0" style={dotStyle}>•</span>
-      <span className="truncate" style={textStyle}>{name}</span>
+      <span className="shrink-0 summary-card-text" style={{ ...textStyle, minWidth: "28px" }}>{progress}</span>
+      <span className="shrink-0 summary-card-text" style={dotStyle}>•</span>
+      <span className="truncate summary-card-text" style={textStyle}>{task}</span>
+      <span className="shrink-0 summary-card-text" style={dotStyle}>•</span>
+      <span className="truncate summary-card-text" style={textStyle}>{location}</span>
+      <span className="shrink-0 summary-card-text" style={dotStyle}>•</span>
+      <span className="truncate summary-card-text" style={textStyle}>{name}</span>
     </div>
   );
 }
@@ -140,13 +148,13 @@ export function UrgentRow({ time, title, subtitle }: UrgentRowProps) {
 
   return (
     <div className="flex items-start gap-4">
-      <span style={{ ...textStyle, minWidth: "34px", paddingTop: subtitle ? "0px" : "0px" }}>
+      <span className="summary-card-text" style={{ ...textStyle, minWidth: "34px", paddingTop: subtitle ? "0px" : "0px" }}>
         {time}
       </span>
       <div>
-        <p style={textStyle}>{title}</p>
+        <p className="summary-card-text" style={textStyle}>{title}</p>
         {subtitle && (
-          <p style={{ ...textStyle, marginTop: "6px", wordBreak: "break-word" }}>{subtitle}</p>
+          <p className="summary-card-text" style={{ ...textStyle, marginTop: "6px", wordBreak: "break-word" }}>{subtitle}</p>
         )}
       </div>
     </div>

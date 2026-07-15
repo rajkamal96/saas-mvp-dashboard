@@ -192,6 +192,7 @@ export default function OfficeDashboard() {
   const [isAddWorkerOpen, setIsAddWorkerOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isAddEmployeeOpen, setIsAddEmployeeOpen] = useState(false);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
@@ -358,6 +359,10 @@ export default function OfficeDashboard() {
       const active = prev.filter(w => !isPlaceholder(w.id));
       return [...active, newWorker];
     });
+    setToastMessage(`Zaposleni ${employeeData.name} je bil uspešno dodan`);
+    setTimeout(() => {
+      setToastMessage(null);
+    }, 3000);
   };
 
   const handleToggleTask = (workerId: string, taskId: string) => {
@@ -404,6 +409,14 @@ export default function OfficeDashboard() {
 
   return (
     <div className="min-h-screen bg-[#f3f5f8] text-slate-800 dashboard-page">
+      {toastMessage && (
+        <div className="fixed top-20 left-1/2 -translate-x-1/2 bg-gradient-to-b from-[#1B3A6B] to-[#12274b] text-white text-[13px] font-semibold py-3 px-5 rounded-xl shadow-xl z-50 animate-in fade-in slide-in-from-top-4 duration-300 flex items-center gap-2.5 border border-white/10 ring-1 ring-black/10">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+          <span>{toastMessage}</span>
+        </div>
+      )}
       <style>{`
         @media (max-width: 1023px) {
           .office-grid {

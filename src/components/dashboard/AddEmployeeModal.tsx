@@ -40,9 +40,8 @@ export function AddEmployeeModal({ isOpen, onOpenChange, onAddEmployee }: AddEmp
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name.trim()) return;
     onAddEmployee({
-      name: name.trim(),
+      name: name.trim() || "Zaposleni",
       phone: phone.trim(),
       email: email.trim(),
       role,
@@ -82,7 +81,6 @@ export function AddEmployeeModal({ isOpen, onOpenChange, onAddEmployee }: AddEmp
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  required
                   strong
                   placeholder="Npr. Janez Novak"
                 />
@@ -95,7 +93,7 @@ export function AddEmployeeModal({ isOpen, onOpenChange, onAddEmployee }: AddEmp
                   type="tel"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  placeholder="Npr. +386 40 123 456"
+                  placeholder="Npr. 052648043 (brez presledkov)"
                 />
               </div>
 

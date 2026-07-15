@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useLanguage } from "@/lib/useLanguage";
 import { FloatingBubble } from "./FloatingBubble";
 
@@ -505,6 +505,18 @@ function MockPhoneScreen() {
 export function TransformationSlider() {
   const { t } = useLanguage();
   const [activeSlide, setActiveSlide] = useState(0);
+  const sectionRef = useRef<HTMLElement>(null);
+  const firstRender = useRef(true);
+
+  useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
+      return;
+    }
+    if (sectionRef.current) {
+      sectionRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [activeSlide]);
 
   const handleScrollToPricing = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -514,6 +526,7 @@ export function TransformationSlider() {
 
   return (
     <section
+      ref={sectionRef}
       className="ts-section"
       style={{
         maxWidth: "1280px",
@@ -531,6 +544,32 @@ export function TransformationSlider() {
         }
         .ts-mobile-only {
           display: none !important;
+        }
+        .ts-mobile-only-title {
+          display: none !important;
+        }
+        @media (min-width: 640px) and (max-width: 1023px) {
+          .ts-slide-content {
+            height: auto !important;
+          }
+          .ts-slide1-body {
+            font-size: 16px !important;
+            line-height: 24px !important;
+          }
+          .ts-slide1-button-row {
+            padding-left: 0 !important;
+            margin-top: 32px !important;
+          }
+          .ts-slide2-image {
+            width: 240px !important;
+          }
+          .ts-slide2-image img {
+            width: 240px !important;
+            height: auto !important;
+          }
+          .ts-slide {
+            gap: 32px !important;
+          }
         }
         @media (max-width: 1024px) {
           .ts-outer-card {
@@ -550,6 +589,9 @@ export function TransformationSlider() {
           }
           .ts-mobile-only {
             display: flex !important;
+          }
+          .ts-mobile-only-title {
+            display: block !important;
           }
           .ts-outer-card {
             padding: 24px !important;
@@ -601,10 +643,6 @@ export function TransformationSlider() {
 
       {/* ── Outer card wrapper (allows bubble to hang outside) ─────────────── */}
       <div style={{ position: "relative" }}>
-        {/* On mobile, if activeSlide === 0, render MockPhoneScreen above/before the ts-outer-card */}
-        <div className="ts-mobile-only" style={{ width: "100%", display: "flex", justifyContent: "center", marginBottom: "32px" }}>
-          {activeSlide === 0 && <MockPhoneScreen />}
-        </div>
 
         {/* ── Outer card ──────────────────────────────────────────────────────── */}
         <div
@@ -693,9 +731,27 @@ export function TransformationSlider() {
                 }}
               >
                 <div style={LABEL_STYLE}>PLATFORMA ZA TERENCE</div>
-                <h3 className="ts-title" style={TITLE_STYLE}>En zaslon - vse je dosegljivo z enim dotikom</h3>
+                <h3 className="ts-title ts-desktop-only" style={TITLE_STYLE}>En zaslon - vse je dosegljivo z enim dotikom</h3>
 
-                <div className="ts-body" style={{ ...BODY_STYLE, flex: 1, lineHeight: "28px" }}>
+                {/* Mobile-only image inside the card, displayed after the label */}
+                <div className="ts-mobile-only" style={{ width: "100%", justifyContent: "center" }}>
+                  <img
+                    src="/mobile.png"
+                    alt="Zaslon za terence"
+                    style={{
+                      width: "260px",
+                      height: "auto",
+                      display: "block",
+                    }}
+                  />
+                </div>
+
+                {/* Mobile-only Title after mobile image */}
+                <h3 className="ts-title ts-mobile-only-title" style={{ ...TITLE_STYLE, marginTop: "0px", marginBottom: "20px" }}>
+                  En zaslon - vse je dosegljivo z enim dotikom
+                </h3>
+
+                <div className="ts-body ts-slide1-body" style={{ ...BODY_STYLE, flex: 1, lineHeight: "28px" }}>
                   <p style={{ margin: "0 0 4px 0" }}>Prilagojen zaslon, ki bo v pomoč terencem.</p>
                   <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
                     {[
@@ -727,7 +783,7 @@ export function TransformationSlider() {
 
                 {/* Buttons — left-aligned at the bottom */}
                 <div
-                  className="ts-button-row"
+                  className="ts-button-row ts-slide1-button-row"
                   style={{
                     display: "flex",
                     flexDirection: "row",
@@ -835,7 +891,7 @@ export function TransformationSlider() {
               </div>
 
               {/* Right: voiceToText.jpg image — vertically centered (alignItems:center on parent handles this) */}
-              <div className="ts-slide-image" style={{ flexShrink: 0, width: "304px" }}>
+              <div className="ts-slide-image ts-slide2-image" style={{ flexShrink: 0, width: "304px" }}>
                 <img
                   src="/voiceToText.jpg"
                   alt="Voice to text demo"

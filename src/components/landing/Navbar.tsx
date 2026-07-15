@@ -74,7 +74,7 @@ export function Navbar() {
               }}
             >
               <a 
-                href="#kako-deluje" 
+                href="#pisarna" 
                 className="hover:text-blue-600 transition-colors duration-200"
                 style={{
                   height: "16px",
@@ -90,10 +90,10 @@ export function Navbar() {
                   overflow: "visible",
                 }}
               >
-                {t("navHowItWorks")}
+                {t("navOffice")}
               </a>
               <a 
-                href="#funkcionalnosti" 
+                href="#teren" 
                 className="hover:text-blue-600 transition-colors duration-200"
                 style={{
                   height: "16px",
@@ -109,26 +109,7 @@ export function Navbar() {
                   overflow: "visible",
                 }}
               >
-                {t("navFeatures")}
-              </a>
-              <a 
-                href="#prednosti" 
-                className="hover:text-blue-600 transition-colors duration-200"
-                style={{
-                  height: "16px",
-                  fontFamily: "'Inter', sans-serif",
-                  fontStyle: "normal",
-                  fontWeight: 400,
-                  fontSize: "12px",
-                  lineHeight: "16px",
-                  display: "flex",
-                  alignItems: "center",
-                  color: "#475569",
-                  whiteSpace: "nowrap",
-                  overflow: "visible",
-                }}
-              >
-                {t("navBenefits")}
+                {t("navField")}
               </a>
               <a 
                 href="#cenik" 
@@ -148,25 +129,6 @@ export function Navbar() {
                 }}
               >
                 {t("navPricing")}
-              </a>
-              <a 
-                href="#kontakt" 
-                className="hover:text-blue-600 transition-colors duration-200"
-                style={{
-                  height: "16px",
-                  fontFamily: "'Inter', sans-serif",
-                  fontStyle: "normal",
-                  fontWeight: 400,
-                  fontSize: "12px",
-                  lineHeight: "16px",
-                  display: "flex",
-                  alignItems: "center",
-                  color: "#475569",
-                  whiteSpace: "nowrap",
-                  overflow: "visible",
-                }}
-              >
-                {t("footerContact")}
               </a>
             </div>
 

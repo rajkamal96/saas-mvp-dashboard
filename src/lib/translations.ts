@@ -1,10 +1,11 @@
 export const translations = {
   sl: {
-    // Navigation
     navHowItWorks: "Kako deluje",
     navFeatures: "Funkcionalnosti",
     navBenefits: "Prednosti",
     navPricing: "Cenik",
+    navOffice: "Pisarna",
+    navField: "Teren",
     navLogin: "Prijava",
     navDemoBtn: "Rezerviraj demo",
     navSupport: "Podpora",
@@ -261,11 +262,12 @@ export const translations = {
     workChatPlaceholder: "Sporočilo v pisarno..."
   },
   en: {
-    // Navigation
     navHowItWorks: "How it works",
     navFeatures: "Features",
     navBenefits: "Benefits",
     navPricing: "Pricing",
+    navOffice: "Office",
+    navField: "Field",
     navLogin: "Login",
     navDemoBtn: "Book a demo",
     navSupport: "Support",

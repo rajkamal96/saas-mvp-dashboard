@@ -526,6 +526,7 @@ export function TransformationSlider() {
 
   return (
     <section
+      id="teren"
       ref={sectionRef}
       className="ts-section"
       style={{

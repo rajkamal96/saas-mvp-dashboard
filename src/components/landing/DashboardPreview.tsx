@@ -191,7 +191,7 @@ export function DashboardPreview() {
   const noop = () => {};
 
   return (
-    <section id="dashboard-preview" className="max-w-7xl mx-auto px-0 md:px-6 md:pt-10 pb-20 relative">
+    <section id="pisarna" className="max-w-7xl mx-auto px-0 md:px-6 md:pt-10 pb-20 relative">
       <style>{`
         .dashboard-preview-scale {
           zoom: 1;

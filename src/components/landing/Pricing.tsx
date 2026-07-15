@@ -35,7 +35,7 @@ export function Pricing() {
         <p className="font-['Inter',sans-serif] text-[10px] md:text-xs font-semibold tracking-[-0.04em] text-blue-500 mb-4 uppercase">
           {t("priceTitle")}
         </p>
-        <h2 className="text-2xl md:text-5xl font-light md:font-normal tracking-tight text-slate-950">
+        <h2 className="text-2xl md:text-5xl font-light tracking-tight text-slate-950">
           {t("priceSubtitle")}
         </h2>
         <p
@@ -96,15 +96,15 @@ export function Pricing() {
           <div className="p-8 h-full flex flex-col justify-between min-h-[580px]">
             <div>
               {/* Header */}
-              <div className="pt-2">
-                <div className="flex items-baseline justify-start text-slate-800">
+              <div className="pt-2 flex flex-col items-center">
+                <div className="flex items-baseline justify-center text-slate-800">
                   <span className="text-5xl font-normal tracking-tight">{displayPrice}</span>
                   <span className="text-4xl font-normal tracking-tight ml-0.5">€</span>
                   <span className="text-sm font-normal text-slate-400 ml-1">
                     {t("priceCardUnit")}
                   </span>
                 </div>
-                <p className="mt-4 text-sm font-normal text-slate-500 leading-relaxed whitespace-pre-line">
+                <p className="mt-4 text-sm font-normal text-slate-500 leading-relaxed whitespace-pre-line text-center">
                   {t("priceCardSub")}
                 </p>
               </div>
@@ -138,7 +138,7 @@ export function Pricing() {
             <div className="flex flex-col gap-6 mt-8">
               <Link 
                 href="/register" 
-                className="w-full inline-flex items-center justify-center gap-2 py-3 bg-gradient-to-b from-blue-500 to-blue-600 border border-blue-700 text-white text-sm font-normal shadow-[0_4px_10px_rgba(59,130,246,0.3),inset_0_1px_0_rgba(255,255,255,0.3)] hover:from-blue-400 hover:to-blue-500 active:shadow-[inset_0_2px_4px_rgba(0,0,0,0.2)] transition-all duration-300"
+                className="w-full sm:w-[250px] sm:mx-auto inline-flex items-center justify-center gap-2 py-3 bg-gradient-to-b from-blue-500 to-blue-600 border border-blue-700 text-white text-sm font-normal shadow-[0_4px_10px_rgba(59,130,246,0.3),inset_0_1px_0_rgba(255,255,255,0.3)] hover:from-blue-400 hover:to-blue-500 active:shadow-[inset_0_2px_4px_rgba(0,0,0,0.2)] transition-all duration-300"
                 style={{ borderRadius: "16px" }}
               >
                 Naroči

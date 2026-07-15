@@ -54,7 +54,7 @@ export const initialWorkers: Worker[] = [
     currentTask: "Kopalnica prenova",
     status: "v_teku",
     phone: "+386 40 123 456",
-    email: "anthony.hopkins@dnevnik.app",
+    email: "anthony.hopkins@pomocnik.net",
     unreadCount: 1,
     location: "Ljubljana",
     tasks: [
@@ -76,7 +76,7 @@ export const initialWorkers: Worker[] = [
     currentTask: "Čiščenje prostorov",
     status: "zakasnitev",
     phone: "+386 31 987 654",
-    email: "alec.navarro@dnevnik.app",
+    email: "alec.navarro@pomocnik.net",
     unreadCount: 0,
     location: "Ljubljana",
     tasks: [
@@ -95,7 +95,7 @@ export const initialWorkers: Worker[] = [
     currentTask: "Dostava cvetja",
     status: "v_teku",
     phone: "+386 41 555 666",
-    email: "bo.derek@dnevnik.app",
+    email: "bo.derek@pomocnik.net",
     unreadCount: 0,
     location: "Celje",
     tasks: [

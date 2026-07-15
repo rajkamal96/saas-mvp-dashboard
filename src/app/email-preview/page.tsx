@@ -39,7 +39,7 @@ export default function EmailPreviewPage() {
     ? "Delo na kosišču A poteka po načrtu, prehajam na kosišče B. Robovi so urejeni. Pripravljam fotografije zaključenega stanja."
     : "Work on mowing area A is going as planned, moving on to area B. Edges are trimmed. Preparing photos of the finished status.";
   const ctaBtnText = lang === "sl" ? "Poglej v komandnem centru" : "View in Command Center";
-  const footerRightsStr = lang === "sl" ? "© 2026 Dnevnik.app. Vse pravice pridržane." : "© 2026 Dnevnik.app. All rights reserved.";
+  const footerRightsStr = lang === "sl" ? "© 2026 pomocnik.net. Vse pravice pridržane." : "© 2026 pomocnik.net. All rights reserved.";
   const footerInfoStr = lang === "sl" 
     ? "To je avtomatsko dnevno poročilo o delu vaše ekipe na terenu." 
     : "This is an automated daily report regarding the work of your field team.";
@@ -65,7 +65,7 @@ export default function EmailPreviewPage() {
               <table border="0" cellpadding="0" cellspacing="0" width="100%">
                 <tr>
                   <td align="center" style="font-size: 24px; font-weight: bold; color: #ffffff; letter-spacing: -0.5px;">
-                    Dnevnik<span style="color: #38bdf8;">.app</span>
+                    pomocnik<span style="color: #38bdf8;">.net</span>
                   </td>
                 </tr>
                 <tr>
@@ -140,7 +140,7 @@ export default function EmailPreviewPage() {
               <table border="0" cellpadding="0" cellspacing="0" width="100%" style="text-align: center; margin-top: 32px;">
                 <tr>
                   <td>
-                    <a href="https://dnevnik.app/dashboard/office" style="background-color: #1B3A6B; color: #ffffff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: bold; display: inline-block;">
+                    <a href="https://pomocnik.net/dashboard/office" style="background-color: #1B3A6B; color: #ffffff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: bold; display: inline-block;">
                       ${ctaBtnText}
                     </a>
                   </td>

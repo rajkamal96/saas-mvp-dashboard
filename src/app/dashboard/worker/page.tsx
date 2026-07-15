@@ -571,7 +571,7 @@ export default function WorkerDashboard() {
 
               {/* E-POŠTA */}
               <button 
-                onClick={() => window.location.href = "mailto:pisarna@dnevnik.app"}
+                onClick={() => window.location.href = "mailto:pisarna@pomocnik.net"}
                 className="flex items-center justify-end gap-3 w-1/2 text-right hover:opacity-80 transition-opacity bg-transparent border-none p-0 outline-none"
                 style={{ background: "transparent", border: "none", padding: 0 }}
               >

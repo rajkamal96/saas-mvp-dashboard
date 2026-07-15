@@ -27,7 +27,7 @@ export function Logo({ className = "h-8 w-auto", showText = true }: { className?
       </svg>
       {showText && (
         <span className="text-xl font-bold tracking-tight text-[#0f172a] dark:text-white font-sans">
-          Dnevnik<span className="text-[#1B3A6B] dark:text-[#38bdf8]">.app</span>
+          pomocnik<span className="text-[#1B3A6B] dark:text-[#38bdf8]">.net</span>
         </span>
       )}
     </div>

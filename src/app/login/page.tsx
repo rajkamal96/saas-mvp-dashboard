@@ -46,10 +46,10 @@ export default function LoginPage() {
         <div className="flex flex-col items-center mb-8">
           <Link href="/" className="flex items-center gap-3 group mb-6">
             <span className="w-10 h-10 rounded-full bg-gradient-to-b from-white to-slate-100 border border-slate-200 shadow-[0_2px_6px_rgba(15,23,42,0.05)] flex items-center justify-center">
-              <span className="font-['Inter',sans-serif] text-xs font-semibold text-[#1B3A6B]">DN</span>
+              <span className="font-['Inter',sans-serif] text-xs font-semibold text-[#1B3A6B]">PN</span>
             </span>
             <span className="font-['Inter',sans-serif] text-base font-semibold tracking-[-0.08em] text-slate-950">
-              Dnevnik.app
+              pomocnik.net
             </span>
           </Link>
           <h2 className="text-2xl font-light tracking-tight text-slate-950">

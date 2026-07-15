@@ -10,51 +10,247 @@ export function Navbar() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
       <nav className="max-w-7xl mx-auto px-3 md:px-6 pt-5">
-        <div className="relative overflow-hidden rounded-full bg-white/84 backdrop-blur-2xl border border-white/90 shadow-[0_14px_38px_-22px_rgba(15,23,42,0.42),inset_0_1px_0_rgba(255,255,255,1)] px-4 py-3">
+        <div 
+          className="relative overflow-hidden w-full max-w-[1232px] mx-auto flex flex-col justify-center"
+          style={{
+            boxSizing: "border-box",
+            padding: "12px 16px",
+            height: "60px",
+            background: "rgba(255, 255, 255, 0.002)",
+            border: "1px solid rgba(255, 255, 255, 0.9)",
+            boxShadow: "0px 14px 38px -22px rgba(15, 23, 42, 0.42), inset 0px 1px 0px 1px #FFFFFF",
+            backdropFilter: "blur(20px)",
+            WebkitBackdropFilter: "blur(20px)",
+            borderRadius: "9999px",
+          }}
+        >
           {/* Extra white layer so dark sections do not bleed through too much */}
           <div className="absolute inset-0 rounded-full bg-white/36 pointer-events-none" />
 
-          <div className="relative z-10 flex items-center justify-between">
+          <div 
+            className="relative z-10 flex flex-row justify-between items-center w-full"
+            style={{
+              height: "34px",
+              alignSelf: "stretch",
+            }}
+          >
             {/* Brand Logo */}
-            <a href="#" className="flex items-center gap-3 group">
-              <span className="w-9 h-9 rounded-full bg-gradient-to-b from-white to-slate-100 border border-slate-200 shadow-[0_2px_8px_rgba(15,23,42,0.06),inset_0_1px_0_white] flex items-center justify-center">
-                <span className="font-['Inter',sans-serif] text-xs font-semibold tracking-[-0.08em] text-blue-600">
-                  DN
-                </span>
-              </span>
-              <span className="flex flex-col justify-center leading-none">
-                <span className="font-['Inter',sans-serif] text-sm font-semibold tracking-[-0.08em] text-slate-950 group-hover:text-blue-600 transition-colors">
-                  Dnevnik.app
-                </span>
-                <span className="mt-0.5 text-[10px] font-light tracking-[-0.03em] text-slate-400">
-                  Teren &amp; Pisarna
-                </span>
+            <a 
+              href="#" 
+              className="flex items-center justify-center bg-white border border-[#E2E8F0] shadow-[0px_1px_2px_rgba(15,23,42,0.04),inset_0px_1px_0px_1px_#FFFFFF] rounded-full hover:-translate-y-0.5 transition-all duration-300"
+              style={{
+                boxSizing: "border-box",
+                padding: "8px 16px",
+                width: "111px",
+                height: "34px",
+              }}
+            >
+              <span 
+                style={{
+                  width: "77px",
+                  height: "16px",
+                  fontFamily: "'Inter', sans-serif",
+                  fontStyle: "normal",
+                  fontWeight: 400,
+                  fontSize: "12px",
+                  lineHeight: "16px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  textAlign: "center",
+                  color: "#334155",
+                }}
+              >
+                pomocnik.net
               </span>
             </a>
 
             {/* Desktop Navigation Links */}
-            <div className="hidden md:flex items-center gap-7 text-xs text-slate-600 font-normal">
-              <a href="#kako-deluje" className="relative transition-colors duration-300 hover:text-blue-600 after:absolute after:left-0 after:-bottom-1.5 after:h-px after:w-0 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full">
+            <div 
+              className="hidden md:flex flex-row items-center"
+              style={{
+                gap: "28px",
+                height: "16px",
+              }}
+            >
+              <a 
+                href="#kako-deluje" 
+                className="hover:text-blue-600 transition-colors duration-200"
+                style={{
+                  height: "16px",
+                  fontFamily: "'Inter', sans-serif",
+                  fontStyle: "normal",
+                  fontWeight: 400,
+                  fontSize: "12px",
+                  lineHeight: "16px",
+                  display: "flex",
+                  alignItems: "center",
+                  color: "#475569",
+                  whiteSpace: "nowrap",
+                  overflow: "visible",
+                }}
+              >
                 {t("navHowItWorks")}
               </a>
-              <a href="#funkcionalnosti" className="relative transition-colors duration-300 hover:text-blue-600 after:absolute after:left-0 after:-bottom-1.5 after:h-px after:w-0 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full">
+              <a 
+                href="#funkcionalnosti" 
+                className="hover:text-blue-600 transition-colors duration-200"
+                style={{
+                  height: "16px",
+                  fontFamily: "'Inter', sans-serif",
+                  fontStyle: "normal",
+                  fontWeight: 400,
+                  fontSize: "12px",
+                  lineHeight: "16px",
+                  display: "flex",
+                  alignItems: "center",
+                  color: "#475569",
+                  whiteSpace: "nowrap",
+                  overflow: "visible",
+                }}
+              >
                 {t("navFeatures")}
               </a>
-              <a href="#prednosti" className="relative transition-colors duration-300 hover:text-blue-600 after:absolute after:left-0 after:-bottom-1.5 after:h-px after:w-0 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full">
+              <a 
+                href="#prednosti" 
+                className="hover:text-blue-600 transition-colors duration-200"
+                style={{
+                  height: "16px",
+                  fontFamily: "'Inter', sans-serif",
+                  fontStyle: "normal",
+                  fontWeight: 400,
+                  fontSize: "12px",
+                  lineHeight: "16px",
+                  display: "flex",
+                  alignItems: "center",
+                  color: "#475569",
+                  whiteSpace: "nowrap",
+                  overflow: "visible",
+                }}
+              >
                 {t("navBenefits")}
               </a>
-              <a href="#cenik" className="relative transition-colors duration-300 hover:text-blue-600 after:absolute after:left-0 after:-bottom-1.5 after:h-px after:w-0 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full">
+              <a 
+                href="#cenik" 
+                className="hover:text-blue-600 transition-colors duration-200"
+                style={{
+                  height: "16px",
+                  fontFamily: "'Inter', sans-serif",
+                  fontStyle: "normal",
+                  fontWeight: 400,
+                  fontSize: "12px",
+                  lineHeight: "16px",
+                  display: "flex",
+                  alignItems: "center",
+                  color: "#475569",
+                  whiteSpace: "nowrap",
+                  overflow: "visible",
+                }}
+              >
                 {t("navPricing")}
+              </a>
+              <a 
+                href="#kontakt" 
+                className="hover:text-blue-600 transition-colors duration-200"
+                style={{
+                  height: "16px",
+                  fontFamily: "'Inter', sans-serif",
+                  fontStyle: "normal",
+                  fontWeight: 400,
+                  fontSize: "12px",
+                  lineHeight: "16px",
+                  display: "flex",
+                  alignItems: "center",
+                  color: "#475569",
+                  whiteSpace: "nowrap",
+                  overflow: "visible",
+                }}
+              >
+                {t("footerContact")}
               </a>
             </div>
 
             {/* Navigation CTAs */}
-            <div className="flex items-center gap-2">
-              <Link href="/login" className="hidden sm:inline-flex items-center justify-center rounded-full px-4 py-2 text-sm text-slate-700 bg-white/78 border border-slate-200 shadow-[0_1px_2px_rgba(15,23,42,0.04),inset_0_1px_0_white] hover:bg-white hover:text-blue-600 hover:-translate-y-0.5 transition-all duration-300">
-                {t("navLogin")}
+            <div 
+              className="flex flex-row items-center"
+              style={{
+                gap: "8px",
+                height: "34px",
+              }}
+            >
+              <Link 
+                href="/login" 
+                className="hover:bg-white/10 hover:-translate-y-0.5 transition-all duration-300"
+                style={{
+                  boxSizing: "border-box",
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  padding: "8px 16px",
+                  width: "82px",
+                  height: "34px",
+                  background: "rgba(255, 255, 255, 0.002)",
+                  border: "1px solid #E2E8F0",
+                  boxShadow: "0px 1px 2px rgba(15, 23, 42, 0.04), inset 0px 1px 0px 1px #FFFFFF",
+                  borderRadius: "9999px",
+                }}
+              >
+                <span
+                  style={{
+                    width: "48px",
+                    height: "16px",
+                    fontFamily: "'Inter', sans-serif",
+                    fontStyle: "normal",
+                    fontWeight: 400,
+                    fontSize: "12px",
+                    lineHeight: "16px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    textAlign: "center",
+                    color: "#334155",
+                  }}
+                >
+                  {t("navSupport")}
+                </span>
               </Link>
-              <Link href="/register" className="inline-flex items-center justify-center rounded-full px-4 py-2 text-sm text-white bg-gradient-to-b from-blue-500 to-blue-600 border border-blue-700 shadow-[0_5px_14px_rgba(59,130,246,0.28),inset_0_1px_0_rgba(255,255,255,0.35)] hover:from-blue-400 hover:to-blue-500 hover:-translate-y-0.5 transition-all duration-300">
-                {t("navDemoBtn")}
+              <Link 
+                href="/login" 
+                className="hover:-translate-y-0.5 transition-all duration-300"
+                style={{
+                  boxSizing: "border-box",
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  padding: "8px 16px",
+                  width: "72px",
+                  height: "34px",
+                  background: "linear-gradient(180deg, #3B82F6 0%, #2563EB 100%)",
+                  border: "1px solid #1D4ED8",
+                  boxShadow: "0px 5px 14px rgba(59, 130, 246, 0.28), inset 0px 1px 0px 1px rgba(255, 255, 255, 0.35)",
+                  borderRadius: "9999px",
+                }}
+              >
+                <span
+                  style={{
+                    width: "38px",
+                    height: "16px",
+                    fontFamily: "'Inter', sans-serif",
+                    fontStyle: "normal",
+                    fontWeight: 400,
+                    fontSize: "12px",
+                    lineHeight: "16px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    textAlign: "center",
+                    color: "#FFFFFF",
+                  }}
+                >
+                  {t("navLogin")}
+                </span>
               </Link>
             </div>
           </div>

@@ -9,7 +9,7 @@ export function useLanguage() {
 
   useEffect(() => {
     setMounted(true);
-    const saved = localStorage.getItem("dnevnik_lang") as Language;
+    const saved = localStorage.getItem("pomocnik_lang") as Language;
     if (saved === "en" || saved === "sl") {
       setLang(saved);
     }
@@ -21,16 +21,16 @@ export function useLanguage() {
       }
     };
 
-    window.addEventListener("dnevnikLanguageChange", handleLangChange);
+    window.addEventListener("pomocnikLanguageChange", handleLangChange);
     return () => {
-      window.removeEventListener("dnevnikLanguageChange", handleLangChange);
+      window.removeEventListener("pomocnikLanguageChange", handleLangChange);
     };
   }, []);
 
   const changeLanguage = (newLang: Language) => {
-    localStorage.setItem("dnevnik_lang", newLang);
+    localStorage.setItem("pomocnik_lang", newLang);
     setLang(newLang);
-    const event = new CustomEvent("dnevnikLanguageChange", { detail: newLang });
+    const event = new CustomEvent("pomocnikLanguageChange", { detail: newLang });
     window.dispatchEvent(event);
   };
 

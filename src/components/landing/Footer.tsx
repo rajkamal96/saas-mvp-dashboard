@@ -23,15 +23,15 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-3 md:px-6 flex flex-col items-center gap-1">
         {/* Links row */}
         <div
-          className="flex flex-nowrap md:flex-wrap items-center justify-center gap-0 md:gap-1.5 w-[354px] md:w-auto text-[13px] max-[340px]:text-[11px] leading-6"
+          className="flex flex-wrap items-center justify-center gap-3 md:gap-1.5 text-[13px] leading-6"
           style={{
             fontFamily: "'Inter', sans-serif",
             fontWeight: 400,
             color: "#1D2A3D",
           }}
         >
-          <a href="#" className={linkClass}>Prijava</a>
-          <span>•</span>
+          <a href="#" className={`${linkClass} hidden md:inline`}>Prijava</a>
+          <span className="hidden md:inline">•</span>
           <a href="#" className={linkClass}>Podpora</a>
           <span>•</span>
           <a href="#" className={linkClass}>Pogoji uporabe</a>

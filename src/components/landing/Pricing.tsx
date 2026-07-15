@@ -93,11 +93,11 @@ export function Pricing() {
             {t("priceCardBadge")}
           </div>
 
-          <div className="p-8 h-full flex flex-col">
-            {/* Header */}
-            <div className="flex flex-col items-center text-center md:flex-row md:justify-between md:items-start md:text-left pt-2">
-              <div>
-                <div className="flex items-baseline justify-center md:justify-start text-slate-800">
+          <div className="p-8 h-full flex flex-col justify-between min-h-[580px]">
+            <div>
+              {/* Header */}
+              <div className="pt-2">
+                <div className="flex items-baseline justify-start text-slate-800">
                   <span className="text-5xl font-normal tracking-tight">{displayPrice}</span>
                   <span className="text-4xl font-normal tracking-tight ml-0.5">€</span>
                   <span className="text-sm font-normal text-slate-400 ml-1">
@@ -108,33 +108,44 @@ export function Pricing() {
                   {t("priceCardSub")}
                 </p>
               </div>
+
+              {/* Divider line */}
+              <div className="my-6 h-px w-full bg-gradient-to-r from-transparent via-blue-200 to-transparent"></div>
+
+              {/* Expanded Body */}
+              <div className="flex flex-col gap-6">
+                {sections.map((section, idx) => (
+                  <div key={idx} className="flex flex-col gap-3">
+                    <h4 className="text-[10px] md:text-xs font-medium text-blue-500 uppercase tracking-widest">
+                      {section.title}
+                    </h4>
+                    <ul className="flex flex-col gap-y-3">
+                      {section.items.map((item, itemIdx) => (
+                        <li key={itemIdx} className="flex items-start gap-3 text-[13px] md:text-sm font-light md:font-normal text-slate-500 md:text-slate-700">
+                          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0 mt-0.5">
+                            <path fillRule="evenodd" clipRule="evenodd" d="M16.5 9C16.5 13.1423 13.1423 16.5 9 16.5C4.85775 16.5 1.5 13.1423 1.5 9C1.5 4.85775 4.85775 1.5 9 1.5C13.1423 1.5 16.5 4.85775 16.5 9ZM12.0225 6.7275C12.2418 6.94711 12.2418 7.30289 12.0225 7.5225L8.2725 11.2725C8.05289 11.4918 7.69711 11.4918 7.4775 11.2725L5.9775 9.7725C5.82701 9.63227 5.76506 9.42108 5.81596 9.22178C5.86686 9.02248 6.02248 8.86686 6.22178 8.81596C6.42108 8.76506 6.63227 8.82701 6.7725 8.9775L7.875 10.08L9.55125 8.40375L11.2275 6.7275C11.4471 6.50816 11.8029 6.50816 12.0225 6.7275Z" fill="#3B82F6"/>
+                          </svg>
+                          <span className="mt-[2px]">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
             </div>
 
-            {/* Divider line */}
-            <div className="my-6 h-px w-full bg-gradient-to-r from-transparent via-blue-200 to-transparent"></div>
-
-            {/* Expanded Body */}
-            <div className="flex flex-col gap-6 flex-grow">
-              {sections.map((section, idx) => (
-                <div key={idx} className="flex flex-col gap-3">
-                  <h4 className="text-[10px] md:text-xs font-medium text-blue-500 uppercase tracking-widest">
-                    {section.title}
-                  </h4>
-                  <ul className="flex flex-col gap-y-3">
-                    {section.items.map((item, itemIdx) => (
-                      <li key={itemIdx} className="flex items-start gap-3 text-[13px] md:text-sm font-light md:font-normal text-slate-500 md:text-slate-700">
-                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0 mt-0.5">
-                          <path fillRule="evenodd" clipRule="evenodd" d="M16.5 9C16.5 13.1423 13.1423 16.5 9 16.5C4.85775 16.5 1.5 13.1423 1.5 9C1.5 4.85775 4.85775 1.5 9 1.5C13.1423 1.5 16.5 4.85775 16.5 9ZM12.0225 6.7275C12.2418 6.94711 12.2418 7.30289 12.0225 7.5225L8.2725 11.2725C8.05289 11.4918 7.69711 11.4918 7.4775 11.2725L5.9775 9.7725C5.82701 9.63227 5.76506 9.42108 5.81596 9.22178C5.86686 9.02248 6.02248 8.86686 6.22178 8.81596C6.42108 8.76506 6.63227 8.82701 6.7725 8.9775L7.875 10.08L9.55125 8.40375L11.2275 6.7275C11.4471 6.50816 11.8029 6.50816 12.0225 6.7275Z" fill="#3B82F6"/>
-                        </svg>
-                        <span className="mt-[2px]">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+            {/* Bottom Actions */}
+            <div className="flex flex-col gap-6 mt-8">
+              <Link 
+                href="/register" 
+                className="w-full inline-flex items-center justify-center gap-2 py-3 bg-gradient-to-b from-blue-500 to-blue-600 border border-blue-700 text-white text-sm font-normal shadow-[0_4px_10px_rgba(59,130,246,0.3),inset_0_1px_0_rgba(255,255,255,0.3)] hover:from-blue-400 hover:to-blue-500 active:shadow-[inset_0_2px_4px_rgba(0,0,0,0.2)] transition-all duration-300"
+                style={{ borderRadius: "16px" }}
+              >
+                Naroči
+              </Link>
 
               {/* Cancel Anytime with extra gap from top */}
-              <div className="mt-4 pt-4 border-t border-slate-200/60">
+              <div className="pt-4 border-t border-slate-200/60 flex items-center justify-center">
                 <div className="flex items-start gap-3 text-sm font-normal text-slate-700">
                   <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0 mt-0.5">
                     <path fillRule="evenodd" clipRule="evenodd" d="M16.5 9C16.5 13.1423 13.1423 16.5 9 16.5C4.85775 16.5 1.5 13.1423 1.5 9C1.5 4.85775 4.85775 1.5 9 1.5C13.1423 1.5 16.5 4.85775 16.5 9ZM12.0225 6.7275C12.2418 6.94711 12.2418 7.30289 12.0225 7.5225L8.2725 11.2725C8.05289 11.4918 7.69711 11.4918 7.4775 11.2725L5.9775 9.7725C5.82701 9.63227 5.76506 9.42108 5.81596 9.22178C5.86686 9.02248 6.02248 8.86686 6.22178 8.81596C6.42108 8.76506 6.63227 8.82701 6.7725 8.9775L7.875 10.08L9.55125 8.40375L11.2275 6.7275C11.4471 6.50816 11.8029 6.50816 12.0225 6.7275Z" fill="#3B82F6"/>

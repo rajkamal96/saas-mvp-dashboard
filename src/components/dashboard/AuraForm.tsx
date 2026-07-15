@@ -4,7 +4,7 @@ import React, { useRef } from "react";
 import { cn } from "@/lib/utils";
 
 // Aura-styled form primitives inspired by the responsive-contact-section-with-support-form template.
-// Colors are mapped to the existing Dnevnik.app palette (navy primary #1B3A6B).
+// Colors are mapped to the existing pomocnik.net palette (navy primary #1B3A6B).
 
 export const auraInputBase =
   "w-full px-3 py-2.5 text-[13px] rounded-xl ring-1 ring-[#1B3A6B]/15 focus:ring-2 focus:ring-[#1B3A6B] outline-none bg-white placeholder:text-slate-400 text-slate-800 transition-all";

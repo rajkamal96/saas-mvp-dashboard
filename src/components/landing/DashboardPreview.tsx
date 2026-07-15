@@ -69,7 +69,7 @@ export function DashboardPreview() {
       currentTask: "Kopalnica prenova",
       status: "v_teku",
       phone: "+386 40 123 456",
-      email: "anthony.hopkins@dnevnik.app",
+      email: "anthony.hopkins@pomocnik.net",
       unreadCount: 1,
       location: "Ljubljana",
       tasks: [
@@ -91,7 +91,7 @@ export function DashboardPreview() {
       currentTask: "Čiščenje prostorov",
       status: "zakasnitev",
       phone: "+386 31 987 654",
-      email: "alec.navarro@dnevnik.app",
+      email: "alec.navarro@pomocnik.net",
       unreadCount: 0,
       location: "Ljubljana",
       tasks: [
@@ -110,7 +110,7 @@ export function DashboardPreview() {
       currentTask: "Dostava cvetja",
       status: "v_teku",
       phone: "+386 41 555 666",
-      email: "bo.derek@dnevnik.app",
+      email: "bo.derek@pomocnik.net",
       unreadCount: 0,
       location: "Celje",
       tasks: [
@@ -213,6 +213,28 @@ export function DashboardPreview() {
         .animate-bounce-horizontal {
           animation: bounceHorizontal 1.2s infinite;
         }
+        .scroll-helper-floating {
+          position: absolute;
+          right: 24px;
+          z-index: 20;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          pointer-events: none;
+          user-select: none;
+          top: 240px;
+        }
+        @media (min-width: 1024px) {
+          .scroll-helper-floating {
+            display: none !important;
+          }
+        }
+        @media (max-width: 767px) {
+          .scroll-helper-floating {
+            right: 16px;
+            top: 290px;
+          }
+        }
       `}</style>
 
       {/* Section Header */}
@@ -231,22 +253,38 @@ export function DashboardPreview() {
       {/* Main Glassmorphic Wrapper */}
       <div className="dashboard-preview-scale relative overflow-hidden rounded-[2.75rem] bg-white/55 backdrop-blur-xl border border-white shadow-[0_30px_80px_-45px_rgba(15,23,42,0.35),inset_0_1px_0_rgba(255,255,255,1)] p-6 md:p-10">
         
+        {/* Floating scroll helper icon */}
         <div 
-          className="absolute top-4 right-4 z-20 lg:hidden flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500 text-white text-[11px] font-semibold shadow-lg backdrop-blur-md pointer-events-none select-none"
+          className="scroll-helper-floating lg:hidden"
+          style={{ color: "rgba(102, 112, 133, 1)" }}
         >
-          <span>Podrsni desno</span>
-          <div className="relative flex flex-col items-center shrink-0 w-8 h-6 animate-bounce-horizontal">
+          <div className="relative flex flex-col items-center shrink-0 w-16 h-14 animate-bounce-horizontal">
             {/* Horizontal arrows */}
-            <svg viewBox="0 0 64 27" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-auto">
+            <svg 
+              viewBox="0 0 64 27" 
+              fill="none" 
+              xmlns="http://www.w3.org/2000/svg" 
+              style={{ width: "64px", height: "26.666666px" }}
+            >
               <path d="M32 8C34.944 8 37.3333 10.3893 37.3333 13.3333C37.3333 16.2773 34.944 18.6667 32 18.6667C29.056 18.6667 26.6667 16.2773 26.6667 13.3333C26.6667 10.3893 29.056 8 32 8ZM21.7147 16C21.4907 15.144 21.3333 14.2613 21.3333 13.3333C21.3333 12.4053 21.4907 11.5227 21.7147 10.6667H16V0L0 13.3333L16 26.6667V16H21.7147ZM42.2853 10.6667C42.5093 11.5227 42.6667 12.4053 42.6667 13.3333C42.6667 14.2613 42.5093 15.144 42.2853 16H48V26.6667L64 13.3333L48 0V10.6667H42.2853Z" fill="currentColor"/>
             </svg>
             {/* Hand/Finger */}
-            <svg viewBox="0 0 33 39" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-4 h-auto absolute top-2.5">
+            <svg 
+              viewBox="0 0 33 39" 
+              fill="none" 
+              xmlns="http://www.w3.org/2000/svg" 
+              style={{ 
+                width: "38.599998px", 
+                height: "38.599998px", 
+                position: "absolute", 
+                top: "18px",
+              }}
+            >
               <path d="M26.5954 12.151C24.6847 11.7457 19.1874 10.697 17.6917 10.4011V4.75262C17.6917 2.13265 15.5268 0 12.8667 0C10.2065 0 8.04167 2.13265 8.04167 4.75262V16.746C7.15065 16.2056 6.13097 15.7472 5.08555 15.596C2.15517 15.1746 0 17.1078 0 19.6136C0 20.9083 0.583825 22.2079 1.64372 23.2661C8.03202 29.6544 10.7919 31.5089 11.3886 38.6H27.3417V35.7886C27.3417 27.4993 32.1667 26.0888 32.1667 19.6587C32.1667 15.7215 30.4602 12.9728 26.5954 12.151ZM27.1696 25.053C25.8491 27.4382 24.2135 30.3911 24.1282 35.3833H14.2691C13.1015 29.2395 8.14138 25.2219 3.9179 20.9904C2.81137 19.887 3.28582 18.7869 4.62878 18.7821C6.66011 18.7725 9.55028 21.8122 11.2583 23.9368V4.75262C11.2583 3.92112 11.9949 3.21667 12.8667 3.21667C13.7384 3.21667 14.475 3.92112 14.475 4.75262V15.9273C14.475 16.4339 14.8867 16.8457 15.395 16.8457C15.9 16.8457 16.3117 16.4339 16.3117 15.9273V15.0025C16.3117 14.1437 17.0998 13.4939 17.9426 13.6628C18.5827 13.7898 19.0459 14.3512 19.0459 15.0025V17.0499C19.0459 17.5566 19.4576 17.9683 19.9642 17.9683C20.4709 17.9683 20.8826 17.5566 20.8826 17.0499V15.715C20.8826 14.861 21.6659 14.2161 22.5038 14.3833C23.1407 14.5088 23.6007 15.0653 23.6007 15.715V18.1806C23.6007 18.6872 24.0124 19.099 24.519 19.099C25.0257 19.099 25.4374 18.6872 25.4374 18.1806V16.7138C25.4374 15.8726 26.3139 15.3194 27.0747 15.6748C28.1121 16.1654 28.95 17.1738 28.95 19.6587C28.95 21.8379 28.2021 23.1857 27.1696 25.053Z" fill="currentColor"/>
             </svg>
           </div>
         </div>
-        
+
         {/* Soft background glows */}
         <div className="absolute top-[-35%] left-[10%] w-[32rem] h-[32rem] rounded-full bg-blue-200/30 blur-[6rem] pointer-events-none" />
         <div className="absolute bottom-[-35%] right-[5%] w-[30rem] h-[30rem] rounded-full bg-sky-200/20 blur-[6rem] pointer-events-none" />
@@ -257,10 +295,7 @@ export function DashboardPreview() {
             <div className="min-w-[1024px] lg:min-w-0 relative">
               
               {/* Summary Cards Row */}
-              {/* Original responsive grid:
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6" style={{ marginBottom: "32px" }}>
-              */}
-              <div className="grid grid-cols-2 gap-6" style={{ marginBottom: "32px" }}>
+              <div className="grid grid-cols-2 gap-6" style={{ marginBottom: "20px" }}>
                 <SummaryCard title="HITRI PREGLED">
                   <div className="flex flex-col gap-[4px]">
                     {workers.map(w => {
@@ -296,9 +331,6 @@ export function DashboardPreview() {
               </div>
 
               {/* 3 Columns Grid - with all 3 cards in each column exactly like the dashboard */}
-              {/* Original responsive grid:
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              */}
               <div className="grid grid-cols-3 gap-6">
               {/* Column 1 - Teren */}
               <div className="flex flex-col gap-3">

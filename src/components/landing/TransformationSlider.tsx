@@ -545,10 +545,13 @@ export function TransformationSlider() {
         .ts-mobile-only {
           display: none !important;
         }
-        .ts-mobile-only-title {
-          display: none !important;
-        }
         @media (min-width: 640px) and (max-width: 1023px) {
+          .ts-desktop-only {
+            display: block !important;
+          }
+          .ts-mobile-mockup {
+            height: auto !important;
+          }
           .ts-slide-content {
             height: auto !important;
           }
@@ -571,6 +574,14 @@ export function TransformationSlider() {
             gap: 32px !important;
           }
         }
+        @media (min-width: 360px) and (max-width: 639px) {
+          .ts-mobile-only img {
+            width: 300px !important;
+          }
+          .ts-slide-image img {
+            width: 300px !important;
+          }
+        }
         @media (max-width: 1024px) {
           .ts-outer-card {
             padding: 40px !important;
@@ -579,7 +590,7 @@ export function TransformationSlider() {
             gap: 32px !important;
           }
         }
-        @media (max-width: 768px) {
+        @media (max-width: 639px) {
           .ts-section {
             padding-left: 12px !important;
             padding-right: 12px !important;
@@ -589,9 +600,6 @@ export function TransformationSlider() {
           }
           .ts-mobile-only {
             display: flex !important;
-          }
-          .ts-mobile-only-title {
-            display: block !important;
           }
           .ts-outer-card {
             padding: 24px !important;
@@ -731,10 +739,10 @@ export function TransformationSlider() {
                 }}
               >
                 <div style={LABEL_STYLE}>PLATFORMA ZA TERENCE</div>
-                <h3 className="ts-title ts-desktop-only" style={TITLE_STYLE}>En zaslon - vse je dosegljivo z enim dotikom</h3>
+                <h3 className="ts-title" style={TITLE_STYLE}>En zaslon - vse je dosegljivo z enim dotikom</h3>
 
-                {/* Mobile-only image inside the card, displayed after the label */}
-                <div className="ts-mobile-only" style={{ width: "100%", justifyContent: "center" }}>
+                {/* Mobile-only image inside the card, displayed after the title */}
+                <div className="ts-mobile-only" style={{ width: "100%", justifyContent: "center", marginTop: "24px", marginBottom: "24px" }}>
                   <img
                     src="/mobile.png"
                     alt="Zaslon za terence"
@@ -745,11 +753,6 @@ export function TransformationSlider() {
                     }}
                   />
                 </div>
-
-                {/* Mobile-only Title after mobile image */}
-                <h3 className="ts-title ts-mobile-only-title" style={{ ...TITLE_STYLE, marginTop: "0px", marginBottom: "20px" }}>
-                  En zaslon - vse je dosegljivo z enim dotikom
-                </h3>
 
                 <div className="ts-body ts-slide1-body" style={{ ...BODY_STYLE, flex: 1, lineHeight: "28px" }}>
                   <p style={{ margin: "0 0 4px 0" }}>Prilagojen zaslon, ki bo v pomoč terencem.</p>

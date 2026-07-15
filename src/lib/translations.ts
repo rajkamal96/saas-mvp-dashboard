@@ -7,6 +7,7 @@ export const translations = {
     navPricing: "Cenik",
     navLogin: "Prijava",
     navDemoBtn: "Rezerviraj demo",
+    navSupport: "Podpora",
 
     // Hero
     heroBadge: "ZA MANJŠA PODJETJA Z EKIPAMI NA TERENU",
@@ -165,7 +166,7 @@ export const translations = {
     ctaSubtitle: "Povežite teren, pisarno in komunikacijo v enoten dnevni proces ter pridobite popoln pregled nad delom svojega podjetja.",
 
     // Footer
-    footerRights: "© 2025 Dnevnik.app. Vse pravice pridržane.",
+    footerRights: "© 2026 pomocnik.net. Vse pravice pridržane.",
     footerPrivacy: "Zasebnost",
     footerTerms: "Pogoji",
     footerContact: "Kontakt",
@@ -267,6 +268,7 @@ export const translations = {
     navPricing: "Pricing",
     navLogin: "Login",
     navDemoBtn: "Book a demo",
+    navSupport: "Support",
 
     // Hero
     heroBadge: "FOR SMALL TEAMS ON THE FIELD",
@@ -425,7 +427,7 @@ export const translations = {
     ctaSubtitle: "Connect field, office, and communications in a unified process to gain total overview of your business operations.",
 
     // Footer
-    footerRights: "© 2025 Dnevnik.app. All rights reserved.",
+    footerRights: "© 2026 pomocnik.net. All rights reserved.",
     footerPrivacy: "Privacy",
     footerTerms: "Terms",
     footerContact: "Contact",

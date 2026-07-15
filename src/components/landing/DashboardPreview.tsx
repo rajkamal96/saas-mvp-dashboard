@@ -206,6 +206,13 @@ export function DashboardPreview() {
             zoom: 0.75;
           }
         }
+        @keyframes bounceHorizontal {
+          0%, 100% { transform: translateX(0); }
+          50% { transform: translateX(5px); }
+        }
+        .animate-bounce-horizontal {
+          animation: bounceHorizontal 1.2s infinite;
+        }
       `}</style>
 
       {/* Section Header */}
@@ -223,6 +230,16 @@ export function DashboardPreview() {
 
       {/* Main Glassmorphic Wrapper */}
       <div className="dashboard-preview-scale relative overflow-hidden rounded-[2.75rem] bg-white/55 backdrop-blur-xl border border-white shadow-[0_30px_80px_-45px_rgba(15,23,42,0.35),inset_0_1px_0_rgba(255,255,255,1)] p-6 md:p-10">
+        
+        {/* Scroll right indicator for mobile/tablet */}
+        <div 
+          className="absolute top-4 right-4 z-20 lg:hidden flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500 text-white text-[11px] font-semibold shadow-lg backdrop-blur-md pointer-events-none select-none"
+        >
+          <span>Podrsni desno</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="animate-bounce-horizontal">
+            <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </div>
         
         {/* Soft background glows */}
         <div className="absolute top-[-35%] left-[10%] w-[32rem] h-[32rem] rounded-full bg-blue-200/30 blur-[6rem] pointer-events-none" />

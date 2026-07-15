@@ -18,6 +18,7 @@ import { WorkerDetailModal } from "@/components/dashboard/WorkerDetailModal";
 import { AddTaskModal } from "@/components/dashboard/AddTaskModal";
 import { AddReminderModal } from "@/components/dashboard/AddReminderModal";
 import { AddWorkerCard } from "@/components/dashboard/AddWorkerCard";
+import { AddEmployeeModal } from "@/components/dashboard/AddEmployeeModal";
 import { SortableItem } from "@/components/dashboard/SortableItem";
 import {
   DndContext,
@@ -189,6 +190,8 @@ export default function OfficeDashboard() {
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
   const [isAddReminderOpen, setIsAddReminderOpen] = useState(false);
   const [isAddWorkerOpen, setIsAddWorkerOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [isAddEmployeeOpen, setIsAddEmployeeOpen] = useState(false);
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
@@ -328,6 +331,35 @@ export default function OfficeDashboard() {
     setWorkers(prev => [...prev, newWorker]);
   };
 
+  const handleCreateEmployee = (employeeData: {
+    name: string;
+    phone: string;
+    email: string;
+    role: "Pisarna" | "Teren";
+    tempPassword?: string;
+  }) => {
+    const newWorker: Worker = {
+      id: `w_${Date.now()}`,
+      name: employeeData.name,
+      avatar: employeeData.name.split(" ").map(n => n[0]).join("").slice(0, 2).toUpperCase(),
+      role: employeeData.role === "Pisarna" ? "Pisarna" : "Novak d.o.o.",
+      currentTask: employeeData.role === "Pisarna" ? "Delo v pisarni" : "Novo opravilo",
+      status: "v_teku",
+      phone: employeeData.phone,
+      email: employeeData.email,
+      unreadCount: 0,
+      location: "Ljubljana",
+      tasks: [
+        { id: `t_${Date.now()}_1`, text: "Začetek del", completed: false },
+        { id: `t_${Date.now()}_2`, text: "Dnevno poročilo", completed: false },
+      ],
+    };
+    setWorkers(prev => {
+      const active = prev.filter(w => !isPlaceholder(w.id));
+      return [...active, newWorker];
+    });
+  };
+
   const handleToggleTask = (workerId: string, taskId: string) => {
     setWorkers(prev => prev.map(w => {
       if (w.id !== workerId) return w;
@@ -414,12 +446,37 @@ export default function OfficeDashboard() {
           <span className="h-4 w-px bg-slate-200 hidden sm:inline" />
           <span className="text-xs font-semibold text-slate-600 hidden sm:inline">{t("dashDate")}</span>
         </div>
-        <div className="flex items-center gap-3">
-          <div className="hidden md:flex flex-col items-end">
-            <span className="text-xs font-bold text-slate-900">{t("dashTitleMN")}</span>
-            <span className="text-[10px] text-slate-400">{t("dashRoleMN")}</span>
+        <div className="flex items-center gap-3 relative">
+          <div 
+            onClick={() => setIsProfileOpen(prev => !prev)}
+            className="flex items-center gap-3 cursor-pointer select-none py-1 px-2 rounded-xl hover:bg-slate-50 active:scale-[0.98] transition-all"
+          >
+            <div className="hidden md:flex flex-col items-end">
+              <span className="text-xs font-bold text-slate-900">{t("dashTitleMN")}</span>
+              <span className="text-[10px] text-slate-400">{t("dashRoleMN")}</span>
+            </div>
+            <div className="w-9 h-9 rounded-full bg-gradient-to-b from-blue-500 to-blue-600 text-white flex items-center justify-center font-bold text-sm shadow-[0_4px_12px_rgba(59,130,246,0.35)]">MN</div>
           </div>
-          <div className="w-9 h-9 rounded-full bg-gradient-to-b from-blue-500 to-blue-600 text-white flex items-center justify-center font-bold text-sm shadow-[0_4px_12px_rgba(59,130,246,0.35)]">MN</div>
+
+          {isProfileOpen && (
+            <div className="absolute right-0 top-12 mt-2 w-48 bg-white rounded-2xl border border-slate-100 shadow-xl py-2 z-50 overflow-hidden">
+              <button 
+                onClick={() => {
+                  setIsAddEmployeeOpen(true);
+                  setIsProfileOpen(false);
+                }}
+                className="w-full text-left px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 transition-colors flex items-center gap-2 font-medium cursor-pointer"
+              >
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1B3A6B" strokeWidth="2.5">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <line x1="19" y1="8" x2="19" y2="14" />
+                  <line x1="22" y1="11" x2="16" y2="11" />
+                </svg>
+                Dodaj sodelavca
+              </button>
+            </div>
+          )}
           <button onClick={() => router.push("/")} className="p-2 text-slate-400 hover:text-red-500 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer">
             <LogOut className="h-4 w-4" />
           </button>
@@ -757,6 +814,11 @@ export default function OfficeDashboard() {
         isOpen={isAddWorkerOpen}
         onOpenChange={setIsAddWorkerOpen}
         onAddWorker={handleAddWorker}
+      />
+      <AddEmployeeModal
+        isOpen={isAddEmployeeOpen}
+        onOpenChange={setIsAddEmployeeOpen}
+        onAddEmployee={handleCreateEmployee}
       />
     </div>
   );
